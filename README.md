@@ -1,4 +1,4 @@
-![peas.svg](https://cdn.rawgit.com/bubkoo/pease/master/pease.svg)
+![pease.svg](https://cdn.rawgit.com/bubkoo/pease/master/pease.svg)
 
 > Lightweight front-end framework for creating Painless React and Redux based app.
 

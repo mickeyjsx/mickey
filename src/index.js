@@ -91,7 +91,7 @@ export default function createApp(options = {}) {
       const sagas = [];
       const reducers = { ...initialReducer };
 
-      const innerGetSaga = m => getSaga(resolve, reject, onError, onEffect, m);
+      const innerGetSaga = m => getSaga(resolve, reject, onError, onEffect, app, m);
       const innerGetReducer = m => getReducer(reducerCreator, m);
       const innerCreateReducer = asyncReducers => createReducer({
         reducers,
