@@ -1,6 +1,6 @@
 # pease
 
-![peas.svg](https://cdn.rawgit.com/bubkoo/pease/master/pease1.svg)
+![peas.svg](https://cdn.rawgit.com/bubkoo/pease/master/pppp.svg)
 
 [![MIT License](https://img.shields.io/badge/license-MIT_License-green.svg?style=flat-square)](https://github.com/bubkoo/pease/blob/master/LICENSE)
 
