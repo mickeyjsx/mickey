@@ -1,12 +1,12 @@
 import warning from 'warning';
 import { isFunction } from './utils';
+import { getModelActions } from './actions';
 import prefixDispatch from './prefixDispatch';
-import { getActions } from './processAction';
 
 export function run(subscriptions, model, app, onError) {
   const history = app.history;
   const dispatch = app.store.dispatch;
-  const innerActions = getActions(model, dispatch);
+  const innerActions = getModelActions(model, dispatch);
 
   const funcs = [];
   const nonFuncs = [];

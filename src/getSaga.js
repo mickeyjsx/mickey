@@ -8,7 +8,7 @@ import {
 } from 'redux-saga/lib/internal/sagaHelpers';
 import * as sagaEffects from 'redux-saga/effects';
 import { prefixType, unfixType, prefixAndValidate } from './utils';
-import { getActions } from './processAction';
+import { getModelActions } from './actions';
 
 
 function applyOnEffect(onEffect, effect, model, type) {
@@ -102,7 +102,7 @@ function getWatcher({ resolve, reject, onError, onEffect, type, effect, app, mod
         payload,
         getEffects(model),
         getCallbacks(model, type),
-        getActions(model, put),
+        getModelActions(model, put),
         app.actions,
       );
       yield put({ type: prefixType(type, '@@end') });

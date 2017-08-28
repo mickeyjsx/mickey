@@ -1,36 +1,39 @@
 import { NAMESPACE_SEP } from './constants';
 import { prefixType } from './utils';
 
-export function getActions(model, dispatch) {
-  const { actions, namespace } = model;
-  return Object.keys(actions).reduce((memo, methodName) => ({
+const actions = {};
+
+export default actions;
+
+export function getModelActions(model, dispatch) {
+  const { actions: modelActions, namespace } = model;
+  return Object.keys(modelActions).reduce((memo, methodName) => ({
     ...memo,
     [methodName]: (payload) => {
       dispatch({
         payload,
-        type: prefixType(namespace, actions[methodName]),
+        type: prefixType(namespace, modelActions[methodName]),
       });
     },
   }), {});
 }
 
-function createActions(model, app) {
-  const { actions, namespace } = model;
-  return Object.keys(actions).reduce((memo, methodName) => ({
+function createActions(app, model) {
+  const { actions: modelActions, namespace } = model;
+  return Object.keys(modelActions).reduce((memo, methodName) => ({
     ...memo,
     [methodName]: (payload) => {
       // dispatch will ready after the app started
       const dispatch = app.store.dispatch;
       dispatch({
         payload,
-        type: prefixType(namespace, actions[methodName]),
+        type: prefixType(namespace, modelActions[methodName]),
       });
     },
   }), {});
 }
 
-export function addAction(app, model) {
-  const { actions } = app;
+export function addActions(app, model) {
   const { namespace } = model;
   const nss = namespace.split(NAMESPACE_SEP);
   let temp = actions;
@@ -41,14 +44,12 @@ export function addAction(app, model) {
     temp = temp[ns];
   });
 
-  Object.assign(temp, createActions(model, app));
+  Object.assign(temp, createActions(app, model));
 
   return actions;
 }
 
-export function removeAction(app, model) {
-  const { actions } = app;
-  const { namespace } = model;
+export function removeActions(namespace) {
   const nss = namespace.split(NAMESPACE_SEP);
   const lastIndex = nss.length - 1;
 

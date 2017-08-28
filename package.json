@@ -1,8 +1,8 @@
 {
   "name": "pease",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "Lightweight front-end framework for creating Painless React and Redux based app.",
-  "main": "index.js",
+  "main": "./lib/index.js",
   "keywords": [
     "pease",
     "react",
@@ -27,8 +27,7 @@
   "homepage": "https://github.com/bubkoo/pease#readme",
   "peerDependencies": {
     "react": "15.x",
-    "react-dom": "15.x",
-    "prop-types": "15.x"
+    "react-dom": "15.x"
   },
   "dependencies": {
     "global": "^4.3.2",
@@ -38,7 +37,10 @@
     "is-plain-object": "^2.0.4",
     "lodash.flatten": "^4.4.0",
     "lodash.isfunction": "^3.0.8",
+    "prop-types": "^15.5.10",
     "react-redux": "^5.0.6",
+    "react-router": "^4.2.0",
+    "react-router-dom": "^4.2.2",
     "react-router-redux": "^5.0.0-alpha.6",
     "redux": "^3.7.2",
     "redux-actions": "^2.2.1",
@@ -64,13 +66,13 @@
   },
   "files": [
     "lib",
-    "src",
-    "index.js"
+    "src"
   ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint --ext .js,.jsx src",
     "build": "rimraf lib && babel src --out-dir lib",
+    "prebuild": "npm run lint",
     "prepublish": "npm run build",
     "precommit": "npm run lint"
   }
