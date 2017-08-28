@@ -1,0 +1,20 @@
+extends: eslint-config-airbnb
+parser: babel-eslint
+
+env:
+  es6: true
+  node: true
+  mocha: true
+  browser: true
+
+rules:
+  arrow-body-style:
+    - error
+    - as-needed
+  no-param-reassign:
+    - error
+    - props: false
+
+parserOptions:
+  ecmaFeatures:
+    experimentalObjectRestSpread: true
