@@ -1,6 +1,6 @@
 {
   "name": "pease",
-  "version": "0.0.3",
+  "version": "0.0.7",
   "description": "Lightweight front-end framework for creating Painless React and Redux based app.",
   "main": "index.js",
   "keywords": [
@@ -39,7 +39,7 @@
     "lodash.flatten": "^4.4.0",
     "lodash.isfunction": "^3.0.8",
     "react-redux": "^5.0.6",
-    "react-router-redux": "^4.0.8",
+    "react-router-redux": "^5.0.0-alpha.6",
     "redux": "^3.7.2",
     "redux-actions": "^2.2.1",
     "redux-saga": "^0.15.6",
@@ -71,6 +71,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint --ext .js,.jsx src",
     "build": "rimraf lib && babel src --out-dir lib",
+    "prepublish": "npm run build",
     "precommit": "npm run lint"
   }
 }

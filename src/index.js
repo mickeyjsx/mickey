@@ -1,3 +1,5 @@
+import React from 'react';
+import ReactDOM from 'react-dom';
 import warning from 'warning';
 import { routerReducer, routerMiddleware } from 'react-router-redux';
 import Plugin from './Plugin';
@@ -125,7 +127,6 @@ export default function createApp(options = {}) {
         const canRender = comp && wrap;
 
         if (canRender) {
-          const ReactDOM = require('react-dom'); // eslint-disable-line
           ReactDOM.render(<Provider app={app}>{comp}</Provider>, wrap); // eslint-disable-line
         }
 
