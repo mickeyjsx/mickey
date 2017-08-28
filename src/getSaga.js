@@ -18,9 +18,9 @@ function applyOnEffect(onEffect, effect, model, type) {
   );
 }
 
-function getEffects(model, actionType) {
+function getEffects(model) {
   const { put, take } = sagaEffects;
-  const { namespace, effects, callbacks } = model;
+  const { namespace } = model;
 
   function assertAction(type, name) {
     invariant(type, `${name}: action should be a plain Object with type`);
@@ -44,6 +44,16 @@ function getEffects(model, actionType) {
     return take(type);
   }
 
+  return {
+    ...sagaEffects,
+    innerPut,
+    innerTake,
+  };
+}
+
+function getCallbacks(model, actionType) {
+  const { put } = sagaEffects;
+  const { namespace, effects, callbacks } = model;
   const callbackEffects = {};
   if (effects[actionType] && callbacks[actionType]) {
     callbacks[actionType].forEach((callback) => {
@@ -56,12 +66,7 @@ function getEffects(model, actionType) {
     });
   }
 
-  return {
-    ...sagaEffects,
-    ...callbackEffects,
-    innerPut,
-    innerTake,
-  };
+  return callbackEffects;
 }
 
 function getWatcher(resolve, reject, onError, onEffect, type, effect, model) {
@@ -93,7 +98,12 @@ function getWatcher(resolve, reject, onError, onEffect, type, effect, model) {
     try {
       yield put({ type: prefixType(type, '@@start') });
       const { payload } = args[0];
-      const result = yield effectFn(payload, getEffects(model, type), getActions(model, put));
+      const result = yield effectFn(
+        payload,
+        getEffects(model),
+        getCallbacks(model, type),
+        getActions(model, put),
+      );
       yield put({ type: prefixType(type, '@@end') });
       resolve(type, result);
     } catch (err) {
