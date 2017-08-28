@@ -1,7 +1,7 @@
 {
   "name": "pease",
   "version": "0.0.1",
-  "description": "Lightweight front-end framework for creating painless React and Redux based app.",
+  "description": "Lightweight front-end framework for creating Painless React and Redux based app.",
   "main": "index.js",
   "keywords": [
     "pease",
