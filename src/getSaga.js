@@ -69,7 +69,7 @@ function getCallbacks(model, actionType) {
   return callbackEffects;
 }
 
-function getWatcher(resolve, reject, onError, onEffect, type, effect, model) {
+function getWatcher({ resolve, reject, onError, onEffect, type, effect, app, model }) {
   let effectFn = effect;
   let effectType = 'takeEvery';
   let ms;
@@ -103,6 +103,7 @@ function getWatcher(resolve, reject, onError, onEffect, type, effect, model) {
         getEffects(model),
         getCallbacks(model, type),
         getActions(model, put),
+        app.actions,
       );
       yield put({ type: prefixType(type, '@@end') });
       resolve(type, result);
@@ -132,17 +133,22 @@ function getWatcher(resolve, reject, onError, onEffect, type, effect, model) {
   }
 }
 
-export default function getSaga(resolve, reject, onError, onEffect, model) {
+export default function getSaga(resolve, reject, onError, onEffect, app, model) {
   return function* () {
     const { effects, namespace } = model;
     const keys = Object.keys(effects);
     for (let i = 0, l = keys.length; i < l; i += 1) {
       const type = keys[i];
-      const watcher = getWatcher(
-        resolve, reject,
-        onError, onEffect,
-        type, effects[type], model,
-      );
+      const watcher = getWatcher({
+        resolve,
+        reject,
+        onError,
+        onEffect,
+        type,
+        effect: effects[type],
+        app,
+        model,
+      });
       const task = yield sagaEffects.fork(watcher);
       yield sagaEffects.fork(function* () {
         yield sagaEffects.take(prefixType(namespace, '@@CANCEL_EFFECTS'));
