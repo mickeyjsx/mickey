@@ -8,5 +8,12 @@
 [![Dependencies](https://david-dm.org/bubkoo/mickey/status.svg)](https://david-dm.org/bubkoo/mickey)
 [![Package Quality](http://npm.packagequality.com/shield/mickey.svg)](http://packagequality.com/#?package=mickey)
 
+## mickey.svg
 
-mickey.svg is download from [http://all-free-download.com/free-vector/download/disney-disney-vector_288586.html](http://all-free-download.com/free-vector/download/disney-disney-vector_288586.html)
+mickey.svg is download from [Free Vectors](http://all-free-download.com/free-vector/download/disney-disney-vector_288586.html).
+
+## Contributing
+
+Pull requests and stars are highly welcome.
+
+For bugs and feature requests, please [create an issue](https://github.com/bubkoo/mickey/issues/new).
