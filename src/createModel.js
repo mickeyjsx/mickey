@@ -12,6 +12,10 @@ import {
 
 function fillGroup(group, type, method, callback) {
   const { actions, effects, reducers, callbacks } = group
+  if (typeof method === 'object') {
+    return false
+  }
+
   // If a method is generator function then it should be an effect.
   if (isGeneratorFn(method)) {
     actions[type] = type
@@ -30,6 +34,7 @@ function fillGroup(group, type, method, callback) {
     }
     return true
   }
+
   return false
 }
 

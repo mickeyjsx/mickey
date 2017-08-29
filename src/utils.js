@@ -1,11 +1,18 @@
 import isFunction from 'lodash.isfunction'
-import isGenerator from 'is-generator'
 import { NAMESPACE_SEP } from './constants'
 
 export flatten from 'lodash.flatten'
 export isPlainObject from 'is-plain-object'
 export isFunction from 'lodash.isfunction'
-export const isGeneratorFn = isGenerator.fn
+// Test generator function that compilied with babel(babel-profill)
+export const isGeneratorFn = fn => (
+  typeof fn === 'function' &&
+  fn.constructor &&
+  (
+    fn.constructor.name === 'GeneratorFunction' ||
+    fn.constructor.displayName === 'GeneratorFunction'
+  )
+)
 export const isArray = Array.isArray.bind(Array)
 export const noop = () => { }
 export const ucfirst = s => s.charAt(0).toUpperCase() + s.substr(1)

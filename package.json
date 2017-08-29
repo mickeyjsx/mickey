@@ -1,6 +1,6 @@
 {
   "name": "mickey",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Lightweight front-end framework for creating Painless React and Redux based app.",
   "main": "./lib/index.js",
   "keywords": [
@@ -33,7 +33,6 @@
     "global": "^4.3.2",
     "history": "^4.7.2",
     "invariant": "^2.2.2",
-    "is-generator": "^1.0.3",
     "is-plain-object": "^2.0.4",
     "lodash.flatten": "^4.4.0",
     "lodash.isfunction": "^3.0.8",
