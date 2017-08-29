@@ -26,8 +26,8 @@
   },
   "homepage": "https://github.com/bubkoo/mickey#readme",
   "peerDependencies": {
-    "react": "15.0.0",
-    "react-dom": "15.0.0"
+    "react": "^15.0.0",
+    "react-dom": "^15.0.0"
   },
   "dependencies": {
     "global": "^4.3.2",
