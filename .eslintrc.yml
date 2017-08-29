@@ -9,7 +9,7 @@ env:
 
 rules:
   semi:
-    - error
+    - warn
     - never
   arrow-body-style:
     - error
