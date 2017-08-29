@@ -1,22 +1,22 @@
-import invariant from 'invariant';
-import { combineReducers } from 'redux';
-import { NAMESPACE_SEP } from './constants';
-import { isFunction } from './utils';
+import invariant from 'invariant'
+import { combineReducers } from 'redux'
+import { NAMESPACE_SEP } from './constants'
+import { isFunction } from './utils'
 
 function parseNamespace(reducers) {
   return Object.keys(reducers).reduce((memo, key) => {
-    const nss = key.split(NAMESPACE_SEP);
-    let temp = memo;
+    const nss = key.split(NAMESPACE_SEP)
+    let temp = memo
 
     nss.forEach((ns, index) => {
       if (!temp[ns]) {
-        temp[ns] = index === nss.length - 1 ? reducers[key] : {};
+        temp[ns] = index === nss.length - 1 ? reducers[key] : {}
       }
-      temp = temp[ns];
-    });
+      temp = temp[ns]
+    })
 
-    return memo;
-  }, {});
+    return memo
+  }, {})
 }
 
 function combine(section) {
@@ -25,7 +25,7 @@ function combine(section) {
     [key]: isFunction(section[key])
       ? section[key]
       : combineReducers(combine(section[key])),
-  }), {});
+  }), {})
 }
 
 export default function createReducer({
@@ -34,20 +34,20 @@ export default function createReducer({
   extraReducers,
   reducerEnhancer,
 }) {
-  const merged = { ...reducers, ...asyncReducers };
+  const merged = { ...reducers, ...asyncReducers }
 
   if (process.env.NODE_ENV !== 'production') {
     invariant(
       Object.keys(extraReducers).every(key => !(key in merged)),
       `createReducer: extraReducers is conflict with other reducers, reducers list: ${Object.keys(merged).join(', ')}`,
-    );
+    )
   }
 
-  const parsed = parseNamespace(merged);
-  const combined = combine(parsed);
+  const parsed = parseNamespace(merged)
+  const combined = combine(parsed)
 
   return reducerEnhancer(combineReducers({
     ...combined,
     ...extraReducers,
-  }));
+  }))
 }
