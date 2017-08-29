@@ -3,7 +3,7 @@ import { getNamespace } from './utils'
 
 
 export default function getModelLoader(app, dir) {
-  // 只能通过 webpack-plugin-pease-hmr 来解
+  // 只能通过 webpack-plugin-mickey-hmr 来解
   // app.setModelDir(dir)
   // app.load(path)
 

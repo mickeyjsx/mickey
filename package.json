@@ -1,10 +1,10 @@
 {
-  "name": "pease",
+  "name": "mickey",
   "version": "0.1.0",
   "description": "Lightweight front-end framework for creating Painless React and Redux based app.",
   "main": "./lib/index.js",
   "keywords": [
-    "pease",
+    "mickey",
     "react",
     "redux",
     "redux-saga",
@@ -19,12 +19,12 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/bubkoo/pease.git"
+    "url": "git+https://github.com/bubkoo/mickey.git"
   },
   "bugs": {
-    "url": "https://github.com/bubkoo/pease/issues"
+    "url": "https://github.com/bubkoo/mickey/issues"
   },
-  "homepage": "https://github.com/bubkoo/pease#readme",
+  "homepage": "https://github.com/bubkoo/mickey#readme",
   "peerDependencies": {
     "react": "15.x",
     "react-dom": "15.x"
