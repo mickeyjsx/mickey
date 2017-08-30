@@ -2,7 +2,6 @@ import invariant from 'invariant'
 import { isPlainObject, getEnhancer } from './utils'
 
 const hooks = [
-  'onHmr',
   'onError',
   'onEffect',
   'onStateChange',
@@ -44,7 +43,7 @@ export default class Plugin {
 
   apply(hookName, defaultHandler) {
     const handlers = this.hooks[hookName]
-    const validHooks = ['onError', 'onHmr']
+    const validHooks = ['onError']
 
     invariant(validHooks.includes(hookName), `plugin.apply: hook "${hookName}" cannot be applied`)
 
