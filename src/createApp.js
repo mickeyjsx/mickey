@@ -33,7 +33,7 @@ export default function createApp(options = {}) {
 
   const app = {}
   const plugin = (new Plugin()).use(hooks)
-  const innerRegModel = m => (registerModel(app, m))
+  const regModel = m => (registerModel(app, m))
 
   return Object.assign(app, {
     plugin,
@@ -41,7 +41,7 @@ export default function createApp(options = {}) {
     actions,
     models: [createModel({ ...internalModel })],
     hook(hook) { plugin.use(hook); return app },
-    model(raw) { innerRegModel(raw); return app }, // register model before app is started
+    model(raw) { regModel(raw); return app }, // register model before app is started
     render(component, container, callback) {
       const {
         middleware: promiseMiddleware,
@@ -124,7 +124,7 @@ export default function createApp(options = {}) {
         },
         // inject model after app is started
         model(raw) {
-          const model = innerRegModel(raw)
+          const model = regModel(raw)
           const { namespace, subscriptions } = model
 
           store.asyncReducers[namespace] = innerGetReducer(model)
