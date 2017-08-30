@@ -1,31 +1,22 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
 import warning from 'warning'
-import { routerReducer, routerMiddleware } from 'react-router-redux'
+import ReactDOM from 'react-dom'
 import Plugin from './Plugin'
 import Provider from './Provider'
-import createErrorHandler from './createErrorHandler'
-import createPromiseMiddleware from './createPromiseMiddleware'
-import checkModel from './checkModel'
 import createModel from './createModel'
+import attachHooks from './attachHooks'
+import registerModel from './registerModel'
 import internalModel from './internalModel'
 import getSaga from './getSaga'
 import getReducer from './getReducer'
 import createStore from './createStore'
 import createReducer from './createReducer'
 import createHistory from './createHistory'
-import actions, { addActions, removeActions } from './actions'
+import actions, { removeActions } from './actions'
+import createErrorHandler from './createErrorHandler'
+import createPromiseMiddleware from './createPromiseMiddleware'
 import { run as runSubscription, unlisten as unlistenSubscription } from './subscription'
 
-const registerModel = (app, raw) => {
-  const model = createModel(raw)
-  if (process.env.NODE_ENV !== 'production') {
-    checkModel(model, app.models)
-  }
-  app.models.push(model)
-  addActions(app, model)
-  return model
-}
 
 export default function createApp(options = {}) {
   const {
@@ -38,21 +29,7 @@ export default function createApp(options = {}) {
 
   // history and hooks
   const history = createHistory(historyMode)
-  if (history) {
-    const routeMiddleware = routerMiddleware(history)
-    if (!hooks.onAction) {
-      hooks.onAction = [routeMiddleware]
-    } else {
-      hooks.onAction.push(routeMiddleware)
-    }
-
-    const extraReducer = { router: routerReducer }
-    if (!hooks.extraReducers) {
-      hooks.extraReducers = [extraReducer]
-    } else {
-      hooks.extraReducers.push(extraReducer)
-    }
-  }
+  attachHooks(history, hooks)
 
   const app = {}
   const plugin = (new Plugin()).use(hooks)
