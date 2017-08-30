@@ -42,7 +42,6 @@ export default function createApp(options = {}) {
     models: [createModel({ ...internalModel })],
     hook(hook) { plugin.use(hook); return app },
     model(raw) { innerRegModel(raw); return app }, // register model before app is started
-    // start the app
     render(component, container, callback) {
       const {
         middleware: promiseMiddleware,
