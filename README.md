@@ -1,12 +1,14 @@
-![mickey.svg](https://cdn.rawgit.com/bubkoo/mickey/master/mickey.svg)
+![mickey.svg](https://cdn.rawgit.com/mickey/mickey/master/mickey.svg)
 
 > Lightweight front-end framework for creating Painless React and Redux based app.
 
-[![MIT License](https://img.shields.io/badge/license-MIT_License-green.svg?style=flat-square)](https://github.com/bubkoo/mickey/blob/master/LICENSE)
+[![MIT License](https://img.shields.io/badge/license-MIT_License-green.svg?style=flat-square)](https://github.com/mickey/mickey/blob/master/LICENSE)
 
 [![NPM Version](https://img.shields.io/npm/v/mickey.svg?style=flat-square)](https://www.npmjs.com/package/mickey)
-[![Dependencies](https://david-dm.org/bubkoo/mickey/status.svg)](https://david-dm.org/bubkoo/mickey)
+[![Dependencies](https://david-dm.org/mickey/mickey/status.svg)](https://david-dm.org/mickey/mickey)
 [![Package Quality](http://npm.packagequality.com/shield/mickey.svg)](http://packagequality.com/#?package=mickey)
+
+[查看中文](./docs/zh-CN/README.md)
 
 ## mickey.svg
 
@@ -16,4 +18,4 @@ Srouce from [Free Vectors](http://all-free-download.com/free-vector/download/dis
 
 Pull requests and stars are highly welcome.
 
-For bugs and feature requests, please [create an issue](https://github.com/bubkoo/mickey/issues/new).
+For bugs and feature requests, please [create an issue](https://github.com/mickey/mickey/issues/new).
