@@ -5,12 +5,15 @@ const config = {
   // in development,
   // 'webpack-dev-server/client' and 'webpac/hot/dev-server' will be automatically added
   entry: [
-    './src/index.js',
+    './src/index.jsx',
   ],
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'app.js',
     publicPath: '/',
+  },
+  resolve: {
+    extensions: ['*', '.js', '.jsx'],
   },
   module: {
     rules: [

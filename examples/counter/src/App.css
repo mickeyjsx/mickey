@@ -1,20 +1,11 @@
 body {
   height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
+  padding: 0;
   margin: 0;
 }
 
-#root {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-}
-
 #counter-app {
+  margin: 0 auto;
   width: 300px;
 }
 
@@ -25,17 +16,17 @@ h1 {
 }
 
 .btn-wrap {
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
+  text-align: center;
 }
 
 button {
   background-color: #fff;
-  border: 1px solid #999;
-  border-radius: 2px;
+  border: 1px solid #a0a0a0;
+  border-radius: 4px;
   font-size: 120%;
   outline: none;
   width: 60px;
+  height: 32px;
+  margin: 0 10px;
   cursor: pointer;
 }
