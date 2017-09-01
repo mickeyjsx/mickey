@@ -62,7 +62,7 @@ export default function createApp(options = {}) {
     },
 
     // start the app
-    render(component, container, callback) {
+    render(component, container, renderOptions) {
       const {
         middleware: promiseMiddleware,
         resolve,
@@ -107,21 +107,26 @@ export default function createApp(options = {}) {
       // run sagas
       sagas.forEach(store.runSaga)
 
-      const render = (_component, _container, _callback) => {
+      const render = (_component, _container, _renderOptions) => {
         const comp = _component || component
         const wrap = _container || container
         const canRender = comp && wrap
+        const { beforeRender, afterRender } = _renderOptions || renderOptions
+
+        if (beforeRender) {
+          beforeRender(app)
+        }
 
         if (canRender) {
           ReactDOM.render(<Provider app={app}>{comp}</Provider>, wrap); // eslint-disable-line
         }
 
-        if (_callback) {
-          _callback(app)
+        if (afterRender) {
+          afterRender(app)
         }
       }
 
-      render(component, container, callback)
+      render(component, container, renderOptions)
 
       // run subscriptions
       const unlisteners = {}
