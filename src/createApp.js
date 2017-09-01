@@ -40,8 +40,28 @@ export default function createApp(options = {}) {
     history,
     actions,
     models: [createModel({ ...internalModel })],
+
+    // check the namespace available or not
+    has(namespace) { return app.models.some(m => m.namespace === namespace) },
+
+    // use hooks
     hook(hook) { plugin.use(hook); return app },
-    model(raw) { regModel(raw); return app }, // register model before app is started
+
+    // register model before app is started
+    model(raw) {
+      const { namespace } = raw
+      // remove the old one
+      if (app.has(namespace)) {
+        app.models = app.models.filter(m => m.namespace !== namespace)
+        removeActions(namespace)
+      }
+
+      regModel(raw)
+
+      return app
+    },
+
+    // start the app
     render(component, container, callback) {
       const {
         middleware: promiseMiddleware,
@@ -113,6 +133,7 @@ export default function createApp(options = {}) {
 
       // replace and inject some methods after the app started
       return Object.assign(app, {
+        onError,
         render,
         hook() {
           warning(
@@ -124,8 +145,12 @@ export default function createApp(options = {}) {
         },
         // inject model after app is started
         model(raw) {
+          const { namespace, subscriptions } = raw
+          if (app.has(namespace)) {
+            app.eject(namespace)
+          }
+
           const model = regModel(raw)
-          const { namespace, subscriptions } = model
 
           store.asyncReducers[namespace] = innerGetReducer(model)
           store.replaceReducer(innerCreateReducer(store.asyncReducers))
@@ -137,7 +162,7 @@ export default function createApp(options = {}) {
 
           return app
         },
-        unmodel(namespace) {
+        eject(namespace) {
           delete store.asyncReducers[namespace]
           delete reducers[namespace]
 

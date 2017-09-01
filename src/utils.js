@@ -1,7 +1,9 @@
 import isFunction from 'lodash.isfunction'
 import { NAMESPACE_SEP } from './constants'
 
+export asign from 'object-assign'
 export flatten from 'lodash.flatten'
+export minimatch from 'minimatch'
 export isPlainObject from 'is-plain-object'
 export isFunction from 'lodash.isfunction'
 // Test generator function that compilied with babel(babel-profill)
@@ -38,19 +40,22 @@ export const prefixAndValidate = (type, model) => {
   return type
 }
 
-export const getNamespace = (path) => {
-  const parts = path.split('/')
-  const len = parts.length
-  const ns = parts.slice(1, len - 1)
-
-  ns.push(filename(parts[len - 1]))
-
-  return ns.join(NAMESPACE_SEP)
-}
-
 export const getEnhancer = (enhancers) => {
   if (enhancers && enhancers.length) {
     return reducer => enhancers.reduce((memo, reducerEnhancer) => reducerEnhancer(memo), reducer)
   }
   return f => f
+}
+
+export const getNamespaceFromPath = (path) => {
+  const parts = path.split('/')
+  const file = parts.pop()
+
+  if (path[0] === '.' || path[0] === '/') {
+    parts.shift()
+  }
+
+  parts.push(filename(file))
+
+  return parts.join(NAMESPACE_SEP)
 }
