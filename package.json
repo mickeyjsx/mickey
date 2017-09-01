@@ -36,6 +36,7 @@
     "is-plain-object": "^2.0.4",
     "lodash.flatten": "^4.4.0",
     "lodash.isfunction": "^3.0.8",
+    "minimatch": "^3.0.4",
     "object-assign": "^4.1.1",
     "prop-types": "^15.5.10",
     "react-redux": "^5.0.6",
