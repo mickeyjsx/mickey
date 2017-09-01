@@ -18,8 +18,8 @@
 
 ## More
 
-- API
-- The `mickey.svg` used in this document is from [Free Vectors](http://all-free-download.com/free-vector/download/disney-disney-vector_288586.html).
+- API document
+- The [mickey.svg](./mickey.svg) used in this document is download from [Free Vectors](http://all-free-download.com/free-vector/download/disney-disney-vector_288586.html).
 
 ## Contributing
 

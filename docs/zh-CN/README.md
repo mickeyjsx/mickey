@@ -21,8 +21,10 @@
 ## 了解更多
 
 - API 文档
-- 文档中的 SVG 图片 `mickey.svg` 下载自 [Free Vectors](http://all-free-download.com/free-vector/download/disney-disney-vector_288586.html)。
+- 文档中的 SVG 图片 [mickey.svg](../../mickey.svg) 下载自 [Free Vectors](http://all-free-download.com/free-vector/download/disney-disney-vector_288586.html)。
 
 ## 贡献代码
 
-非常欢迎给我们提 MR，如果你喜欢这款框架请在右上角加星，发现任何 BUG 和使用问题请给我们[提 ISSUE](https://github.com/mickey/mickey/issues/new)。
+非常欢迎给我们提 MR，如果你喜欢这款框架请在右上角加星。
+
+发现任何 BUG 和使用问题请给我们[提 ISSUE](https://github.com/mickey/mickey/issues/new)。
