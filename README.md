@@ -10,9 +10,16 @@
 
 [查看中文](./docs/zh-CN/README.md)
 
-## mickey.svg
+## Features
 
-Srouce from [Free Vectors](http://all-free-download.com/free-vector/download/disney-disney-vector_288586.html).
+## Quick Start
+
+## Demos
+
+## More
+
+- API
+- The `mickey.svg` used in this document is from [Free Vectors](http://all-free-download.com/free-vector/download/disney-disney-vector_288586.html).
 
 ## Contributing
 
