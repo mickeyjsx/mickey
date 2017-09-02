@@ -18,6 +18,9 @@
 
 - [Counter](./examples/counter) Basic usage of mickey
 - [Counter-Persist](./examples/counter-persist) Work with [redux-persist](https://github.com/rt2zz/redux-persist)
+- [Counter-Immutable](./examples/counter-immutable) [ImmutableJS](https://github.com/facebook/immutable-js/)
+- [Counter-Persist-Immutable](./examples/counter-persist-immutable) Work with [redux-persist](https://github.com/rt2zz/redux-persist) and [ImmutableJS](https://github.com/facebook/immutable-js/)
+
 
 ## More
 
