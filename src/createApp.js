@@ -1,18 +1,16 @@
-import React from 'react'
 import warning from 'warning'
-import ReactDOM from 'react-dom'
 import Plugin from './Plugin'
-import Provider from './Provider'
-import createModel from './createModel'
-import attachHooks from './attachHooks'
-import registerModel from './registerModel'
-import internalModel from './internalModel'
 import getSaga from './getSaga'
 import getReducer from './getReducer'
 import createStore from './createStore'
+import createRender from './createRender'
+import createModel from './createModel'
+import registerModel from './registerModel'
+import internalModel from './internalModel'
 import createReducer from './createReducer'
 import createHistory from './createHistory'
 import actions, { removeActions } from './actions'
+import steupHistoryHooks from './steupHistoryHooks'
 import createErrorHandler from './createErrorHandler'
 import createPromiseMiddleware from './createPromiseMiddleware'
 import { run as runSubscription, unlisten as unlistenSubscription } from './subscription'
@@ -27,11 +25,12 @@ export default function createApp(options = {}) {
     extensions = {},
   } = options
 
+  // supportted extensions
   const { createReducer: reducerCreator, combineReducers } = extensions
 
   // history and hooks
   const history = createHistory(historyMode)
-  attachHooks(history, hooks)
+  steupHistoryHooks(history, hooks)
 
   const app = {}
   const plugin = (new Plugin()).use(hooks)
@@ -63,8 +62,8 @@ export default function createApp(options = {}) {
       return app
     },
 
-    // start the app
-    render(component, container, renderOptions) {
+    // create store, steup reducer, start the app
+    render(component, container, callback) {
       const {
         middleware: promiseMiddleware,
         resolve,
@@ -89,7 +88,7 @@ export default function createApp(options = {}) {
         combineReducers,
       })
 
-      // combine reducers and run sagas
+      // handle reducers and sagas in model
       app.models.forEach((model) => {
         reducers[model.namespace] = innerGetReducer(model)
         sagas.push(innerGetSaga(model))
@@ -110,36 +109,10 @@ export default function createApp(options = {}) {
       // run sagas
       sagas.forEach(store.runSaga)
 
-      const render = (_component, _container, _renderOptions) => {
-        const { beforeRender, afterRender } = _renderOptions || renderOptions || {}
-        const innerRender = (componentFromPromise, containerFromPromise) => {
-          const comp = componentFromPromise || component
-          const wrap = containerFromPromise || container
-          const canRender = comp && wrap
-          if (canRender) {
-            ReactDOM.render(<Provider app={app}>{comp}</Provider>, wrap); // eslint-disable-line
+      const render = createRender(app, component, container, callback)
+      render(component, container, callback)
 
-            if (afterRender) {
-              afterRender(app)
-            }
-          }
-        }
-
-        let ret = true
-        if (beforeRender) {
-          ret = beforeRender(app)
-        }
-
-        if (ret && ret.then) {
-          ret.then(innerRender, () => { })
-        } else if (ret !== false) {
-          innerRender(_component, _container)
-        }
-      }
-
-      render(component, container, renderOptions)
-
-      // run subscriptions
+      // run subscriptions after render
       const unlisteners = {}
       app.models.forEach((model) => {
         if (model.subscriptions) {
@@ -149,8 +122,10 @@ export default function createApp(options = {}) {
 
       // replace and inject some methods after the app started
       return Object.assign(app, {
-        onError,
+        // after the first call fo render, the render function
+        // should only do pure-render with any other actions
         render,
+        onError,
         hook() {
           warning(
             process.env.NODE_ENV === 'production',
@@ -159,6 +134,7 @@ export default function createApp(options = {}) {
 
           return app
         },
+
         // inject model after app is started
         model(raw) {
           const { namespace, subscriptions } = raw
@@ -178,6 +154,8 @@ export default function createApp(options = {}) {
 
           return app
         },
+
+        // remove model
         eject(namespace) {
           delete store.asyncReducers[namespace]
           delete reducers[namespace]

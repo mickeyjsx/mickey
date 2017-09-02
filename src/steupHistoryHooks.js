@@ -1,6 +1,6 @@
 import { routerReducer, routerMiddleware } from 'react-router-redux'
 
-export default function attachHooks(history, hooks) {
+export default function steupHistoryHooks(history, hooks) {
   if (history) {
     const routeMiddleware = routerMiddleware(history)
     if (!hooks.onAction) {
