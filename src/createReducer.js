@@ -19,22 +19,21 @@ function parseNamespace(reducers) {
   }, {})
 }
 
-function combine(section) {
-  return Object.keys(section).reduce((memo, key) => ({
-    ...memo,
-    [key]: isFunction(section[key])
-      ? section[key]
-      : combineReducers(combine(section[key])),
-  }), {})
-}
-
 export default function createReducer({
   reducers,
   asyncReducers = {},
   extraReducers,
   reducerEnhancer,
+  combineReducers: globalCombineReducers,
 }) {
+  const combineMethod = globalCombineReducers || combineReducers
   const merged = { ...reducers, ...asyncReducers }
+  const combine = section => Object.keys(section).reduce((memo, key) => ({
+    ...memo,
+    [key]: isFunction(section[key])
+      ? section[key]
+      : combineMethod(combine(section[key])),
+  }), {})
 
   if (process.env.NODE_ENV !== 'production') {
     invariant(
@@ -46,7 +45,7 @@ export default function createReducer({
   const parsed = parseNamespace(merged)
   const combined = combine(parsed)
 
-  return reducerEnhancer(combineReducers({
+  return reducerEnhancer(combineMethod({
     ...combined,
     ...extraReducers,
   }))

@@ -23,9 +23,11 @@ export default function createApp(options = {}) {
     hooks = {},
     historyMode,
     initialState = {},
-    initialReducer,
-    reducerCreator,
+    initialReducer = {},
+    extensions = {},
   } = options
+
+  const { createReducer: reducerCreator, combineReducers } = extensions
 
   // history and hooks
   const history = createHistory(historyMode)
@@ -84,6 +86,7 @@ export default function createApp(options = {}) {
         asyncReducers,
         extraReducers,
         reducerEnhancer,
+        combineReducers,
       })
 
       // combine reducers and run sagas
