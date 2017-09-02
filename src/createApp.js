@@ -111,7 +111,7 @@ export default function createApp(options = {}) {
       sagas.forEach(store.runSaga)
 
       const render = (_component, _container, _renderOptions) => {
-        const { beforeRender, afterRender } = _renderOptions || renderOptions
+        const { beforeRender, afterRender } = _renderOptions || renderOptions || {}
         const innerRender = (componentFromPromise, containerFromPromise) => {
           const comp = componentFromPromise || component
           const wrap = containerFromPromise || container
