@@ -1,9 +1,11 @@
 {
-  "name": "counter",
-  "description": "Counter example for mickey",
+  "name": "counter-immuatable",
+  "description": "Counter example work with ImmutableJS for mickey",
   "dependencies": {
+    "immutable": "^3.8.1",
     "mickey": "^0.2.1",
-    "react": "^15.6.1"
+    "react": "^15.6.1",
+    "redux-immutablejs": "^0.0.8"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",

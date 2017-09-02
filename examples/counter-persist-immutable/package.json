@@ -1,6 +1,5 @@
 {
-  "name": "mickey-counter-persist-immuatable-example",
-  "version": "0.0.1",
+  "name": "counter-persist-immuatable",
   "description": "Counter example work with persist and immutable for mickey",
   "dependencies": {
     "immutable": "^3.8.1",

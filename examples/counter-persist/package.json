@@ -1,7 +1,6 @@
 {
-  "name": "mickey-counter-persist-example",
-  "version": "0.0.1",
-  "description": "Counter example work with persist for mickey",
+  "name": "counter-persist",
+  "description": "Counter example work with redux-persist for mickey",
   "dependencies": {
     "mickey": "^0.2.1",
     "react": "^15.6.1",

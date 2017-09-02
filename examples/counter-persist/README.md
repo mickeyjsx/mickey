@@ -1,6 +1,6 @@
 # Counter-Persist
 
----
+> Counter example work with [redux-persist](https://github.com/rt2zz/redux-persist) for mickey
 
 ## Features
 

@@ -1,6 +1,6 @@
 # Counter
 
----
+> Counter example for mickey
 
 ## Usage
 
