@@ -1,0 +1,32 @@
+body {
+  height: 100vh;
+  padding: 0;
+  margin: 0;
+}
+
+#counter-app {
+  margin: 0 auto;
+  width: 300px;
+}
+
+h1 {
+  font-size: 180px;
+  margin: 0;
+  text-align: center;
+}
+
+.btn-wrap {
+  text-align: center;
+}
+
+button {
+  background-color: #fff;
+  border: 1px solid #a0a0a0;
+  border-radius: 4px;
+  font-size: 120%;
+  outline: none;
+  width: 60px;
+  height: 32px;
+  margin: 10px;
+  cursor: pointer;
+}

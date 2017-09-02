@@ -1,5 +1,5 @@
 import React from 'react'
-import createApp, { applyMiddleware } from 'mickey'
+import createApp from 'mickey'
 import Immutable from 'immutable'
 import { createReducer, combineReducers } from 'redux-immutablejs'
 import App from './App'
