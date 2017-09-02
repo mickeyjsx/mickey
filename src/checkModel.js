@@ -12,7 +12,7 @@ export default function checkModel(model, existModels) {
 
   invariant(
     namespace,
-    'app.model: namespace should be defined',
+    'app.model: namespace should be specified',
   )
 
   invariant(
