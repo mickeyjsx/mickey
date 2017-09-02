@@ -1,12 +1,16 @@
 {
-  "name": "mickey-counter-persist-example",
+  "name": "mickey-counter-persist-immuatable-example",
   "version": "0.0.1",
-  "description": "Counter example work with persist for mickey",
+  "description": "Counter example work with persist and immutable for mickey",
   "dependencies": {
+    "immutable": "^3.8.1",
     "mickey": "^0.2.1",
     "react": "^15.6.1",
     "redux-action-buffer": "^1.1.0",
-    "redux-persist": "^4.9.1"
+    "redux-immutablejs": "^0.0.8",
+    "redux-persist": "^4.9.1",
+    "redux-persist-immutable": "^4.3.1",
+    "redux-persist-transform-immutable": "^4.3.0"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",

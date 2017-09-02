@@ -17,7 +17,7 @@
 ## Examples
 
 - [Counter](./examples/counter) Basic usage of mickey
-- [Counter-Perisit](./examples/counter-persist) Work with [redux-persist](https://github.com/rt2zz/redux-persist)
+- [Counter-Persist](./examples/counter-persist) Work with [redux-persist](https://github.com/rt2zz/redux-persist)
 
 ## More
 

@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "Counter example for mickey",
   "dependencies": {
-    "mickey": "^0.1.5",
+    "mickey": "^0.2.1",
     "react": "^15.6.1"
   },
   "devDependencies": {

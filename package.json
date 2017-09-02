@@ -1,6 +1,6 @@
 {
   "name": "mickey",
-  "version": "0.1.9",
+  "version": "0.2.1",
   "description": "Lightweight front-end framework for creating Painless React and Redux based app.",
   "main": "./lib/index.js",
   "keywords": [
@@ -26,8 +26,7 @@
   },
   "homepage": "https://github.com/bubkoo/mickey#readme",
   "peerDependencies": {
-    "react": "^15.0.0",
-    "react-dom": "^15.0.0"
+    "react": "^15.6.0"
   },
   "dependencies": {
     "global": "^4.3.2",
@@ -39,6 +38,7 @@
     "minimatch": "^3.0.4",
     "object-assign": "^4.1.1",
     "prop-types": "^15.5.10",
+    "react-dom": "^15.6.1",
     "react-redux": "^5.0.6",
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",
