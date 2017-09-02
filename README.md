@@ -5,6 +5,9 @@
 [![MIT License](https://img.shields.io/badge/license-MIT_License-green.svg?style=flat-square)](https://github.com/mickey/mickey/blob/master/LICENSE)
 
 [![NPM Version](https://img.shields.io/npm/v/mickey.svg?style=flat-square)](https://www.npmjs.com/package/mickey)
+[![Build Status](https://img.shields.io/travis/mickeyjsx/mickey.svg?style=flat)](https://travis-ci.org/mickeyjsx/mickey)
+[![Coverage Status](https://img.shields.io/coveralls/mickeyjsx/mickey.svg?style=flat)](https://coveralls.io/r/mickeyjsx/mickey)
+[![NPM downloads](http://img.shields.io/npm/dm/mickey.svg?style=flat)](https://npmjs.org/package/mickey)
 [![Dependencies](https://david-dm.org/mickey/mickey/status.svg)](https://david-dm.org/mickey/mickey)
 [![Package Quality](http://npm.packagequality.com/shield/mickey.svg)](http://packagequality.com/#?package=mickey)
 

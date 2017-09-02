@@ -1,6 +1,8 @@
 .DS_Store
 .idea
 .vscode
+.nyc_output
 npm-debug.log
 node_modules
 /lib
+/test/coverage
