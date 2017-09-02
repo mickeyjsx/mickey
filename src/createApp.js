@@ -108,21 +108,29 @@ export default function createApp(options = {}) {
       sagas.forEach(store.runSaga)
 
       const render = (_component, _container, _renderOptions) => {
-        const comp = _component || component
-        const wrap = _container || container
-        const canRender = comp && wrap
         const { beforeRender, afterRender } = _renderOptions || renderOptions
+        const innerRender = (componentFromPromise, containerFromPromise) => {
+          const comp = componentFromPromise || component
+          const wrap = containerFromPromise || container
+          const canRender = comp && wrap
+          if (canRender) {
+            ReactDOM.render(<Provider app={app}>{comp}</Provider>, wrap); // eslint-disable-line
 
+            if (afterRender) {
+              afterRender(app)
+            }
+          }
+        }
+
+        let ret = true
         if (beforeRender) {
-          beforeRender(app)
+          ret = beforeRender(app)
         }
 
-        if (canRender) {
-          ReactDOM.render(<Provider app={app}>{comp}</Provider>, wrap); // eslint-disable-line
-        }
-
-        if (afterRender) {
-          afterRender(app)
+        if (ret && ret.then) {
+          ret.then(innerRender, () => { })
+        } else if (ret !== false) {
+          innerRender(_component, _container)
         }
       }
 
