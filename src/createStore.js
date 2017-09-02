@@ -34,8 +34,8 @@ export default function ({
 
   const enhancers = [
     applyMiddleware(...middlewares),
-    devtools,
     ...extraEnhancers,
+    devtools,
   ]
 
   const store = createStore(reducers, initialState, compose(...enhancers))
