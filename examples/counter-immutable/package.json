@@ -3,7 +3,7 @@
   "description": "Counter example work with ImmutableJS for mickey",
   "dependencies": {
     "immutable": "^3.8.1",
-    "mickey": "^0.2.1",
+    "mickey": "^0.2.2",
     "react": "^15.6.1",
     "redux-immutablejs": "^0.0.8"
   },

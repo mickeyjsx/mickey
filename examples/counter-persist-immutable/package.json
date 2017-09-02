@@ -3,7 +3,7 @@
   "description": "Counter example work with persist and immutable for mickey",
   "dependencies": {
     "immutable": "^3.8.1",
-    "mickey": "^0.2.1",
+    "mickey": "^0.2.2",
     "react": "^15.6.1",
     "redux-action-buffer": "^1.1.0",
     "redux-immutablejs": "^0.0.8",

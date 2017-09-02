@@ -25,8 +25,8 @@ button {
   border-radius: 4px;
   font-size: 120%;
   outline: none;
-  width: 60px;
+  width: 100px;
   height: 32px;
-  margin: 0 10px;
+  margin: 10px;
   cursor: pointer;
 }

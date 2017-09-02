@@ -22,6 +22,7 @@ const App = props => (
       >
         {props.loading ? 'loading' : '+ Async'}
       </button>
+      <button onClick={() => { window.location.reload() }}>Refresh</button>
     </div>
   </div>
 )
