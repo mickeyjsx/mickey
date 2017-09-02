@@ -1,6 +1,6 @@
 # Mickey
 
-![mickey.svg](https://cdn.rawgit.com/mickey/mickey/master/mickey.svg)
+![mickey.svg](http://ojh17srjb.bkt.gdipper.com/mickey.svg)
 
 > 一款轻量、高效、易上手的前端框架，对 React 和 Redux 用户极其友好
 
