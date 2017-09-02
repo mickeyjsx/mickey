@@ -26,4 +26,7 @@ const App = props => (
   </div>
 )
 
-export default connect(store => ({ ...store.counter }))(App)
+export default connect((store) => {
+  console.log('data:', store.counter)
+  return { ...store.counter }
+})(App)

@@ -12,7 +12,6 @@ export default {
   },
   enhancers: [
     reducer => (state, action) => {
-      console.log(state, action)
       const { type, payload } = action
       if (type === REHYDRATE) {
         return {
@@ -20,10 +19,7 @@ export default {
           ...payload.counter,
         }
       }
-      const ret = reducer(state, action)
-      console.log(ret)
-      console.log('------------------')
-      return ret
+      return reducer(state, action)
     },
   ],
   reducers: {

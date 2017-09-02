@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "Counter example for mickey",
   "dependencies": {
-    "mickey": "^0.1.6",
+    "mickey": "^0.1.9",
     "react": "^15.6.1",
     "redux-action-buffer": "^1.1.0",
     "redux-persist": "^4.9.1"
