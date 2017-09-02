@@ -1,8 +1,8 @@
 # Mickey
 
-> Lightweight front-end framework for creating Painless React and Redux based app.
-
 ![mickey.svg](http://ojh17srjb.bkt.gdipper.com/mickey.svg)
+
+> Lightweight front-end framework for creating Painless React and Redux based app.
 
 [![MIT License](https://img.shields.io/badge/license-MIT_License-green.svg?style=flat-square)](https://github.com/mickey/mickey/blob/master/LICENSE)
 
