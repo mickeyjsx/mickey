@@ -80,9 +80,17 @@
     "include": [
       "src/**/*.js"
     ],
+    "exclude": [
+      "test/coverage"
+    ],
+    "reporter": [
+      "html",
+      "text"
+    ],
     "require": [
       "babel-register"
     ],
+    "report-dir": "./test/coverage",
     "sourceMap": false,
     "instrument": false
   },
