@@ -1,4 +1,4 @@
-![mickey.svg](https://raw.github.com/mickey/mickey/master/mickey.svg?sanitize=true)
+![mickey.svg](https://cdn.rawgit.com/mickey/mickey/master/mickey.svg)
 
 > Lightweight front-end framework for creating Painless React and Redux based app.
 
