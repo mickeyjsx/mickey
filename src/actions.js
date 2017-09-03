@@ -9,12 +9,10 @@ export function getModelActions(model, dispatch) {
   const { actions: modelActions, namespace } = model
   return Object.keys(modelActions).reduce((memo, methodName) => ({
     ...memo,
-    [methodName]: (payload) => {
-      dispatch({
-        payload,
-        type: prefixType(namespace, modelActions[methodName]),
-      })
-    },
+    [methodName]: payload => dispatch({
+      payload,
+      type: prefixType(namespace, modelActions[methodName]),
+    }),
   }), {})
 }
 
@@ -22,14 +20,12 @@ function createActions(app, model) {
   const { actions: modelActions, namespace } = model
   return Object.keys(modelActions).reduce((memo, methodName) => ({
     ...memo,
-    [methodName]: (payload) => {
-      // dispatch will ready after the app started
-      const dispatch = app.store.dispatch
-      dispatch({
-        payload,
-        type: prefixType(namespace, modelActions[methodName]),
-      })
-    },
+    // dispatch should be ready after the app started
+    [methodName]: payload => app.store.dispatch({
+      payload,
+      type: prefixType(namespace, modelActions[methodName]),
+    })
+    ,
   }), {})
 }
 

@@ -6,6 +6,7 @@ import {
   takeLatestHelper as takeLatest,
   throttleHelper as throttle,
 } from 'redux-saga/lib/internal/sagaHelpers'
+import { delay, CANCEL as CANCEL_DELAY } from 'redux-saga'
 import * as sagaEffects from 'redux-saga/effects'
 import { prefixType, unfixType, prefixAndValidate } from './utils'
 import { getModelActions } from './actions'
@@ -39,13 +40,15 @@ function getEffects(model) {
   function innerTake(type) {
     if (typeof type === 'string') {
       assertAction(type, 'innerTake')
-      return sagaEffects.take(prefixAndValidate(type, model))
+      return take(prefixAndValidate(type, model))
     }
     return take(type)
   }
 
   return {
     ...sagaEffects,
+    delay,
+    CANCEL_DELAY,
     innerPut,
     innerTake,
   }
