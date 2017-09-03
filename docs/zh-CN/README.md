@@ -19,7 +19,7 @@
 
 ## 快速上手
 
-## 示例项目
+## 示例
 
 - [Counter](../../examples/counter) 计数器
 - [Counter-Persist](../../examples/counter-persist) 搭配 [redux-persist](https://github.com/rt2zz/redux-persist) 使用
