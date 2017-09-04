@@ -1,8 +1,8 @@
 # Mickey
 
-![mickey.svg](http://ojh17srjb.bkt.gdipper.com/mickey.svg)
-
 > Lightweight front-end framework for creating React and Redux based app painlessly.
+
+![mickey.svg](http://ojh17srjb.bkt.gdipper.com/mickey.svg)
 
 > Totally base on [redux](https://github.com/reactjs/redux), [redux-saga](https://github.com/yelouafi/redux-saga) and [react-router](https://github.com/ReactTraining/react-router), very friendly to redux users. (Inspired by [dva](https://github.com/dvajs/dva))
 
