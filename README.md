@@ -81,13 +81,13 @@ app.render(<App />, document.getElementById('root'))
 
 ## Examples
 
-- [Counter](./examples/counter) Basic usage of mickey
-- [Counter-Persist](./examples/counter-persist) Work with [redux-persist](https://github.com/rt2zz/redux-persist)
-- [Counter-Immutable](./examples/counter-immutable) Work with [ImmutableJS](https://github.com/facebook/immutable-js/)
-- [Counter-Persist-Immutable](./examples/counter-persist-immutable) Work with [redux-persist](https://github.com/rt2zz/redux-persist) and [ImmutableJS](https://github.com/facebook/immutable-js/)
-- [Counter-Undo](./examples/counter-undo) Work with [redux-undo](https://github.com/omnidan/redux-undo)
-- [mickey-vstar](https://github.com/mickeyjsx/mickey-vstar) A [demo](http://mickeyjsx.github.io/vstar) web app to show your or others GitHub repos stars
-- [HackerNews](https://github.com/mickeyjsx/mickey-hackernews) HackerNews clone built with mickey, [online demo](http://mickeyjsx.github.io/hackernews)
+- [Counter](./examples/counter): Basic usage of mickey
+- [Counter-Persist](./examples/counter-persist): Work with [redux-persist](https://github.com/rt2zz/redux-persist)
+- [Counter-Immutable](./examples/counter-immutable): Work with [ImmutableJS](https://github.com/facebook/immutable-js/)
+- [Counter-Persist-Immutable](./examples/counter-persist-immutable): Work with [redux-persist](https://github.com/rt2zz/redux-persist) and [ImmutableJS](https://github.com/facebook/immutable-js/)
+- [Counter-Undo](./examples/counter-undo): Work with [redux-undo](https://github.com/omnidan/redux-undo)
+- [mickey-vstar](https://github.com/mickeyjsx/mickey-vstar) ([demo](http://mickeyjsx.github.io/vstar)): A web app to show your or others GitHub repos stars
+- [HackerNews](https://github.com/mickeyjsx/mickey-hackernews) ([demo](http://mickeyjsx.github.io/hackernews)): [HackerNews](https://github.com/vuejs/vue-hackernews-2.0) clone built with mickey
 
 ## More
 
