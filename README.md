@@ -19,7 +19,7 @@
 
 ## Features
 
-- **Minimal API** (Only 5 newly introduced). Easy to learn, easy to start
+- **Minimal API** (Only 6 newly introduced). Easy to learn, easy to start
 - **Elm concepts** (Organize models with `reducers`, `effects` and `subscriptions`)
 - **Support loading models dynamically** with [code-splitting](https://webpack.js.org/guides/code-splitting/) to improve performance
 - **Support HMR** for components and models with [babel-plugin-mickey-model-loader](https://github.com/mickeyjsx/babel-plugin-mickey-model-loader)

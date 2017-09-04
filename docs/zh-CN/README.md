@@ -91,7 +91,7 @@ app.render(<App />, document.getElementById('root'))
 
 ## 了解更多
 
-- [API 文档](./API.md)
+- [API 文档](./api.md)
 - [mickey.svg](../../mickey.svg) 下载自 [Free Vectors](http://all-free-download.com/free-vector/download/disney-disney-vector_288586.html)
 
 ## 贡献代码

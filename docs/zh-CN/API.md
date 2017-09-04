@@ -1,6 +1,6 @@
 # API
 
-[View this in English](../en-US/API.md)
+[View this in English](../en-US/api.md)
 
 ## 概览
 
