@@ -19,11 +19,11 @@
 
 ## Features
 
-- **Quick learning quick start**: 
-- **Elm concepts**: organize models with `reducers`, `effects` and `subscriptions`
-- **Support loading models dynamically** to improve performance
+- **Minimal API**, only 5 newly introduced
+- **Elm concepts**, organize models with `reducers`, `effects` and `subscriptions`
+- **Dynamically loading models** with [code-splitting](https://webpack.js.org/guides/code-splitting/) to improve performance
 - **Support HMR** for components and models with [babel-plugin-mickey-model-loader](https://github.com/mickeyjsx/babel-plugin-mickey-model-loader)
-- **Full-featured hook mechanism**
+- Full-featured **hook mechanism**
 
 ## Quick Start
 
