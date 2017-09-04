@@ -15,7 +15,7 @@
 [![Dependencies](https://david-dm.org/mickey/mickey/status.svg)](https://david-dm.org/mickey/mickey)
 [![Package Quality](http://npm.packagequality.com/shield/mickey.svg)](http://packagequality.com/#?package=mickey)
 
-[查看中文](./docs/zh-CN/README.md)
+[查看中文](./docs/zh-CN/README.md#features)
 
 ## Features
 
