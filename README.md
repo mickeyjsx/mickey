@@ -19,6 +19,60 @@
 
 ## Quick Start
 
+Use [create-react-app](https://github.com/facebookincubator/create-react-app) to create an app:
+
+```shell
+$ npm i -g create-react-app
+$ create-react-app my-app
+```
+
+Then install mickey from npm:
+
+```shell
+$ cd my-app
+$ npm i --save mickey
+$ npm start
+```
+
+Create `index.js` as follow:
+
+```jsx
+import React from 'react'
+import createApp from 'mickey'
+
+// 1. Initialize
+const app = createApp()
+
+// 2. Model
+app.model({
+  namespace: 'counter',
+  state: {
+    count: 0,
+    loading: false,
+  },
+  reducers: {
+    increment: state => ({ ...state, count: state.count + 1 }),
+    decrement: state => ({ ...state, count: state.count - 1 }),
+  },
+  incrementAsync: {
+    * effect(payload, { call }, { succeed }) {
+      const delay = timeout => new Promise((resolve) => {
+        setTimeout(resolve, timeout)
+      })
+      yield call(delay, 2000)
+      yield succeed()
+    },
+    prepare: state => ({ ...state, loading: true }),
+    succeed: state => ({ ...state, count: state.count + 1, loading: false }),
+  },
+})
+
+// 3. View
+app.render(<App />, document.getElementById('root'))
+```
+
+Run `npm start`, view it in the browser.
+
 ## Examples
 
 - [Counter](./examples/counter) Basic usage of mickey
@@ -31,8 +85,15 @@
 
 ## More
 
-- [API Document](./docs/en-US/API.md)
+- [API Reference](./docs/en-US/API.md)
 - [mickey.svg](./mickey.svg) badaged in this document is download from [Free Vectors](http://all-free-download.com/free-vector/download/disney-disney-vector_288586.html)
+
+
+## Related
+
+- [babel-plugin-mickey-model-loader](https://github.com/mickeyjsx/babel-plugin-mickey-model-loader) Inject a model loader function into mickey with hmr support
+- [babel-plugin-mickey-model-validator](https://github.com/mickeyjsx/babel-plugin-mickey-model-validator) Validate models shipped by mickey to avoid certain syntax pitfalls
+
 
 ## Contributing
 
