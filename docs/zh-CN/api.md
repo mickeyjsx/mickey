@@ -5,7 +5,19 @@
 ## 概览
 
 - [`createApp(options)`](#createappoptions)：创建应用，返回 Mickey 实例
-- [`app.hook(hooks)`](#apphookhooks)：添加应用钩子
+  - `options.hooks`
+  - `options.historyMode`
+  - `options.initialState`
+  - `options.initialReducer`
+  - `options.extensions`
+- [`app.hook(hooks)`](#apphookhooks)：添加应用插件
+  - `hooks.onError`
+  - `hooks.onAction`
+  - `hooks.onEffect`
+  - `hooks.onReducer`
+  - `hooks.onStateChange`
+  - `hooks.extraReducers`
+  - `hooks.extraEnhancers`
 - [`app.model(model)`](#appmodelmodel)：装载模型
 - [`app.eject(namespace)`](#appejectnamespace)：卸载指定 `namespace` 模型
 - [`app.has(namespace)`](#apphasnamespace)：返回指定 `namespace` 模型是否被已经被装载
@@ -40,7 +52,7 @@
 
 ### `createApp(options)` 
 
-创建应用，返回 Mickey 示例：
+创建应用，返回 Mickey 实例：
 
 ```
 import createApp from 'mickey'
@@ -48,11 +60,28 @@ const app = createApp(options);
 ```
 
 `options` 包含：
+- `hooks` 插件列表
 - `historyMode`：指定 Router 组件
-- `initialState` 应用初始数据
+- `initialState` 初始数据
 - `initialReducer`
-- `extensions`
-- `hooks`
+- `extensions` 扩展
+
+#### * `options.hooks`
+- 默认值：`{}`
+
+#### * `options.historyMode`
+- 默认值：`undefined`
+
+
+#### * `options.initialState`
+
+表示 Redux store 的 [preloadedState](http://redux.js.org/docs/api/createStore.html)
+
+- 默认值：`{}`
+  
+#### * `options.initialReducer`
+#### * `options.extensions`
+
 
 ### `app.hook(hooks)`
 ### `app.model(model)`
