@@ -4,13 +4,13 @@
 
 ## 概览
 
-- `createApp(options)`：创建应用，返回 Mickey 实例
-- `app.hook(hooks)`：添加应用钩子
-- `app.model(model)`：装载模型
-- `app.eject(namespace)`：卸载指定 `namespace` 模型
-- `app.has(namespace)`：返回指定 `namespace` 模型是否被已经被装载
-- `app.load(pattern)`：根据 `pattern` 指定的路径加载模型，需要 [babel-plugin-mickey-model-loader](https://github.com/mickeyjsx/babel-plugin-mickey-model-loader) 支持
-- `app.render(component, container, callback)`：渲染组件到指定的容器中，并提供回调支持
+- [`createApp(options)`](#createappoptions)：创建应用，返回 Mickey 实例
+- [`app.hook(hooks)`](#apphookhooks)：添加应用钩子
+- [`app.model(model)`](#appmodelmodel)：装载模型
+- [`app.eject(namespace)`](#appejectnamespace)：卸载指定 `namespace` 模型
+- [`app.has(namespace)`](#apphasnamespace)：返回指定 `namespace` 模型是否被已经被装载
+- [`app.load(pattern)`](#apploadpattern)：根据 `pattern` 指定的路径加载模型，需要 [babel-plugin-mickey-model-loader](https://github.com/mickeyjsx/babel-plugin-mickey-model-loader) 支持
+- [`app.render(component, container, callback)`](#apprendercomponent-container-callback)：渲染组件到指定的容器中，并提供回调支持
 
 ## 模块输出
 
