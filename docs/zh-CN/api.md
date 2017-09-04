@@ -8,7 +8,7 @@
 - `app.hook(hooks)`：添加应用钩子
 - `app.model(model)`：装载模型
 - `app.eject(namespace)`：卸载指定 `namespace` 模型
-- `app.has(namespace)`：指定 `namespace` 模型是否被已经被装载
+- `app.has(namespace)`：返回指定 `namespace` 模型是否被已经被装载
 - `app.load(pattern)`：根据 `pattern` 指定的路径加载模型，需要 [babel-plugin-mickey-model-loader](https://github.com/mickeyjsx/babel-plugin-mickey-model-loader) 支持
 - `app.render(component, container, callback)`：渲染组件到指定的容器中，并提供回调支持
 
@@ -16,8 +16,6 @@
 
 1. 默认输出 `import createApp from 'mickey'` 
 2. 原样输出以下模块中的组件和方法，Mickey 负责管理这些依赖模块的[版本](https://github.com/mickeyjsx/mickey/blob/master/package.json#L31)，这样我们在需要使用到这些组件或方法时只需要从 Mickey 中 `import` 进来即可，而不需要记住这些组件和方法都是来自哪里
-
-原样输出的组件和方法：
   
 - [redux](https://github.com/reactjs/redux)
   - [compose](http://redux.js.org/docs/api/compose.html)
@@ -50,8 +48,15 @@ const app = createApp(options);
 ```
 
 `options` 包含：
-- `historyMode`：指定使用
-- `initialState`
+- `historyMode`：指定 Router 组件
+- `initialState` 应用初始数据
 - `initialReducer`
 - `extensions`
 - `hooks`
+
+### `app.hook(hooks)`
+### `app.model(model)`
+### `app.eject(namespace)`
+### `app.has(namespace)`
+### `app.load(pattern)`
+### `app.render(component, container, callback)`
