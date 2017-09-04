@@ -1,8 +1,8 @@
 # Mickey
 
-> Lightweight front-end framework for creating React and Redux based app painlessly. (Inspired by [dva](https://github.com/dvajs/dva))
+> Lightweight front-end framework for creating React and Redux based app painlessly.
 
-> Totally base on [redux](https://github.com/reactjs/redux), [redux-saga](https://github.com/yelouafi/redux-saga) and [react-router](https://github.com/ReactTraining/react-router), very friendly to redux users. 
+> Totally base on [redux](https://github.com/reactjs/redux), [redux-saga](https://github.com/yelouafi/redux-saga) and [react-router](https://github.com/ReactTraining/react-router), very friendly to redux users. (Inspired by [dva](https://github.com/dvajs/dva))
 
 <img src="http://ojh17srjb.bkt.gdipper.com/mickey.svg" alt="mickey.svg" width="160px">
 
@@ -86,8 +86,8 @@ app.render(<App />, document.getElementById('root'))
 - [Counter-Immutable](./examples/counter-immutable) Work with [ImmutableJS](https://github.com/facebook/immutable-js/)
 - [Counter-Persist-Immutable](./examples/counter-persist-immutable) Work with [redux-persist](https://github.com/rt2zz/redux-persist) and [ImmutableJS](https://github.com/facebook/immutable-js/)
 - [Counter-Undo](./examples/counter-undo) Work with [redux-undo](https://github.com/omnidan/redux-undo)
-- [mickey-vstar](https://github.com/mickeyjsx/mickey-vstar) A demo web app to show your or others GitHub repos stars.
-
+- [mickey-vstar](https://github.com/mickeyjsx/mickey-vstar) A [demo](http://mickeyjsx.github.io/vstar) web app to show your or others GitHub repos stars
+- [HackerNews](https://github.com/mickeyjsx/mickey-hackernews) HackerNews clone built with mickey, [online demo](http://mickeyjsx.github.io/hackernews)
 
 ## More
 
