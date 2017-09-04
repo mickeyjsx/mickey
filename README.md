@@ -3,6 +3,7 @@
 ![mickey.svg](http://ojh17srjb.bkt.gdipper.com/mickey.svg)
 
 > Lightweight front-end framework for creating Painless React and Redux based app.
+> Totally base on [redux](https://github.com/reactjs/redux), [redux-saga](https://github.com/yelouafi/redux-saga) and [react-router](https://github.com/ReactTraining/react-router), very friendly to redux users. (Inspired by [dva](https://github.com/dvajs/dva))
 
 [![MIT License](https://img.shields.io/badge/license-MIT_License-green.svg?style=flat-square)](https://github.com/mickey/mickey/blob/master/LICENSE)
 
@@ -17,6 +18,12 @@
 
 ## Features
 
+- **Quick learning quick start**: 
+- **Elm concepts**: organize models with `reducers`, `effects` and `subscriptions`
+- **Support loading models dynamically** to improve performance
+- **Support HMR** for components and models with [babel-plugin-mickey-model-loader](https://github.com/mickeyjsx/babel-plugin-mickey-model-loader)
+- **Full-featured hook mechanism**
+
 ## Quick Start
 
 Use [create-react-app](https://github.com/facebookincubator/create-react-app) to create an app:
@@ -30,11 +37,11 @@ Then install mickey from npm:
 
 ```shell
 $ cd my-app
-$ npm i --save mickey
+$ npm install mickey --save
 $ npm start
 ```
 
-Create `index.js` as follow:
+Update `index.js` as follow:
 
 ```jsx
 import React from 'react'
@@ -70,8 +77,6 @@ app.model({
 // 3. View
 app.render(<App />, document.getElementById('root'))
 ```
-
-Run `npm start`, view it in the browser.
 
 ## Examples
 
