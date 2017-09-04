@@ -26,6 +26,7 @@
 - [Counter-Immutable](./examples/counter-immutable) Work with [ImmutableJS](https://github.com/facebook/immutable-js/)
 - [Counter-Persist-Immutable](./examples/counter-persist-immutable) Work with [redux-persist](https://github.com/rt2zz/redux-persist) and [ImmutableJS](https://github.com/facebook/immutable-js/)
 - [Counter-Undo](./examples/counter-undo) Work with [redux-undo](https://github.com/omnidan/redux-undo)
+- [mickey-vstar](https://github.com/mickeyjsx/mickey-vstar) A demo web app to show your or others GitHub repos stars.
 
 
 ## More

@@ -26,6 +26,7 @@
 - [Counter-Immutable](../../examples/counter-immutable) 搭配 [ImmutableJS](https://github.com/facebook/immutable-js/) 使用
 - [Counter-Persist-Immutable](../../examples/counter-persist-immutable) 搭配 [redux-persist](https://github.com/rt2zz/redux-persist) 和 [ImmutableJS](https://github.com/facebook/immutable-js/) 使用
 - [Counter-Undo](../../examples/counter-undo) 搭配 [redux-undo](https://github.com/omnidan/redux-undo) 使用
+- [mickey-vstar](https://github.com/mickeyjsx/mickey-vstar) 查询指定 Github 账号中被加星项目并按加星数排序。
 
 ## 了解更多
 
