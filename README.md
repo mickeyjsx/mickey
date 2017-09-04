@@ -2,7 +2,8 @@
 
 ![mickey.svg](http://ojh17srjb.bkt.gdipper.com/mickey.svg)
 
-> Lightweight front-end framework for creating Painless React and Redux based app.
+> Lightweight front-end framework for creating React and Redux based app painlessly.
+
 > Totally base on [redux](https://github.com/reactjs/redux), [redux-saga](https://github.com/yelouafi/redux-saga) and [react-router](https://github.com/ReactTraining/react-router), very friendly to redux users. (Inspired by [dva](https://github.com/dvajs/dva))
 
 [![MIT License](https://img.shields.io/badge/license-MIT_License-green.svg?style=flat-square)](https://github.com/mickey/mickey/blob/master/LICENSE)
