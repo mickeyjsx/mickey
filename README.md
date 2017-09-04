@@ -4,7 +4,7 @@
 
 > Totally base on [redux](https://github.com/reactjs/redux), [redux-saga](https://github.com/yelouafi/redux-saga) and [react-router](https://github.com/ReactTraining/react-router), very friendly to redux users. 
 
-![mickey.svg](http://ojh17srjb.bkt.gdipper.com/mickey.svg)
+<img src="http://ojh17srjb.bkt.gdipper.com/mickey.svg" alt="mickey.svg" width="160px">
 
 [![MIT License](https://img.shields.io/badge/license-MIT_License-green.svg?style=flat-square)](https://github.com/mickey/mickey/blob/master/LICENSE)
 
@@ -19,8 +19,8 @@
 
 ## Features
 
-- **Minimal API**(only 5 newly introduced). Easy to learn, easy to start
-- **Elm concepts**(organize models with `reducers`, `effects` and `subscriptions`)
+- **Minimal API** (Only 5 newly introduced). Easy to learn, easy to start
+- **Elm concepts** (Organize models with `reducers`, `effects` and `subscriptions`)
 - **Support loading models dynamically** with [code-splitting](https://webpack.js.org/guides/code-splitting/) to improve performance
 - **Support HMR** for components and models with [babel-plugin-mickey-model-loader](https://github.com/mickeyjsx/babel-plugin-mickey-model-loader)
 - **Full-featured hook mechanism**
