@@ -79,7 +79,7 @@ app.model({
 app.render(<App />, document.getElementById('root'))
 ```
 
-## 示例
+## 示例项目
 
 - [Counter](../../examples/counter)：简单的计数器
 - [Counter-Persist](../../examples/counter-persist)：搭配 [redux-persist](https://github.com/rt2zz/redux-persist)使用
