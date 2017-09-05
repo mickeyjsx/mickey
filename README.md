@@ -49,7 +49,7 @@ Update `index.js` as follow:
 
 ```jsx
 import React from 'react'
-import createApp from 'mickey'
+import createApp, {connect, injectActions} from 'mickey'
 
 // 1. Initialize
 const app = createApp()
@@ -77,6 +77,19 @@ app.model({
     succeed: state => ({ ...state, count: state.count + 1, loading: false }),
   },
 })
+
+// connect state with component and inject `actions`
+const App = injectActions(connect(state => {
+  return {counter: state.counter}
+}))(props => (
+    <div>
+      <h1>{props.counter.count}</h1>
+      <button onClick={() => props.actions.counter.decrement()}>-</button>
+      <button onClick={() => props.actions.counter.increment()}>+</button>
+      <button onClick={() => props.actions.counter.incrementAsync()}>+ Async</button>
+    </div>
+  )
+)
 
 // 3. View
 app.render(<App />, document.getElementById('root'))
