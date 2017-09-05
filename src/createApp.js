@@ -63,7 +63,7 @@ export default function createApp(options = {}) {
     },
 
     load() {
-      throw new Error('You should install and config `babel-plugin-mickey-model-loader` before use `app.load()`. For more information, see: https://github.com/mickeyjsx/babel-plugin-mickey-model-loader')
+      throw new Error('The method `load(pattern)` is unavailable. This method depend on `babel-plugin-mickey-model-loader`. For more information, see: https://github.com/mickeyjsx/babel-plugin-mickey-model-loader')
     },
 
     // create store, steup reducer, start the app
