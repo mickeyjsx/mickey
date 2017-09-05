@@ -4,16 +4,18 @@ import Provider from './Provider'
 
 import { isFunction } from './utils'
 
-function getCallbacks(options = {}) {
+function getCallbacks(options) {
   if (isFunction(options)) {
     return { afterRender: options }
   }
-  return options
+  return options || {}
 }
 
 export default function createRender(app, component, container, callback) {
+  // return a render function
   return (_component, _container, _callback) => {
-    const { beforeRender, afterRender } = getCallbacks(_callback || callback || {})
+    const { beforeRender, afterRender } = getCallbacks(_callback || callback)
+    // real render function
     const innerRender = (componentFromPromise, containerFromPromise) => {
       const comp = componentFromPromise || component
       const wrap = containerFromPromise || container
@@ -33,7 +35,17 @@ export default function createRender(app, component, container, callback) {
     }
 
     if (ret && ret.then) {
-      ret.then(innerRender, () => { })
+      ret.then((val) => {
+        if (val) {
+          if (Array.isArray(val)) {
+            innerRender(...val)
+          } else {
+            innerRender(val, _container)
+          }
+        } else {
+          innerRender(_component, _container)
+        }
+      }, () => { })
     } else if (ret !== false) {
       innerRender(_component, _container)
     }
