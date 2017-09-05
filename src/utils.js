@@ -2,6 +2,7 @@ import isFunction from 'lodash.isfunction'
 import { NAMESPACE_SEP } from './constants'
 
 export asign from 'object-assign'
+export getByPath from 'lodash.get'
 export flatten from 'lodash.flatten'
 export minimatch from 'minimatch'
 export isPlainObject from 'is-plain-object'
@@ -16,7 +17,6 @@ export const isGeneratorFn = fn => (
   )
 )
 export const isArray = Array.isArray.bind(Array)
-export const noop = () => { }
 export const ucfirst = s => s.charAt(0).toUpperCase() + s.substr(1)
 export const filename = file => file.match(/([^/]+)\.js$/)[1]
 export const isAllFunction = obj => Object.keys(obj).every(key => isFunction(obj[key]))

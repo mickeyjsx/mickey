@@ -5,6 +5,8 @@ export { applyMiddleware, compose } from 'redux'
 export { connect } from 'react-redux'
 
 // mickey exports
+export * as utils from './utils'
 export injectActions from './injectActions'
 export ActionsProvider from './ActionsProvider'
 export default from './createApp'
+
