@@ -36,7 +36,7 @@
 ## 模块输出
 
 1. 默认输出 `import createApp from 'mickey'` 
-2. 原样输出以下模块中的组件和方法，Mickey 负责管理这些依赖模块的[版本](https://github.com/mickeyjsx/mickey/blob/master/package.json#L31)，这样我们在需要使用到这些组件或方法时只需要从 Mickey 中 `import` 进来即可，而不需要记住这些组件和方法都是来自哪里
+2. 原样输出以下模块中的组件和方法，Mickey 负责管理这些依赖模块的[版本](https://github.com/mickeyjsx/mickey/blob/master/package.json#L31)，这样我们在需要使用到这些组件或方法时只需要从 Mickey 中 `import` 进来即可，而不需要记住这些组件和方法都分别来自哪个模块。
   
 - [redux](https://github.com/reactjs/redux)
   - [compose](http://redux.js.org/docs/api/compose.html)
@@ -88,25 +88,24 @@ const app = createApp(options);
 #### `options.initialState`
 - 默认值：`{}`
 
-  指定 Redux store 的 [preloadedState](http://redux.js.org/docs/api/createStore.html)
+  指定 Redux store 的 [preloadedState](http://redux.js.org/docs/api/createStore.html)。
   
 #### `options.initialReducer`
 - 默认值：`{}`
 
-  指定应用的初始 [`reducer`](http://redux.js.org/docs/basics/Reducers.html) 函数，将与模型中指定的 `reducer` 一起被 [`combine`](http://redux.js.org/docs/api/combineReducers.html) 成为 [`createStore`](http://redux.js.org/docs/api/createStore.html) 需要的 `reducer`  
+  指定应用的初始 [`reducer`](http://redux.js.org/docs/basics/Reducers.html) 函数，将与模型中指定的 `reducer` 一起被 [`combine`](http://redux.js.org/docs/api/combineReducers.html) 成为 [`createStore`](http://redux.js.org/docs/api/createStore.html) 需要的 `reducer`。 
 
 #### `options.extensions`
 - 默认值：`{}`
 
   应用扩展点，目前支持如下两个扩展：
 
-##### `createReducer`
+  ##### `createReducer`
+  Mickey 默认使用 [redux-actions](https://github.com/reduxactions/redux-actions) 模块提供的 [`handleActions`](https://redux-actions.js.org/docs/api/handleAction.html) 方法来包装模型中的 `reducer`，可以通过设置 `options.extensions.createReducer` 来替换默认实现。例如，在 [Counter-Immutable](../../examples/counter-immutable) 中需要使用 [redux-immutablejs](https://github.com/indexiatech/redux-immutablejs) 模块提供的 [`createReducer`](https://github.com/indexiatech/redux-immutablejs#immutable-handler-map-reducer-creator) 方法来替换。
 
-Mickey 默认使用 [redux-actions](https://github.com/reduxactions/redux-actions) 模块提供的 [`handleActions`](https://redux-actions.js.org/docs/api/handleAction.html) 方法来包装模型中的 `reducer`，可以通过设置 `options.extensions.createReducer` 来替换默认实现。例如，在 [Counter-Immutable](../../examples/counter-immutable) 中需要使用 [redux-immutablejs](https://github.com/indexiatech/redux-immutablejs) 模块提供的 [`createReducer`](https://github.com/indexiatech/redux-immutablejs#immutable-handler-map-reducer-creator) 方法来替换。
+  ##### `combineReducers`
 
-##### `combineReducers`
-
-Mickey 默认使用 [redux](https://github.com/reactjs/redux) 提供的 [`combineReducers`](http://redux.js.org/docs/api/combineReducers.html) 方法将模型中的 `reducer` 连接在一起，可以通过设置 `options.extensions.combineReducers` 来替换默认实现。例如，在 [Counter-Immutable](../../examples/counter-immutable) 中需要使用 [redux-immutablejs](https://github.com/indexiatech/redux-immutablejs) 模块提供的 [`combineReducers`](https://github.com/indexiatech/redux-immutablejs#initial-state) 方法来替换
+  Mickey 默认使用 [redux](https://github.com/reactjs/redux) 提供的 [`combineReducers`](http://redux.js.org/docs/api/combineReducers.html) 方法将模型中的 `reducer` 连接在一起，可以通过设置 `options.extensions.combineReducers` 来替换默认实现。例如，在 [Counter-Immutable](../../examples/counter-immutable) 中需要使用 [redux-immutablejs](https://github.com/indexiatech/redux-immutablejs) 模块提供的 [`combineReducers`](https://github.com/indexiatech/redux-immutablejs#initial-state) 方法来替换。
 
 ### `app.hook(hooks)`
 
@@ -114,7 +113,7 @@ Mickey 默认使用 [redux](https://github.com/reactjs/redux) 提供的 [`combin
 
 ### `app.model(model)`
 
-装载指定的模型，模型的结构分解如下：
+装载指定的模型，模型的结构分解如下：
 
 #### `model.namespace` 
 
@@ -136,9 +135,9 @@ store/actions
     └── common
 ```
 
-虽然可以使用 `/` 来划分 `store` 的层级结构，但**请注意一定不要使 `store` 的结果过于复杂**。
+虽然可以使用 `/` 来划分 `store` 的层级结构，但**请注意一定不要使 `store` 的结果过于复杂**。
 
-命名空间**不可缺省**，当使用 [babel-plugin-mickey-model-loader](https://github.com/mickeyjsx/babel-plugin-mickey-model-loader) 提供的 `app.load(pattern)` 方法来加载模型时会根据模型所在目录结构确定模型的命名空间，此时可以不指定模型的命令空间，看下面的三个模型的目录结构，将得到与上面相同的结构。
+命名空间**不可缺省**，当使用 [babel-plugin-mickey-model-loader](https://github.com/mickeyjsx/babel-plugin-mickey-model-loader) 提供的 `app.load(pattern)` 方法来加载模型时会根据模型所在目录结构确定模型的命名空间，此时可以不指定模型的命令空间，看下面的三个模型的目录结构，将得到与上面相同的结构。
 
 ```
 .  
@@ -170,7 +169,7 @@ store/actions
 
 ### `app.render(component, container, callback)`
 
-渲染组件到指定的容器中，并提供回调或 [AOP](https://zh.wikipedia.org/zh-hans/%E9%9D%A2%E5%90%91%E4%BE%A7%E9%9D%A2%E7%9A%84%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1) 支持；`callback` 是函数时 `(app) => {}` 将在渲染完成之后 `subscriptions` 之前执行；如果 `callback` 是形如下面对象：
+渲染组件到指定的容器中，并提供回调或 [AOP](https://zh.wikipedia.org/zh-hans/%E9%9D%A2%E5%90%91%E4%BE%A7%E9%9D%A2%E7%9A%84%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1) 支持；`callback` 是函数时 `(app) => {}` 将在渲染完成之后 `subscriptions` 之前执行；如果 `callback` 是形如下面对象：
 
 ```es6
 {
@@ -179,7 +178,7 @@ store/actions
 }
 ```
 
-`beforeRender` 返回 `false` 或返回的 Promise 被 `reject` 时都不会触发渲染过程；当 `beforeRender` 返回 Promise 被 `resolve` 后触发内部的渲染过程，同时还可以通过 `resolve` 重新指定`component` 和 `container`：
+`beforeRender` 返回 `false` 或返回的 Promise 被 `reject` 时都不会触发渲染过程；当 `beforeRender` 返回 Promise 被 `resolve` 后触发内部的渲染过程，同时还可以通过 `resolve` 重新指定`component` 和 `container`：
 
 ```
 app.render(component, container, {
