@@ -4,34 +4,33 @@
 
 ## 概览
 
-- [`createApp(options)`](#createappoptions)
-  - [`options.hooks`]()
-  - [`options.historyMode`]()
-  - [`options.initialState`]()
-  - [`options.initialReducer`]()
-  - [`options.extensions`]()
-    - [`options.extensions.createReducer`]()
-    - [`options.extensions.combineReducers`]()
-- [`app.hook(hooks)`](#apphookhooks)
-  - [`hooks.onError`]()
-  - [`hooks.onAction`]()
-  - [`hooks.onEffect`]()
-  - [`hooks.onReducer`]()
-  - [`hooks.onStateChange`]()
-  - [`hooks.extraReducers`]()
-  - [`hooks.extraEnhancers`]()
-- [`app.model(model)`](#appmodelmodel)
-  - [`model.namespace`]()
-  - [`model.state`]()
-  - [`model.actions`]()
-  - [`model.effects`]()
-  - [`model.subscriptions`]()
-  - [`model.createReducer`]()
-  - [`model[...groups]`]()
-- [`app.eject(namespace)`](#appejectnamespace)
-- [`app.has(namespace)`](#apphasnamespace)
-- [`app.load(pattern)`](#apploadpattern)
-- [`app.render(component, container, callback)`](#apprendercomponent-container-callback)
+- [createApp(options)](#createappoptions)
+  - [options.hooks]()
+  - [options.historyMode]()
+  - [options.initialState]()
+  - [options.initialReducer]()
+  - [options.extensions]()
+    - [options.extensions.createReducer]()
+    - [options.extensions.combineReducers]()
+- [app.hook(hooks)](#apphookhooks)
+  - [hooks.onError]()
+  - [hooks.onAction]()
+  - [hooks.onEffect]()
+  - [hooks.onReducer]()
+  - [hooks.onStateChange]()
+  - [hooks.extraReducers]()
+  - [hooks.extraEnhancers]()
+- [app.model(model)](#appmodelmodel)
+  - [model.namespace]()
+  - [model.state]()
+  - [model.subscriptions]()
+  - [model.enhancers]()
+  - [model.createReducer]()
+  - [model[...actionsAndEffects]]()
+- [app.eject(namespace)](#appejectnamespace)
+- [app.has(namespace)](#apphasnamespace)
+- [app.load(pattern)](#apploadpattern)
+- [app.render(component, container, callback)](#apprendercomponent-container-callback)
 
 ## 模块输出
 
@@ -59,7 +58,7 @@
 
 ## API详解
 
-### `createApp(options)` 
+### createApp(options)
 
 创建应用，返回 Mickey 实例：
 
@@ -68,12 +67,12 @@ import createApp from 'mickey'
 const app = createApp(options);
 ```
 
-#### `options.hooks`
+#### options.hooks
 - 默认值：`{}`
 
-  配置应用需要使用的插件，详细配置参考 [`app.hook(hooks)`](#apphookhooks)
+  配置应用需要使用的插件，详细配置参考 [app.hook(hooks)](#apphookhooks)
 
-#### `options.historyMode`
+#### options.historyMode
 - 默认值：`undefined`
   
   指定 Router 组件所需的 [history](https://github.com/ReactTraining/history#usage) 对象的类型，共有 3 种可选的值：
@@ -85,37 +84,37 @@ const app = createApp(options);
   
   默认值为 `undefined` 表示默认不使用路由。
 
-#### `options.initialState`
+#### options.initialState
 - 默认值：`{}`
 
   指定 Redux store 的 [preloadedState](http://redux.js.org/docs/api/createStore.html)。
   
-#### `options.initialReducer`
+#### options.initialReducer
 - 默认值：`{}`
 
-  指定应用的初始 [`reducer`](http://redux.js.org/docs/basics/Reducers.html) 函数，将与模型中指定的 `reducer` 一起被 [`combine`](http://redux.js.org/docs/api/combineReducers.html) 成为 [`createStore`](http://redux.js.org/docs/api/createStore.html) 需要的 `reducer`。 
+  指定应用的初始 [reducer](http://redux.js.org/docs/basics/Reducers.html) 函数，将与模型中指定的 `reducer` 一起被 [combine](http://redux.js.org/docs/api/combineReducers.html) 成为 [createStore](http://redux.js.org/docs/api/createStore.html) 需要的 `reducer`。 
 
-#### `options.extensions`
+#### options.extensions
 - 默认值：`{}`
 
   应用扩展点，目前支持如下两个扩展：
 
   ##### `createReducer`
-  Mickey 默认使用 [redux-actions](https://github.com/reduxactions/redux-actions) 模块提供的 [`handleActions`](https://redux-actions.js.org/docs/api/handleAction.html) 方法来包装模型中的 `reducer`，可以通过设置 `options.extensions.createReducer` 来替换默认实现。例如，在 [Counter-Immutable](../../examples/counter-immutable) 中需要使用 [redux-immutablejs](https://github.com/indexiatech/redux-immutablejs) 模块提供的 [`createReducer`](https://github.com/indexiatech/redux-immutablejs#immutable-handler-map-reducer-creator) 方法来替换。
+  Mickey 默认使用 [redux-actions](https://github.com/reduxactions/redux-actions) 模块提供的 [handleActions](https://redux-actions.js.org/docs/api/handleAction.html) 方法来包装模型中的 `reducer`，可以通过设置 `options.extensions.createReducer` 来替换默认实现。例如，在 [Counter-Immutable](../../examples/counter-immutable) 中需要使用 [redux-immutablejs](https://github.com/indexiatech/redux-immutablejs) 模块提供的 [createReducer](https://github.com/indexiatech/redux-immutablejs#immutable-handler-map-reducer-creator) 方法来替换。
 
   ##### `combineReducers`
 
-  Mickey 默认使用 [redux](https://github.com/reactjs/redux) 提供的 [`combineReducers`](http://redux.js.org/docs/api/combineReducers.html) 方法将模型中的 `reducer` 连接在一起，可以通过设置 `options.extensions.combineReducers` 来替换默认实现。例如，在 [Counter-Immutable](../../examples/counter-immutable) 中需要使用 [redux-immutablejs](https://github.com/indexiatech/redux-immutablejs) 模块提供的 [`combineReducers`](https://github.com/indexiatech/redux-immutablejs#initial-state) 方法来替换。
+  Mickey 默认使用 [redux](https://github.com/reactjs/redux) 提供的 [combineReducers](http://redux.js.org/docs/api/combineReducers.html) 方法将模型中的 `reducer` 连接在一起，可以通过设置 `options.extensions.combineReducers` 来替换默认实现。例如，在 [Counter-Immutable](../../examples/counter-immutable) 中需要使用 [redux-immutablejs](https://github.com/indexiatech/redux-immutablejs) 模块提供的 [combineReducers](https://github.com/indexiatech/redux-immutablejs#initial-state) 方法来替换。
 
-### `app.hook(hooks)`
+### app.hook(hooks)
 
 注册应用插件。
 
-### `app.model(model)`
+### app.model(model)
 
 装载指定的模型，模型的结构分解如下：
 
-#### `model.namespace` 
+#### model.namespace
 
 指定模型的命名空间，命名空间可以使用 `/` 来划分层级结构，命名空间的层级结构决定了最终 `store` 和 `actions` 的层级结构，如：
 
@@ -148,26 +147,53 @@ store/actions
       └── common.js
 ```
 
-#### `model.state`
-#### `model.actions`
-#### `model.effects`
-#### `model.subscriptions`
-#### `model.createReducer`
-#### `model[...groups]`
+#### model.state
 
-### `app.eject(namespace)`
+初始值，优先级低于传给 `createApp()` 的 `options.initialState`。
+
+比如：
+
+```js
+const app = createApp({
+  initialState: { count: 1 },
+});
+
+app.model({
+  namespace: 'counter',
+  state: 0,
+});
+```
+
+此时，在 `app.render()` 后 `state.count` 为 1 。
+
+#### model.subscriptions
+
+以 key/value 格式定义 subscription。subscription 是订阅，用于订阅一个数据源，然后根据需要触发相应的 action。在 `app.render()` 时被执行，数据源可以是当前的时间、服务器的 websocket 连接、keyboard 输入、geolocation 变化、history 路由变化等等。
+
+格式为 `({ dispatch }, innerActions, actions, done) => unlistenFunction`。
+
+注意：如果要使用 `app.eject()`，subscription 必须返回 unlisten 方法，用于取消数据订阅。
+
+#### model.enhancers
+
+#### model.createReducer
+
+#### model[...actionsAndEffects]
+
+
+### app.eject(namespace)
 
 卸载指定 `namespace` 模型，同时清理 Store 中对应的数据，取消 `subscriptions` 中相关的事件订阅。
 
-### `app.has(namespace)`
+### app.has(namespace)
 
 返回指定 `namespace` 模型是否被已经被装载，或判断一个 `namespace` 是否被占用。
 
-### `app.load(pattern)`
+### app.load(pattern)
 
 根据 `pattern` 指定的路径加载模型，需要 [babel-plugin-mickey-model-loader](https://github.com/mickeyjsx/babel-plugin-mickey-model-loader) 支持，`pattern` 为空表示加载所有模型，否则可以指定一个 [glob 表达式](https://www.npmjs.com/package/minimatch)来加载匹配的模型。
 
-### `app.render(component, container, callback)`
+### app.render(component, container, callback)
 
 渲染组件到指定的容器中，并提供回调或 [AOP](https://zh.wikipedia.org/zh-hans/%E9%9D%A2%E5%90%91%E4%BE%A7%E9%9D%A2%E7%9A%84%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1) 支持；`callback` 是函数时 `(app) => {}` 将在渲染完成之后 `subscriptions` 之前执行；如果 `callback` 是形如下面对象：
 
