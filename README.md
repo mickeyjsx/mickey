@@ -23,6 +23,7 @@
 
 - **Minimal API** (Only 6 newly introduced). Easy to learn, easy to start
 - **Elm concepts** (Organize models with `reducers`, `effects` and `subscriptions`)
+- **No `diapatch`, no `put`**, just forget about action type
 - **Support loading models dynamically** with [code-splitting](https://webpack.js.org/guides/code-splitting/) to improve performance
 - **Support HMR** for components and models with [babel-plugin-mickey-model-loader](https://github.com/mickeyjsx/babel-plugin-mickey-model-loader)
 - **Full-featured hook mechanism**
