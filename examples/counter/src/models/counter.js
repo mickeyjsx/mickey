@@ -8,10 +8,8 @@ export default {
     count: 0,
     loading: false,
   },
-  reducers: {
-    increment: state => ({ ...state, count: state.count + 1 }),
-    decrement: state => ({ ...state, count: state.count - 1 }),
-  },
+  increment: state => ({ ...state, count: state.count + 1 }),
+  decrement: state => ({ ...state, count: state.count - 1 }),
   incrementAsync: {
     * effect(payload, { call }, { succeed }) {
       yield call(delay, 2000)

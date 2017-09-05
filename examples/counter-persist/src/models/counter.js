@@ -22,10 +22,8 @@ export default {
       return reducer(state, action)
     },
   ],
-  reducers: {
-    increment: state => ({ ...state, count: state.count + 1 }),
-    decrement: state => ({ ...state, count: state.count - 1 }),
-  },
+  increment: state => ({ ...state, count: state.count + 1 }),
+  decrement: state => ({ ...state, count: state.count - 1 }),
   incrementAsync: {
     * effect(payload, { call }, { succeed }) {
       yield call(delay, 2000)
