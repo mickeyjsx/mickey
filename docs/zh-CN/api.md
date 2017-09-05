@@ -81,7 +81,9 @@ const app = createApp(options);
     - `hash` 针对不支持 HTML5 history API 的浏览器
     - `memory` history API 的内存实现版本，用于非 DOM 环境
   
-  Mickey 会根据上面 3 中类型初始化路由系统，如果 `historyMode` 不是上述三种之一则表示不使用路由组件，默认 `undefined` 不使用路由
+  Mickey 会根据上面 3 中类型初始化路由系统，如果 `historyMode` 不是上述三种之一则表示不使用路由组件。
+  
+  默认值为 `undefined` 表示默认不使用路由。
 
 #### `options.initialState`
 - 默认值：`{}`
@@ -96,9 +98,15 @@ const app = createApp(options);
 #### `options.extensions`
 - 默认值：`{}`
 
-  应用扩展点，目前支持
-  - `createReducer`：默认使用 [redux-actions](https://github.com/reduxactions/redux-actions) 模块的 [`handleActions`](https://redux-actions.js.org/docs/api/handleAction.html) 来包装模型中的 `reducer`，可以通过设置 `options.extensions.createReducer` 来替换默认实现。例如，在 [Counter-Immutable](../../examples/counter-immutable) 中需要使用 [redux-immutablejs](https://github.com/indexiatech/redux-immutablejs) 模块提供的 [`createReducer`](https://github.com/indexiatech/redux-immutablejs#immutable-handler-map-reducer-creator) 方法来替换
-  - `combineReducers`：默认使用 [redux](https://github.com/reactjs/redux) 的 [`combineReducers`](http://redux.js.org/docs/api/combineReducers.html) 来将模型中的 `reducer` 连接在一起，可以通过设置 `options.extensions.combineReducers` 来替换默认实现。例如，在 [Counter-Immutable](../../examples/counter-immutable) 中需要使用 [redux-immutablejs](https://github.com/indexiatech/redux-immutablejs) 模块提供的 [`combineReducers`](https://github.com/indexiatech/redux-immutablejs#initial-state) 方法来替换
+  应用扩展点，目前支持如下两个扩展：
+
+##### `createReducer`
+
+Mickey 默认使用 [redux-actions](https://github.com/reduxactions/redux-actions) 模块提供的 [`handleActions`](https://redux-actions.js.org/docs/api/handleAction.html) 方法来包装模型中的 `reducer`，可以通过设置 `options.extensions.createReducer` 来替换默认实现。例如，在 [Counter-Immutable](../../examples/counter-immutable) 中需要使用 [redux-immutablejs](https://github.com/indexiatech/redux-immutablejs) 模块提供的 [`createReducer`](https://github.com/indexiatech/redux-immutablejs#immutable-handler-map-reducer-creator) 方法来替换。
+
+##### `combineReducers`
+
+Mickey 默认使用 [redux](https://github.com/reactjs/redux) 提供的 [`combineReducers`](http://redux.js.org/docs/api/combineReducers.html) 方法将模型中的 `reducer` 连接在一起，可以通过设置 `options.extensions.combineReducers` 来替换默认实现。例如，在 [Counter-Immutable](../../examples/counter-immutable) 中需要使用 [redux-immutablejs](https://github.com/indexiatech/redux-immutablejs) 模块提供的 [`combineReducers`](https://github.com/indexiatech/redux-immutablejs#initial-state) 方法来替换
 
 ### `app.hook(hooks)`
 
@@ -106,7 +114,7 @@ const app = createApp(options);
 
 ### `app.model(model)`
 
-装载模型指定的模型。
+装载指定的模型，模型的结构分解如下：
 
 #### `model.namespace` 
 
@@ -118,7 +126,7 @@ app.model({ namespace: 'app/content' })
 app.model({ namespace: 'common' })
 ```
 
-那么 `store` 和 `actions` 的结构如下：
+那么得到的 `store` 和 `actions` 结构如下：
 
 ```
 store/actions
@@ -130,7 +138,7 @@ store/actions
 
 虽然可以使用 `/` 来划分 `store` 的层级结构，但**请注意一定不要使 `store` 的结果过于复杂**。
 
-命名空间**不可缺省**，当使用 [babel-plugin-mickey-model-loader](https://github.com/mickeyjsx/babel-plugin-mickey-model-loader) 提供的 `app.load(pattern)` 方法来加载模型时，会自动根据模型所在目录结构确定模型的命名空间，只有在使用 `app.load(pattern)` 时才可以不指定模型的命令空间，例如上面的三个模型对应的目录结构为：
+命名空间**不可缺省**，当使用 [babel-plugin-mickey-model-loader](https://github.com/mickeyjsx/babel-plugin-mickey-model-loader) 提供的 `app.load(pattern)` 方法来加载模型时会根据模型所在目录结构确定模型的命名空间，此时可以不指定模型的命令空间，看下面的三个模型的目录结构，将得到与上面相同的结构。
 
 ```
 .  
@@ -141,7 +149,12 @@ store/actions
       └── common.js
 ```
 
-
+#### `model.state`
+#### `model.actions`
+#### `model.effects`
+#### `model.subscriptions`
+#### `model.createReducer`
+#### `model[...groups]`
 
 ### `app.eject(namespace)`
 
