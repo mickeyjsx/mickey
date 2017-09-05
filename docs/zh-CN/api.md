@@ -5,32 +5,32 @@
 ## 概览
 
 - [createApp(options)](#createappoptions)
-  - [options.hooks]()
-  - [options.historyMode]()
-  - [options.initialState]()
-  - [options.initialReducer]()
-  - [options.extensions]()
-    - [options.extensions.createReducer]()
-    - [options.extensions.combineReducers]()
+  - [options.hooks](#optionshooks)
+  - [options.historyMode](#optionshistorymode)
+  - [options.initialState](#optionsinitialstate)
+  - [options.initialReducer](#optionsinitialreducer)
+  - [options.extensions](#optionsextensions)
+    - [options.extensions.createReducer](#createreducer)
+    - [options.extensions.combineReducers](#combinereducers)
 - [app.model(model)](#appmodelmodel)
-  - [model.namespace]()
-  - [model.state]()
-  - [model.subscriptions]()
-  - [model.enhancers]()
-  - [model.createReducer]()
-  - [model[...actionsAndEffects]]()
+  - [model.namespace](#modelnamespace)
+  - [model.state](#modelstate)
+  - [model.subscriptions](#modelsubscriptions)
+  - [model.enhancers](#modelenhancers)
+  - [model.createReducer](#modelcreatereducer)
+  - [model[...actionsAndEffects]](#modelactionsandeffects)
 - [app.eject(namespace)](#appejectnamespace)
 - [app.has(namespace)](#apphasnamespace)
 - [app.load(pattern)](#apploadpattern)
 - [app.render(component, container, callback)](#apprendercomponent-container-callback)
 - [app.hook(hooks)](#apphookhooks)
-  - [hooks.onError]()
-  - [hooks.onAction]()
-  - [hooks.onEffect]()
-  - [hooks.onReducer]()
-  - [hooks.onStateChange]()
-  - [hooks.extraReducers]()
-  - [hooks.extraEnhancers]()
+  - [hooks.onError](#hooksonerror)
+  - [hooks.onAction](#hooksonaction)
+  - [hooks.onEffect](#hooksoneffect)
+  - [hooks.onReducer](#hooksonreducer)
+  - [hooks.onStateChange](#hooksonstatechange)
+  - [hooks.extraReducers](#hooksextrareducers)
+  - [hooks.extraEnhancers](#hooksextraenhancers)
 
 ## 模块输出
 
@@ -420,7 +420,7 @@ export default {
 
 #### model.createReducer
 
-与 `createApp(options)` 的 `options.createReducer` 意义一样，不同的是这里只作用与本模型，一旦指定则具有最高优先级。
+与 [options.extensions.createReducer](#createreducer) 意义一样，不同的是这里只作用与本模型，一旦指定则具有最高优先级。
 
 ### app.eject(namespace)
 
@@ -567,7 +567,7 @@ const app = createApp({
 });
 ```
 
-与 `createApp(options)` 中 `options.initialReducer` 不一样的是，`extraReducers` 指定的 reducer 不能多层嵌套，必须是简单的 `key/value` 格式。
+与 [options.initialReducer](#optionsinitialreducer) 不一样的是，`extraReducers` 指定的 reducer 不能多层嵌套，必须是简单的 `key/value` 格式。
 
 #### hooks.extraEnhancers
 
