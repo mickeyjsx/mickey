@@ -5,6 +5,7 @@ import {
   ucfirst,
   prefixType,
   prefixObject,
+  isArray,
   isFunction,
   isGeneratorFn,
 } from './utils'
@@ -17,7 +18,10 @@ function fillGroup(group, type, method, callback) {
   }
 
   // If a method is generator function then it should be an effect.
-  if (isGeneratorFn(method)) {
+  if (isGeneratorFn(method)
+    // [ *effect(){}, type ]
+    || (isArray(method) && isGeneratorFn(method[0]))
+  ) {
     actions[type] = type
     effects[type] = method
     group.effectCount += 1
