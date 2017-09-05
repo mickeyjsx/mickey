@@ -13,8 +13,8 @@ function wrap(reducers) {
 }
 
 export default function getReducer(globalReducerCreator, model) {
-  const { state, reducers, enhancers, reducerCreator } = model
+  const { state, reducers, enhancers, createReducer } = model
   const enhancer = getEnhancer(enhancers)
-  const creator = reducerCreator || globalReducerCreator || defaultReducerCreator
+  const creator = createReducer || globalReducerCreator || defaultReducerCreator
   return enhancer(creator(state, wrap(reducers)))
 }

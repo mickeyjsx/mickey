@@ -73,7 +73,7 @@ export default function createModel(m) {
     reducers = {},
     enhancers,
     subscriptions,
-    reducerCreator,
+    createReducer,
     ...others
   } = m
 
@@ -105,7 +105,7 @@ export default function createModel(m) {
     state,
     enhancers,
     subscriptions,
-    reducerCreator,
+    createReducer,
     actions,
     effects: prefixObject(namespace, _effects),
     reducers: prefixObject(namespace, _reducers),
