@@ -1,10 +1,6 @@
 import { NAMESPACE_SEP } from './constants'
 import { prefixType } from './utils'
 
-const actions = {}
-
-export default actions // the global actions
-
 export function getModelActions(model, dispatch) {
   const { actions: modelActions, namespace } = model
   return Object.keys(modelActions).reduce((memo, methodName) => ({
@@ -30,6 +26,7 @@ function createActions(app, model) {
 }
 
 export function addActions(app, model) {
+  const { actions } = app
   const { namespace } = model
   const nss = namespace.split(NAMESPACE_SEP)
   let temp = actions
@@ -45,7 +42,8 @@ export function addActions(app, model) {
   return actions
 }
 
-export function removeActions(namespace) {
+export function removeActions(app, namespace) {
+  const { actions } = app
   const nss = namespace.split(NAMESPACE_SEP)
   const lastIndex = nss.length - 1
 

@@ -9,7 +9,7 @@ import registerModel from './registerModel'
 import internalModel from './internalModel'
 import createReducer from './createReducer'
 import createHistory from './createHistory'
-import actions, { removeActions } from './actions'
+import { removeActions } from './actions'
 import steupHistoryHooks from './steupHistoryHooks'
 import createErrorHandler from './createErrorHandler'
 import createPromiseMiddleware from './createPromiseMiddleware'
@@ -39,7 +39,7 @@ export default function createApp(options = {}) {
   return Object.assign(app, {
     plugin,
     history,
-    actions,
+    actions: {},
     models: [createModel({ ...internalModel })],
 
     // check the namespace available or not
@@ -54,7 +54,7 @@ export default function createApp(options = {}) {
       // remove the old one
       if (app.has(namespace)) {
         app.models = app.models.filter(m => m.namespace !== namespace)
-        removeActions(namespace)
+        removeActions(app, namespace)
       }
 
       regModel(raw)
@@ -170,7 +170,7 @@ export default function createApp(options = {}) {
 
           unlistenSubscription(unlisteners, namespace)
           app.models = app.models.filter(m => m.namespace !== namespace)
-          removeActions(namespace)
+          removeActions(app, namespace)
 
           return app
         },
