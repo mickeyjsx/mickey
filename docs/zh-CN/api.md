@@ -231,13 +231,13 @@ app.model({
 
 - 数组：`[*(payload, effects, callbacks, innerActions, actions) => void, { type } ]`
 
-  处理异步操作和业务逻辑的另一种格式，可以通过 type 指定调用 effect 的方式：
+  处理异步操作和业务逻辑的另一种格式，可以通过 type 指定调用 effect 的方式：
 
   - `'takeEvery'`
   - `'takeLatest'`
   - `'throttle'`
   - `'watcher'`
-  
+  
   当 `type` 为 `'throttle'` 时还需要指定 throttle 的时间间隔：`[*(...) => void, { type, ms } ]`
 
 - 对象
@@ -249,7 +249,7 @@ app.model({
   2. 触发异步 action 发起异步接口调用
   3. 对调用成功和失败两种情况处理接口返回，并触发对应的同步 action 来修改 `state` 中的数据
 
-  上面几步组合在一起可以暂且称为“异步处理单元”，如果按上面的思路来设计，那么模型看来像下面这样：
+  上面几步组合在一起可以暂且称为“异步处理单元”，如果按上面的思路来设计，那么模型看来像下面这样：
 
   ```js
   {
@@ -267,7 +267,7 @@ app.model({
   }
   ```
 
-  对一个异步 action 处理需要 4 个对应的处理函数，而这 4 个处理函数的相关性极强，分开来写看起来并没有那么优雅，所有 mickey 提供了更加“模块化”的形式：
+  对一个异步 action 处理需要 4 个对应的处理函数，而这 4 个处理函数的相关性极强，分开来写看起来并没有那么优雅，所有 mickey 提供了更加“模块化”的形式：
 
   ```js
   {
@@ -309,11 +309,11 @@ app.model({
 
   对于一个“异步处理单元”有几点需要强调：
   - 在一个“异步处理单元”中需要**至少包含一个**同步或异步 action 的处理方法
-  - `effect` 这个方法名**随意**，在 mickey 内部是通过判断一个函数是否是 Generator 来确定它是不是一个异步处理方法
-  - `prepare` 这个方法名必须**固定**，只能这样 mickey 才知道这是一个同步处理方法，并且需要在触发 `query` 这个 action 时同时触发 `prepare`。也就是说，当触发 `query` 这个 action 时 `effect` 和 `prepare` 将被“同时”触发
-  - 除 `effect` 和 `prepare` 之外的其他方法都被称为“回调”（callback），回调方法名**随意**，这些方法名将分别以如下形式注入到异步处理函数的参数中：
+  - `effect` 这个方法名**随意**，在 mickey 内部是通过判断一个函数是否是 Generator 来确定它是不是一个异步处理方法
+  - `prepare` 这个方法名必须**固定**，只能这样 mickey 才知道这是一个同步处理方法，并且需要在触发 `query` 这个 action 时同时触发 `prepare`。也就是说，当触发 `query` 这个 action 时 `effect` 和 `prepare` 将被“同时”触发
+  - 除 `effect` 和 `prepare` 之外的其他方法都被称为“回调”（callback），回调方法名**随意**，这些方法名将分别以如下形式注入到异步处理函数的参数中：
     - `callbacks` 中以同名的方式注入，如 `success` 和 `failed`；
-    - `innerActions` 中将以 `actionName + 驼峰(callback)` 命名注入对应的函数，如 `querySuccess` 和 `queryFiled`
+    - `innerActions` 中将以 `actionName + 驼峰(callback)` 命名注入对应的函数，如 `querySuccess` 和 `queryFiled`
     - `actions` 中注入的方法名与 `innerActions` 一样，不同的是在 `actions` 的方法都需要用完整的命名空间来调用，如 `todo.querySuccess()` 和 `todo.queryFailed()`
   - 所有回调方法的参数签名都一样：`(payload) => void`，如：`success(data)` 或 `innerActions.del(id)`
 
@@ -321,15 +321,15 @@ app.model({
 
 同步 action 处理方法：`(state, payload) => newState`：
 - `state` 模型原来的数据
-- `payload` 对应 [redux](https://github.com/reactjs/redux) 的 [action](http://redux.js.org/docs/basics/Actions.html) 中的 `payload`。在使用 mickey 开发应用时，不再需要关心和维护 `action.type` 这个字符串，所以 mickey 就干脆隐藏了内部维护的 `action.type` 字符串 
+- `payload` 对应 [redux](https://github.com/reactjs/redux) 的 [action](http://redux.js.org/docs/basics/Actions.html) 中的 `payload`。在使用 mickey 开发应用时，不再需要关心和维护 `action.type` 这个字符串，所以 mickey 就干脆隐藏了内部维护的 `action.type` 字符串 
 
 异步 action 处理方法：`(payload, sagaEffects, callbacks, innerActions, actions) => void`：
 
 - `payload` 与同步上面提到的同步 action 处理函数中的 `payload` 意义一样
 - `sagaEffects` [redux-saga](https://redux-saga.js.org) 中 [effects](https://redux-saga.js.org/docs/api/#effect-creators) 列表 
 - `callbacks` 一个"异步处理单元"的回调集合，用于触发该“异步处理单元”中的回调 action
-- `innerActions` 本模型所有 action 的集合，用于跨“异步处理单元”触发该模型内部的其他 action
-- `actions` 应用所有 action 的集合，通过模型命名空间访问，用于跨模型触发其他模型中的 action
+- `innerActions` 本模型所有 action 的集合，用于跨“异步处理单元”触发该模型内部的其他 action
+- `actions` 应用所有 action 的集合，通过模型命名空间访问，用于跨模型触发其他模型中的 action
 
 
 #### model.subscriptions
