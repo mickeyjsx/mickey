@@ -96,7 +96,7 @@ const app = createApp(options);
 
 - 默认值：`{}`
 
-  指定应用的初始 [reducer](http://redux.js.org/docs/basics/Reducers.html) 函数，将与模型中指定的 `reducer` 一起被 [combine](http://redux.js.org/docs/api/combineReducers.html) 成为 [createStore](http://redux.js.org/docs/api/createStore.html) 需要的 `reducer`。 
+  指定应用的初始 [reducer](http://redux.js.org/docs/basics/Reducers.html) 函数，将与模型中指定的 `reducer` 一起被 [combine](http://redux.js.org/docs/api/combineReducers.html) 成为 [createStore](http://redux.js.org/docs/api/createStore.html) 需要的 `reducer`。`initialReducer` 结构可以像命名空间那样多层嵌套。
 
 
 #### options.extensions
@@ -308,22 +308,22 @@ app.model({
   ```
 
   对于一个“异步处理单元”有几点需要强调：
-  - 在一个“异步处理单元”中需要**至少包含一个**同步或异步 action 的处理函数
+  - 在一个“异步处理单元”中需要**至少包含一个**同步或异步 action 的处理方法
   - `effect` 这个方法名**随意**，在 mickey 内部是通过判断一个函数是否是 Generator 来确定它是不是一个异步处理方法
   - `prepare` 这个方法名必须**固定**，只能这样 mickey 才知道这是一个同步处理方法，并且需要在触发 `query` 这个 action 时同时触发 `prepare`。也就是说，当触发 `query` 这个 action 时 `effect` 和 `prepare` 将被“同时”触发
-  - 除 `effect` 和 `prepare` 之外的其他方法都被称为“回调”（callback），回调函数名**随意**，这些函数名将分别以如下形式注入到异步处理函数的参数中：
-    - `callbacks` 中将注入同名的函数，如 `success` 和 `failed`；
-    - `innerActions` 中将以 `actionName + 驼峰(callback)` 函数名注入对应的函数，如 `querySuccess` 和 `queryFiled`
-    - `actions` 中注入的函数名与 `innerActions` 一样，不同的是在 `actions` 的函数都需要用完整的命名空间来调用，如 `todo.querySuccess()` 和 `todo.queryFailed()`
-  - 所有回调函数的参数签名都一样：`(payload) => void`
+  - 除 `effect` 和 `prepare` 之外的其他方法都被称为“回调”（callback），回调方法名**随意**，这些方法名将分别以如下形式注入到异步处理函数的参数中：
+    - `callbacks` 中以同名的方式注入，如 `success` 和 `failed`；
+    - `innerActions` 中将以 `actionName + 驼峰(callback)` 命名注入对应的函数，如 `querySuccess` 和 `queryFiled`
+    - `actions` 中注入的方法名与 `innerActions` 一样，不同的是在 `actions` 的方法都需要用完整的命名空间来调用，如 `todo.querySuccess()` 和 `todo.queryFailed()`
+  - 所有回调方法的参数签名都一样：`(payload) => void`，如：`success(data)` 或 `innerActions.del(id)`
 
-下面分别看看同步和异步处理函数的参数签名。
+下面分别看看同步和异步处理方法的方法签名。
 
-同步 action 处理函数：`(state, payload) => newState`：
+同步 action 处理方法：`(state, payload) => newState`：
 - `state` 模型原来的数据
 - `payload` 对应 [redux](https://github.com/reactjs/redux) 的 [action](http://redux.js.org/docs/basics/Actions.html) 中的 `payload`。在使用 mickey 开发应用时，不再需要关心和维护 `action.type` 这个字符串，所以 mickey 就干脆隐藏了内部维护的 `action.type` 字符串 
 
-异步 action 处理函数：`(payload, sagaEffects, callbacks, innerActions, actions) => void`：
+异步 action 处理方法：`(payload, sagaEffects, callbacks, innerActions, actions) => void`：
 
 - `payload` 与同步上面提到的同步 action 处理函数中的 `payload` 意义一样
 - `sagaEffects` [redux-saga](https://redux-saga.js.org) 中 [effects](https://redux-saga.js.org/docs/api/#effect-creators) 列表 
@@ -343,7 +343,7 @@ app.model({
 
 #### model.enhancers
 
-封装模型内部 reducer 执行。例如，在 [Counter-Persist](https://github.com/mickeyjsx/mickey/blob/master/examples/counter-persist) 示例中，需要在模型手动处理 rehydrate 过程：
+封装模型内部 reducer 执行。例如，在 [Counter-Persist](https://github.com/mickeyjsx/mickey/blob/master/examples/counter-persist) 示例中，需要在模型中手动处理 rehydrate 过程：
 
 ```es6
 import { REHYDRATE } from 'redux-persist/constants'
@@ -383,7 +383,7 @@ export default {
 }
 ```
 
-再如，在 [Counter-Undo](https://github.com/mickeyjsx/mickey/blob/master/examples/counter-undo) 示例中，我们只需要对 counter 这个模型（当然这里没有其他模型）实现 redo/undo：
+再如，在 [Counter-Undo](https://github.com/mickeyjsx/mickey/blob/master/examples/counter-undo) 示例中，我们需要对 `counter` 这个模型实现 redo/undo：
 
 ```es6
 import undoable from 'redux-undo'
@@ -478,10 +478,132 @@ app.render(<App />, document.getElementById('root'), {
 
 注册应用插件。`hooks` 包含：
 
-#### onError()
-#### onAction()
-#### onEffect()
-#### onReducer()
-#### onStateChange()
-#### extraReducers()
-#### extraEnhancers()
+#### hooks.onError
+
+`effect` 执行错误或 `subscription` 通过 `done` 主动抛错时触发，可用于管理全局出错状态。
+
+注意：`subscription` 并没有加 `try...catch`，所以有错误时需通过参数 `done` 主动抛错。例如：
+
+```js
+app.model({
+  subscriptions: {
+    setup({ history }, innerAction, actions, done) {
+      done(e);
+    },
+  },
+});
+```
+
+如果我们用 antd，那么最简单的全局错误处理可以这么做：
+
+```es6
+import { message } from 'antd';
+import createApp from 'mickey'
+
+const app = createApp({
+  hooks: {
+    onError(e) {
+      message.error(e.message, /* duration */3);
+    },
+  },
+});
+```
+
+#### hooks.onAction
+
+在 action 被 dispatch 时触发，用于注册 redux 中间件。支持函数或函数数组格式。
+
+例如我们要通过 redux-logger 打印日志：
+
+```es6
+import createApp from 'mickey'
+import createLogger from 'redux-logger';
+const app = createApp({
+  hooks: {
+    onAction: createLogger(opts),
+  },
+});
+```
+
+#### hooks.onEffect
+
+封装 effect 执行。
+
+#### hooks.onReducer
+
+封装 reducer 执行。比如借助 [redux-undo](https://github.com/omnidan/redux-undo) 实现 redo/undo ：
+
+```es6
+import createApp from 'mickey'
+import undoable from 'redux-undo';
+const app = createApp({
+  hooks:{
+    onReducer: reducer => {
+      return (state, action) => {
+        return undoable(reducer)(state, action);
+      },
+    },
+  },
+});
+```
+
+#### hooks.onStateChange
+
+`state` 改变时触发，可用于同步 `state` 到 localStorage，服务器端等。
+
+#### hooks.extraReducers
+
+指定额外的 reducer，比如 [redux-form](https://github.com/erikras/redux-form) 需要指定额外的 `form` reducer：
+
+```es6
+import createApp from 'mickey'
+import { reducer as formReducer } from 'redux-form'
+const app = createApp({
+  hooks: {
+    extraReducers: {
+      form: formReducer,
+    },
+  },
+});
+```
+
+与 `createApp(options)` 中 `options.initialReducer` 不一样的是，`extraReducers` 指定的 reducer 不能多层嵌套，必须是简单的 `key/value` 格式。
+
+#### hooks.extraEnhancers
+
+指定额外的 [StoreEnhancer](https://github.com/reactjs/redux/blob/master/docs/Glossary.md#store-enhancer) ，比如在 [Counter-Persist](https://github.com/mickeyjsx/mickey/blob/master/examples/counter-persist) 示例中结合 [redux-persist](https://github.com/rt2zz/redux-persist) 的使用：
+
+```es6
+import createApp, { applyMiddleware } from 'mickey'
+import { persistStore, autoRehydrate } from 'redux-persist'
+import { REHYDRATE } from 'redux-persist/constants'
+import createActionBuffer from 'redux-action-buffer'
+import App from './App'
+
+const app = createApp({
+  hooks: {
+    extraEnhancers: [
+      // add `autoRehydrate` as an enhancer to your store
+      autoRehydrate(),
+      // make sure to apply this after autoRehydrate
+      applyMiddleware(
+        // buffer other reducers before rehydrated
+        createActionBuffer(REHYDRATE),
+      ),
+    ],
+  },
+})
+app.model(require('./models/counter.js'))
+app.render(<App />, document.getElementById('root'), {
+  beforeRender: ({ store }) => new Promise(((resolve) => {
+    // begin periodically persisting the store
+    persistStore(store, {
+      debounce: 500,
+      whitelist: ['counter'],
+      keyPrefix: 'mickey:',
+    }, () => {
+      resolve() // delay render after rehydrated
+    })
+  })),
+})
+```
