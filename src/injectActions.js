@@ -14,25 +14,24 @@ export default function injectActions(WrappedComponent, options = {}) {
     constructor(props, context) {
       super(props, context)
       const { actions } = context
-      invariant(
-        actions,
-        '[injectActions] Could not find required `actions` object. ' +
-        '<ActionsProvider> needs to exist in the component ancestry.',
-      )
-    }
-
-    shouldComponentUpdate() {
-      return false
+      if (process.env.NODE_ENV !== 'production') {
+        invariant(
+          actions,
+          '[injectActions] Could not find required `actions` object. ' +
+          '<ActionsProvider> needs to exist in the component ancestry.',
+        )
+      }
     }
 
     getWrappedInstance() {
-      invariant(
-        withRef,
-        '[React Intl] To access the wrapped instance, ' +
-        'the `{withRef: true}` option must be set when calling: ' +
-        '`injectIntl()`',
-      )
-
+      if (process.env.NODE_ENV !== 'production') {
+        invariant(
+          withRef,
+          '[React Intl] To access the wrapped instance, ' +
+          'the `{withRef: true}` option must be set when calling: ' +
+          '`injectIntl()`',
+        )
+      }
       return this.wrappedInstance
     }
 
