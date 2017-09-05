@@ -1,10 +1,13 @@
 # Mickey
 
+<img src="http://ojh17srjb.bkt.gdipper.com/mickey.svg" alt="mickey.svg" width="160px" align="right">
+
 > 一款轻量、高效、易上手的前端框架，无痛开发基于 React 和 Redux 的应用
 
-> 完全基于 [redux](https://github.com/reactjs/redux)，[redux-saga](https://github.com/yelouafi/redux-saga) 和 [react-router](https://github.com/ReactTraining/react-router)，对 Redux 用户极其友好 (Inspired by [dva](https://github.com/dvajs/dva))
+> 完全基于 [redux](https://github.com/reactjs/redux)，[redux-saga](https://github.com/yelouafi/redux-saga) 和 [react-router](https://github.com/ReactTraining/react-router) 实现，对 Redux 用户极其友好 
 
-<img src="http://ojh17srjb.bkt.gdipper.com/mickey.svg" alt="mickey.svg" width="160px">
+> (Inspired by [dva](https://github.com/dvajs/dva))
+
 
 [![MIT License](https://img.shields.io/badge/license-MIT_License-green.svg?style=flat-square)](https://github.com/mickey/mickey/blob/master/LICENSE)
 
