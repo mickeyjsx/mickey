@@ -91,7 +91,7 @@ app.render(<App />, document.getElementById('root'))
 
 ## More
 
-- [API Reference](./docs/en-US/API.md)
+- [API Reference](./docs/en-US/api.md)
 - [mickey.svg](./mickey.svg) badaged in this document is download from [Free Vectors](http://all-free-download.com/free-vector/download/disney-disney-vector_288586.html)
 
 
