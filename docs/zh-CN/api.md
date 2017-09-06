@@ -629,7 +629,7 @@ app.render(<App />, document.getElementById('root'), {
 
 ```jsx
 import React from 'react'
-import { actions, connect, injectActions } from 'mickey'
+import { connect, injectActions } from 'mickey'
 import './App.css'
 
 const App = props => (

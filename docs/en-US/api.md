@@ -82,7 +82,7 @@ For example, [Counter](https://github.com/mickeyjsx/mickey/blob/master/examples/
 
 ```jsx
 import React from 'react'
-import { actions, connect, injectActions } from 'mickey'
+import { connect, injectActions } from 'mickey'
 import './App.css'
 
 const App = props => (
