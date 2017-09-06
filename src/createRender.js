@@ -1,8 +1,9 @@
+import invariant from 'invariant'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import Provider from './Provider'
+import { isFunction, isString, isHTMLElement } from './utils'
 
-import { isFunction } from './utils'
 
 function getCallbacks(options) {
   if (isFunction(options)) {
@@ -11,6 +12,7 @@ function getCallbacks(options) {
   return options || {}
 }
 
+
 export default function createRender(app, component, container, callback) {
   // return a render function
   return (_component, _container, _callback) => {
@@ -18,7 +20,18 @@ export default function createRender(app, component, container, callback) {
     // real render function
     const innerRender = (componentFromPromise, containerFromPromise) => {
       const comp = componentFromPromise || component
-      const wrap = containerFromPromise || container
+      let wrap = containerFromPromise || container
+
+      if (wrap) {
+        if (isString(wrap)) {
+          wrap = document.getElementById(wrap)
+          invariant(wrap, `[app.render] container with id "${container}" not exist`)
+        }
+
+        invariant(isHTMLElement(wrap), '[app.render] container should be HTMLElement')
+      }
+
+
       const canRender = comp && wrap
       if (canRender) {
         ReactDOM.render(<Provider app={app}>{comp}</Provider>, wrap); // eslint-disable-line
