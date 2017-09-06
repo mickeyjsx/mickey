@@ -9,9 +9,12 @@ import registerModel from './registerModel'
 import internalModel from './internalModel'
 import createReducer from './createReducer'
 import createHistory from './createHistory'
+import { prefixType } from './utils'
 import { removeActions } from './actions'
+import { CANCEL_EFFECTS } from './constants'
 import steupHistoryHooks from './steupHistoryHooks'
 import createErrorHandler from './createErrorHandler'
+
 import { run as runSubscription, unlisten as unlistenSubscription } from './subscription'
 
 
@@ -157,8 +160,8 @@ export default function createApp(options = {}) {
           delete reducers[namespace]
 
           store.replaceReducer(innerCreateReducer(store.asyncReducers))
-          store.dispatch({ type: '@@internal/UPDATE' })
-          store.dispatch({ type: `${namespace}/@@CANCEL_EFFECTS` })
+          store.dispatch({ type: '@@MICKEY/UPDATE' })
+          store.dispatch({ type: prefixType(namespace, CANCEL_EFFECTS) })
 
           unlistenSubscription(unlisteners, namespace)
           app.models = app.models.filter(m => m.namespace !== namespace)

@@ -8,13 +8,14 @@ import {
 } from 'redux-saga/lib/internal/sagaHelpers'
 import { delay, CANCEL as CANCEL_DELAY } from 'redux-saga'
 import * as sagaEffects from 'redux-saga/effects'
+import { CANCEL_EFFECTS } from './constants'
 import { prefixType, unfixType, prefixAndValidate } from './utils'
 import { getModelActions } from './actions'
 
 
-function applyOnEffect(onEffect, effect, model, type) {
-  return onEffect.reduce(
-    (memo, handler) => handler(memo, sagaEffects, model, type),
+function applyOnEffect(handlers, effect, metadata) {
+  return handlers.reduce(
+    (_effect, handler) => handler(_effect, sagaEffects, metadata),
     effect,
   )
 }
@@ -96,23 +97,32 @@ function getWatcher({ onError, onEffect, app, model, type, effect }) {
     )
   }
 
+  const metadata = {
+    app,
+    model,
+    type,
+    effects: getEffects(model),
+    callbacks: getCallbacks(model, type),
+    innerActions: getModelActions(model, sagaEffects.put),
+    actions: app.actions,
+  }
+
   function* sagaWithCatch(...args) {
-    const { put } = sagaEffects
     const { payload } = args[0]
     try {
       yield effectFn(
         payload,
-        getEffects(model),
-        getCallbacks(model, type),
-        getModelActions(model, put),
-        app.actions,
+        metadata.effects,
+        metadata.callbacks,
+        metadata.innerActions,
+        metadata.actions,
       )
     } catch (err) {
       onError(err)
     }
   }
 
-  const sagaWithOnEffect = applyOnEffect(onEffect, sagaWithCatch, model, type)
+  const sagaWithOnEffect = applyOnEffect(onEffect, sagaWithCatch, metadata)
 
   switch (effectType) {
     case 'watcher':
@@ -141,7 +151,7 @@ export default function getSaga(onError, onEffect, app, model) {
       const watcher = getWatcher({ onError, onEffect, app, model, type, effect: effects[type] })
       const task = yield sagaEffects.fork(watcher)
       yield sagaEffects.fork(function* () {
-        yield sagaEffects.take(prefixType(namespace, '@@CANCEL_EFFECTS'))
+        yield sagaEffects.take(prefixType(namespace, CANCEL_EFFECTS))
         yield sagaEffects.cancel(task)
       })
     }
