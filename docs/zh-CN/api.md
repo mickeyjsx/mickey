@@ -444,7 +444,7 @@ export default {
 
 ### app.render(component, container, callback)
 
-渲染组件到指定的容器中，并提供回调或 [AOP](https://zh.wikipedia.org/zh-hans/%E9%9D%A2%E5%90%91%E4%BE%A7%E9%9D%A2%E7%9A%84%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1) 支持；`callback` 是函数时 `(app) => {}` 将在渲染完成之后 `subscriptions` 之前执行；如果 `callback` 是形如下面对象：
+渲染组件到指定的容器中（HTML元素或元素ID），并提供回调或 [AOP](https://zh.wikipedia.org/zh-hans/%E9%9D%A2%E5%90%91%E4%BE%A7%E9%9D%A2%E7%9A%84%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1) 支持；`callback` 是函数时 `(app) => {}` 将在渲染完成之后 `subscriptions` 之前执行；如果 `callback` 是形如下面对象：
 
 ```es6
 {
