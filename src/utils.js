@@ -57,5 +57,5 @@ export const getNamespaceFromPath = (path) => {
 
   parts.push(filename(file))
 
-  return parts.join(NAMESPACE_SEP)
+  return parts.join('.')
 }

@@ -94,7 +94,6 @@ export default function createModel(m) {
     Object.keys(reducers).forEach((type) => { actions[type] = type })
   }
 
-
   groups.forEach((group) => {
     Object.assign(actions, group.actions)
     Object.assign(_effects, group.effects)
@@ -104,15 +103,17 @@ export default function createModel(m) {
     }
   })
 
+  const ns = namespace.replace(/\//g, '_').replace(/\./g, '/')
+
   return {
-    namespace,
+    namespace: ns,
     state,
     enhancers,
     subscriptions,
     createReducer,
     actions,
-    effects: prefixObject(namespace, _effects),
-    reducers: prefixObject(namespace, _reducers),
-    callbacks: prefixObject(namespace, _callbacks),
+    effects: prefixObject(ns, _effects),
+    reducers: prefixObject(ns, _reducers),
+    callbacks: prefixObject(ns, _callbacks),
   }
 }
