@@ -170,11 +170,11 @@ export default {
 
 #### model.namespace
 
-指定模型的命名空间，命名空间可以使用 `/` 来划分层级结构，命名空间的层级结构决定了最终 `store` 和 `actions` 的层级结构，如：
+指定模型的命名空间，命名空间可以使用 `.` 来划分层级结构，命名空间的层级结构决定了最终 `store` 和 `actions` 的层级结构，如：
 
 ```js
-app.model({ namespace: 'app/header' })
-app.model({ namespace: 'app/content' })
+app.model({ namespace: 'app.header' })
+app.model({ namespace: 'app.content' })
 app.model({ namespace: 'common' })
 ```
 
@@ -188,7 +188,7 @@ store/actions
     └── common
 ```
 
-虽然可以使用 `/` 来划分 `store` 的层级结构，但**请注意一定不要使 `store` 的结果过于复杂**。
+虽然可以使用 `.` 来划分 `store` 的层级结构，但**请注意一定不要使 `store` 的结果过于复杂**。
 
 命名空间**不可缺省**，当使用 [babel-plugin-mickey-model-loader](https://github.com/mickeyjsx/babel-plugin-mickey-model-loader) 提供的 `app.load(pattern)` 方法来加载模型时会根据模型所在目录结构确定模型的命名空间，此时可以不指定模型的命令空间，看下面的模型的目录结构，通过 `app.load()` 之后将得到与上面相同的结构。
 
