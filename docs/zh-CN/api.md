@@ -322,11 +322,11 @@ app.model({
 
 下面分别看看同步和异步处理方法的方法签名。
 
-同步 action 处理方法：`(state, payload) => newState`：
+处理同步 action：`(state, payload) => newState`：
 - `state` 模型原来的数据
 - `payload` 对应 [redux](https://github.com/reactjs/redux) 的 [action](http://redux.js.org/docs/basics/Actions.html) 中的 `payload`。在使用 mickey 开发应用时，不再需要关心和维护 `action.type` 这个字符串，所以 mickey 就干脆隐藏了内部维护的 `action.type` 字符串 
 
-异步 action 处理方法：`(payload, sagaEffects, callbacks, innerActions, actions) => void`：
+处理异步 action：`(payload, sagaEffects, callbacks, innerActions, actions) => void`：
 
 - `payload` 与同步上面提到的同步 action 处理函数中的 `payload` 意义一样
 - `sagaEffects` [redux-saga](https://redux-saga.js.org) 中 [effects](https://redux-saga.js.org/docs/api/#effect-creators) 列表 
