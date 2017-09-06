@@ -1,7 +1,12 @@
 import warning from 'warning'
-import { isFunction } from './utils'
+import { isFunction, getByPath } from './utils'
 import { getModelActions } from './actions'
 import prefixDispatch from './prefixDispatch'
+
+function getState(app, path, defaultValue) {
+  const state = app.store.getState()
+  return path ? getByPath(state, path, defaultValue) : state
+}
 
 export function run(subscriptions, model, app, onError) {
   const history = app.history
@@ -15,6 +20,8 @@ export function run(subscriptions, model, app, onError) {
     const sub = subscriptions[key]
     const unlistener = sub({
       history,
+      getState: (path, defaultValue) => getState(app, path, defaultValue),
+      // never need to call these method, just export for debug
       dispatch,
       innerDispatch: prefixDispatch(dispatch, model),
     }, innerActions, app.actions, onError)
