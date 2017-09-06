@@ -36,8 +36,8 @@
 
 1. 默认输出 `import createApp from 'mickey'` 
 2. 组件和方法输出
-  - <ActionsProvider actions>
-  - injectActions({propName = 'actions', withRef = false})
+  - &lt;ActionsProvider actions&gt;
+  - [injectActions({propName = 'actions', withRef = false})](#injectactionspropname--actions-withref--false)
 3. 原样输出以下模块中的组件和方法，mickey 负责管理这些依赖模块的[版本](https://github.com/mickeyjsx/mickey/blob/master/package.json#L31)，这样我们在需要使用到这些组件或方法时只需要从 mickey 中 `import` 进来即可，而不需要记住这些组件和方法都分别来自哪个模块。
   
 - [redux](https://github.com/reactjs/redux)
@@ -611,7 +611,7 @@ app.render(<App />, document.getElementById('root'), {
 })
 ```
 
-## <ActionsProvider actions>
+## &lt;ActionsProvider actions&gt;
 
 使 `app.actions` 可以被 `injectActions` 方法注入到子组件中。该组件在 mickey 内部的渲染过程中被使用，并不会在实际项目代码中使用。
 
