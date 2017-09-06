@@ -36,8 +36,8 @@
 
 1. 默认输出 `import createApp from 'mickey'` 
 2. 组件和方法输出
-  - ActionsProvider
-  - injectActions
+  - <ActionsProvider actions>
+  - injectActions({propName = 'actions', withRef = false})
 3. 原样输出以下模块中的组件和方法，mickey 负责管理这些依赖模块的[版本](https://github.com/mickeyjsx/mickey/blob/master/package.json#L31)，这样我们在需要使用到这些组件或方法时只需要从 mickey 中 `import` 进来即可，而不需要记住这些组件和方法都分别来自哪个模块。
   
 - [redux](https://github.com/reactjs/redux)
@@ -63,7 +63,7 @@
 
 ### createApp(options)
 
-创建应用，返回 mickey 实例：
+创建应用，返回 mickey 实例
 
 ```
 import createApp from 'mickey'
@@ -609,4 +609,50 @@ app.render(<App />, document.getElementById('root'), {
     })
   })),
 })
+```
+
+## <ActionsProvider actions>
+
+使 `app.actions` 可以被 `injectActions` 方法注入到子组件中。该组件在 mickey 内部的渲染过程中被使用，并不会在实际项目代码中使用。
+
+```
+<ActionsProvider actions={app.actions}>
+  <App />
+</ActionsProvider>
+```
+
+## injectActions({propName = 'actions', withRef = false})
+
+将 `actions` 注入到指定的组件属性中，属性名 (propName) 默认为 `actions`，这样在组件中就可以通过 `this.props.actions[path]` 来获取到指定的方法，进而触发对应的 action。当 `withRef = true` 时将保存一个被包裹组件的实例，可以通过 `this.getWrappedInstance()` 来获取到。
+
+例如，[Counter](https://github.com/mickeyjsx/mickey/blob/master/examples/counter) 实例：
+
+```jsx
+import React from 'react'
+import { actions, connect, injectActions } from 'mickey'
+import './App.css'
+
+const App = props => (
+  <div id="counter-app">
+    <h1>{props.count}</h1>
+    <div className="btn-wrap">
+      <button onClick={() => props.actions.counter.decrement()}>-</button>
+      <button onClick={() => props.actions.counter.increment()}>+</button>
+      <button
+        style={{ width: 100 }}
+        onClick={() => {
+          if (props.loading) {
+            alert('loading') // eslint-disable-line
+          } else {
+            props.actions.counter.incrementAsync()
+          }
+        }}
+      >
+        {props.loading ? 'loading' : '+ Async'}
+      </button>
+    </div>
+  </div>
+)
+
+export default injectActions(connect(store => ({ ...store.counter }))(App))
 ```
