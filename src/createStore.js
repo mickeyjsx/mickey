@@ -8,7 +8,6 @@ import { flatten } from './utils'
 export default function ({
   reducers,
   initialState,
-  promiseMiddleware,
   extraMiddlewares,
   extraEnhancers,
   onStateChange,
@@ -24,7 +23,6 @@ export default function ({
   const sagaMiddleware = createSagaMiddleware()
   const middlewares = setupMiddlewares([
     sagaMiddleware,
-    promiseMiddleware,
     ...flatten(extraMiddlewares, true),
   ])
 

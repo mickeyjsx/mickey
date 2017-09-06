@@ -12,7 +12,6 @@ import createHistory from './createHistory'
 import { removeActions } from './actions'
 import steupHistoryHooks from './steupHistoryHooks'
 import createErrorHandler from './createErrorHandler'
-import createPromiseMiddleware from './createPromiseMiddleware'
 import { run as runSubscription, unlisten as unlistenSubscription } from './subscription'
 
 
@@ -68,12 +67,6 @@ export default function createApp(options = {}) {
 
     // create store, steup reducer, start the app
     render(component, container, callback) {
-      const {
-        middleware: promiseMiddleware,
-        resolve,
-        reject,
-      } = createPromiseMiddleware(app)
-
       const onError = createErrorHandler(app)
       const onEffect = plugin.get('onEffect')
       const extraReducers = plugin.get('extraReducers')
@@ -82,7 +75,7 @@ export default function createApp(options = {}) {
       const sagas = []
       const reducers = { ...initialReducer }
 
-      const innerGetSaga = m => getSaga(resolve, reject, onError, onEffect, app, m)
+      const innerGetSaga = m => getSaga(onError, onEffect, app, m)
       const innerGetReducer = m => getReducer(reducerCreator, m)
       const innerCreateReducer = asyncReducers => createReducer({
         reducers,
@@ -103,7 +96,6 @@ export default function createApp(options = {}) {
         initialState,
         reducers: innerCreateReducer(),
         plugin,
-        promiseMiddleware,
         extraMiddlewares: plugin.get('onAction'),
         onStateChange: plugin.get('onStateChange'),
         extraEnhancers: plugin.get('extraEnhancers'),

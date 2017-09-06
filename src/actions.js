@@ -2,26 +2,25 @@ import { NAMESPACE_SEP } from './constants'
 import { prefixType } from './utils'
 
 export function getModelActions(model, dispatch) {
-  const { actions: modelActions, namespace } = model
-  return Object.keys(modelActions).reduce((memo, methodName) => ({
+  const { actions, namespace } = model
+  return Object.keys(actions).reduce((memo, methodName) => ({
     ...memo,
     [methodName]: payload => dispatch({
       payload,
-      type: prefixType(namespace, modelActions[methodName]),
+      type: prefixType(namespace, actions[methodName]),
     }),
   }), {})
 }
 
 function createActions(app, model) {
-  const { actions: modelActions, namespace } = model
-  return Object.keys(modelActions).reduce((memo, methodName) => ({
+  const { actions, namespace } = model
+  return Object.keys(actions).reduce((memo, methodName) => ({
     ...memo,
     // dispatch should be ready after the app started
     [methodName]: payload => app.store.dispatch({
       payload,
-      type: prefixType(namespace, modelActions[methodName]),
-    })
-    ,
+      type: prefixType(namespace, actions[methodName]),
+    }),
   }), {})
 }
 
