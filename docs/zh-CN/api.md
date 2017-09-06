@@ -34,9 +34,9 @@
 
 ## 模块输出
 
-1. 默认输出 `import createApp from 'mickey'` 
+1. 默认输出创建 mickey 实例的方法(如，`createApp`)，`import createApp from 'mickey'` 
 2. 组件和方法输出
-  - &lt;ActionsProvider actions&gt;
+  - [&lt;ActionsProvider actions&gt;](#actionsprovider-actions)
   - [injectActions({propName = 'actions', withRef = false})](#injectactionspropname--actions-withref--false)
 3. 原样输出以下模块中的组件和方法，mickey 负责管理这些依赖模块的[版本](https://github.com/mickeyjsx/mickey/blob/master/package.json#L31)，这样我们在需要使用到这些组件或方法时只需要从 mickey 中 `import` 进来即可，而不需要记住这些组件和方法都分别来自哪个模块。
   

@@ -32,10 +32,39 @@
   - [hooks.extraReducers](#hooksextrareducers)
   - [hooks.extraEnhancers](#hooksextraenhancers)
 
-## Module export
+## Module exports
+
+1. Default export a initialize method: `import createApp from 'mickey'` 
+2. Component and method
+  - [&lt;ActionsProvider actions&gt;](#actionsprovider-actions)
+  - [injectActions({propName = 'actions', withRef = false})](#injectactionspropname--actions-withref--false)
+3. Directly export The following components and methods from [dependencies](https://github.com/mickeyjsx/mickey/blob/master/package.json#L31).
+
+- [redux](https://github.com/reactjs/redux)
+  - [compose](http://redux.js.org/docs/api/compose.html)
+  - [applyMiddleware](http://redux.js.org/docs/api/applyMiddleware.html)
+- [react-redux](https://github.com/reactjs/react-redux)
+  - [connect](https://github.com/reactjs/react-redux/blob/master/docs/api.md#connectmapstatetoprops-mapdispatchtoprops-mergeprops-options)
+- [react-router](https://reacttraining.com/react-router/)  
+  - [StaticRouter](https://reacttraining.com/react-router/core/api/StaticRouter)
+  - [MemoryRouter](https://reacttraining.com/react-router/web/api/MemoryRouter)
+  - [Redirect](https://reacttraining.com/react-router/web/api/Redirect)
+  - [Prompt](https://reacttraining.com/react-router/core/api/Prompt)
+  - [Switch](https://reacttraining.com/react-router/core/api/Switch)
+  - [Route](https://reacttraining.com/react-router/core/api/Route)
+  - [withRouter](https://reacttraining.com/react-router/core/api/withRouter)
+- [react-router-dom](https://github.com/ReactTraining/react-router/tree/master/packages/react-router-dom)  
+  - [HashRouter](https://reacttraining.com/react-router/web/api/HashRouter)
+  - [BrowserRouter](https://reacttraining.com/react-router/web/api/BrowserRouter)
+  - [Link](https://reacttraining.com/react-router/web/api/Link)
+  - [NavLink](https://reacttraining.com/react-router/web/api/NavLink)
+
+## API
+
+### createApp(options)
 
 
-## <ActionsProvider actions>
+## &lt;ActionsProvider actions&gt;
 
 Makes the `actions` available to the `injectActions()` calls in the component hierarchy below. It was used in the `render` call,  like this:
 
