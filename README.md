@@ -61,10 +61,8 @@ app.model({
     count: 0,
     loading: false,
   },
-  reducers: {
-    increment: state => ({ ...state, count: state.count + 1 }),
-    decrement: state => ({ ...state, count: state.count - 1 }),
-  },
+  increment: state => ({ ...state, count: state.count + 1 }),
+  decrement: state => ({ ...state, count: state.count - 1 }),
   incrementAsync: {
     * effect(payload, { call }, { succeed }) {
       const delay = timeout => new Promise((resolve) => {
@@ -78,18 +76,20 @@ app.model({
   },
 })
 
+// Component
+const Comp = (props) => (
+  <div>
+    <h1>{props.counter.count}</h1>
+    <button onClick={() => props.actions.counter.decrement()}>-</button>
+    <button onClick={() => props.actions.counter.increment()}>+</button>
+    <button onClick={() => props.actions.counter.incrementAsync()}>+ Async</button>
+  </div>
+)
+
 // connect state with component and inject `actions`
 const App = injectActions(connect(state => {
   return {counter: state.counter}
-}))(props => (
-    <div>
-      <h1>{props.counter.count}</h1>
-      <button onClick={() => props.actions.counter.decrement()}>-</button>
-      <button onClick={() => props.actions.counter.increment()}>+</button>
-      <button onClick={() => props.actions.counter.incrementAsync()}>+ Async</button>
-    </div>
-  )
-)
+})(Comp))
 
 // 3. View
 app.render(<App />, document.getElementById('root'))
