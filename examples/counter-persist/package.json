@@ -2,7 +2,7 @@
   "name": "counter-persist",
   "description": "Counter example work with redux-persist for mickey",
   "dependencies": {
-    "mickey": "^0.2.2",
+    "mickey": "^0.2.4",
     "react": "^15.6.1",
     "redux-action-buffer": "^1.1.0",
     "redux-persist": "^4.9.1"
