@@ -339,7 +339,12 @@ app.model({
 
 以 `key/value` 格式定义，用于订阅一个数据源，然后根据需要触发相应的 action。在 `app.render()` 后被执行，数据源可以是当前的时间、服务器的 websocket 连接、keyboard 输入、geolocation 变化、history 路由变化等等。
 
-格式为 `({ history }, innerActions, actions, done) => unlistenFunction`。
+格式 `({ history, getState }, innerActions, actions, onError) => unlistenFunction`：
+
+- `history` 根据 `historyMode` 创建的 [history](https://github.com/ReactTraining/history) 实例
+- `getState(path, defaultValue)` 调用该方法可以获取 `store` 中的数据，参数意义参考 [lodash.get](https://lodash.com/docs/4.17.4#get)
+- `innerActions` 本模型所有 action 集合，用于触发该模型内部的 action
+- `actions` 应用所有 action 的集合，通过模型命名空间访问，用于跨模型触发其他模型中的 action
 
 注意：如果要使用 `app.eject()`，subscription 必须返回 unlisten 方法，用于取消数据订阅。
 
