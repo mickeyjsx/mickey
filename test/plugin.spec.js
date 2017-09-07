@@ -1,8 +1,8 @@
 import { expect } from 'chai'
 import Plugin from '../src/Plugin'
 
-describe('Plugin', () => {
-  it('basic', () => {
+describe('plugin', () => {
+  it('data structure', () => {
     const plugin = new Plugin()
 
     plugin.use({
