@@ -161,7 +161,7 @@ describe('createApp', () => {
     expect(data.model).to.be.equal('counter')
   })
 
-  it('render', () => {
+  xit('render', () => {
     const app = createApp()
     app.model({
       namespace: 'counter',
@@ -182,13 +182,13 @@ describe('createApp', () => {
       },
     })
 
-    const badFn = () => {
-      let a = 0
-      app.render(React.createElement('div'), '#root', () => {
-        a = 1
-      })
-    }
+    // const badFn = () => {
+    //   let a = 0
+    //   app.render(React.createElement('div'), '#root', () => {
+    //     a = 1
+    //   })
+    // }
 
-    expect(badFn).to.throw(/container with id "#root" not exist/)
+    // expect(badFn).to.throw(/container with id "#root" not exist/)
   })
 })
