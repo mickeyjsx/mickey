@@ -9,9 +9,9 @@ import registerModel from './registerModel'
 import internalModel from './internalModel'
 import createReducer from './createReducer'
 import createHistory from './createHistory'
-import { prefixType } from './utils'
 import { removeActions } from './actions'
 import { CANCEL_EFFECTS } from './constants'
+import { prefixType, fixNamespace } from './utils'
 import steupHistoryHooks from './steupHistoryHooks'
 import createErrorHandler from './createErrorHandler'
 
@@ -45,22 +45,17 @@ export default function createApp(options = {}) {
     models: [createModel({ ...internalModel })],
 
     // check the namespace available or not
-    has(namespace) { return app.models.some(m => m.namespace === namespace) },
+    has(namespace) {
+      namespace = fixNamespace(namespace) // eslint-disable-line
+      return app.models.some(m => m.namespace === namespace)
+    },
 
     // use hooks
     hook(hook) { plugin.use(hook); return app },
 
     // register model before app is started
     model(raw) {
-      const { namespace } = raw
-      // remove the old one
-      if (app.has(namespace)) {
-        app.models = app.models.filter(m => m.namespace !== namespace)
-        removeActions(app, namespace)
-      }
-
       regModel(raw)
-
       return app
     },
 
@@ -137,10 +132,6 @@ export default function createApp(options = {}) {
         // inject model after app is started
         model(raw) {
           const { namespace, subscriptions } = raw
-          if (app.has(namespace)) {
-            app.eject(namespace)
-          }
-
           const model = regModel(raw)
 
           store.asyncReducers[namespace] = innerGetReducer(model)
@@ -156,9 +147,13 @@ export default function createApp(options = {}) {
 
         // remove model
         eject(namespace) {
+          namespace = fixNamespace(namespace) // eslint-disable-line
           delete store.asyncReducers[namespace]
           delete reducers[namespace]
 
+
+          // The pattern we recommend is to keep the old reducers around, so there's a warning
+          // ref: https://stackoverflow.com/questions/34095804/replacereducer-causing-unexpected-key-error
           store.replaceReducer(innerCreateReducer(store.asyncReducers))
           store.dispatch({ type: '@@MICKEY/UPDATE' })
           store.dispatch({ type: prefixType(namespace, CANCEL_EFFECTS) })

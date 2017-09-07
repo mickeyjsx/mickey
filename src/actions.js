@@ -49,14 +49,13 @@ export function removeActions(app, namespace) {
   let temp = actions
   let removed = null
 
-  nss.some((ns, index) => {
-    if (index === lastIndex || !temp) {
-      removed = temp
-      return true
+  nss.forEach((ns, index) => {
+    if (index === lastIndex) {
+      removed = temp[ns]
+      delete temp[ns]
+    } else if (temp) {
+      temp = temp[ns]
     }
-
-    temp = temp[ns]
-    return false
   })
 
   return removed

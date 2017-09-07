@@ -8,6 +8,7 @@ import {
   isArray,
   isFunction,
   isGeneratorFn,
+  fixNamespace,
 } from './utils'
 
 
@@ -103,8 +104,7 @@ export default function createModel(m) {
     }
   })
 
-  const ns = namespace.replace(/\//g, '_').replace(/\./g, '/')
-
+  const ns = fixNamespace(namespace)
   return {
     namespace: ns,
     state,

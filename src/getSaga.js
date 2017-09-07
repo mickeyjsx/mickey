@@ -13,9 +13,9 @@ import { prefixType, unfixType, prefixAndValidate } from './utils'
 import { getModelActions } from './actions'
 
 
-function applyOnEffect(handlers, effect, metadata) {
+function applyOnEffect(handlers, effect, actionType, metadata) {
   return handlers.reduce(
-    (_effect, handler) => handler(_effect, sagaEffects, metadata),
+    (_effect, handler) => handler(_effect, sagaEffects, actionType, metadata),
     effect,
   )
 }
@@ -97,32 +97,26 @@ function getWatcher({ onError, onEffect, app, model, type, effect }) {
     )
   }
 
-  const metadata = {
-    app,
-    type,
-    model: model.namespace,
-    effects: getEffects(model),
-    callbacks: getCallbacks(model, type),
-    innerActions: getModelActions(model, sagaEffects.put),
-    actions: app.actions,
-  }
+  const actions = app.actions
+  const effects = getEffects(model)
+  const callbacks = getCallbacks(model, type)
+  const innerActions = getModelActions(model, sagaEffects.put)
 
   function* sagaWithCatch(...args) {
     const { payload } = args[0]
     try {
-      yield effectFn(
-        payload,
-        metadata.effects,
-        metadata.callbacks,
-        metadata.innerActions,
-        metadata.actions,
-      )
+      yield effectFn(payload, effects, callbacks, innerActions, actions)
     } catch (err) {
       onError(err)
     }
   }
 
-  const sagaWithOnEffect = applyOnEffect(onEffect, sagaWithCatch, metadata)
+  const sagaWithOnEffect = applyOnEffect(onEffect, sagaWithCatch, type, {
+    app,
+    model: model.namespace,
+    actions,
+    effects,
+  })
 
   switch (effectType) {
     case 'watcher':

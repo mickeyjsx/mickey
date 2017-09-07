@@ -61,3 +61,5 @@ export const getNamespaceFromPath = (path) => {
 
   return parts.join('.')
 }
+
+export const fixNamespace = namespace => namespace.replace(/\//g, '_').replace(/\./g, '/')

@@ -13,7 +13,7 @@ export default function createErrorHandler(app) {
   return (err) => {
     if (err) {
       const handler = app.plugin.apply('onError', defaultErrorHandler)
-      handler(normalize(err), app.store.dispatch)
+      handler(normalize(err), app)
     }
   }
 }
