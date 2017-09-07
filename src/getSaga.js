@@ -99,8 +99,8 @@ function getWatcher({ onError, onEffect, app, model, type, effect }) {
 
   const metadata = {
     app,
-    model,
     type,
+    model: model.namespace,
     effects: getEffects(model),
     callbacks: getCallbacks(model, type),
     innerActions: getModelActions(model, sagaEffects.put),
