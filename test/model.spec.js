@@ -1,4 +1,5 @@
 import { expect } from 'chai'
+import sinon from 'sinon'
 import EventEmitter from 'events'
 import createApp from '../src/createApp'
 
@@ -118,7 +119,14 @@ describe('model', () => {
     app.render()
 
     emitter.emit('event')
+
+    const logStub = sinon.stub(console, 'error')
     app.eject('b.c')
+    expect(logStub.calledOnce).to.be.equal(true)
+    expect(logStub.firstCall.args[0]).to.match(/found in preloadedState argument passed to createStore/)
+
+    logStub.restore()
+
     emitter.emit('event')
 
     expect(app.actions.b.c).to.be.undefined // eslint-disable-line

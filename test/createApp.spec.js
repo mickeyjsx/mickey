@@ -1,4 +1,5 @@
 import { expect } from 'chai'
+import sinon from 'sinon'
 import React from 'react'
 import createApp from '../src/createApp'
 
@@ -62,10 +63,9 @@ describe('createApp', () => {
       next(action)
     }
 
-    const app = createApp({
-      hooks: {
-        onAction: [countMiddleware, count2Middleware],
-      },
+    const app = createApp()
+    app.hook({
+      onAction: [countMiddleware, count2Middleware],
     })
     app.render()
 
@@ -161,7 +161,51 @@ describe('createApp', () => {
     expect(data.model).to.be.equal('counter')
   })
 
-  xit('render', () => {
+  it('app.has(namespace)', () => {
+    const app = createApp()
+    expect(app.has('counter')).to.be.equal(false)
+    expect(app.has('foo.bar')).to.be.equal(false)
+    expect(app.has('foo/bar')).to.be.equal(false)
+    app.model({
+      namespace: 'counter',
+      state: 0,
+    })
+    app.model({
+      namespace: 'foo.bar',
+      state: 0,
+    })
+    app.model({
+      namespace: 'foo/bar',
+      state: 0,
+    })
+    expect(app.has('counter')).to.be.equal(true)
+    expect(app.has('foo.bar')).to.be.equal(true)
+    expect(app.has('foo/bar')).to.be.equal(true)
+  })
+
+  it('app.load(pattern)', () => {
+    const app = createApp()
+    const badFn = () => { app.load() }
+    expect(badFn).to.throw(/The method .* is unavailable/)
+  })
+
+  it('call app.hook() after render', () => {
+    const app = createApp()
+    app.model({
+      namespace: 'counter',
+      state: 0,
+    })
+    app.render()
+
+    const logStub = sinon.stub(console, 'error')
+    app.hook()
+    expect(logStub.calledOnce).to.be.equal(true)
+    expect(logStub.firstCall.args[0]).to.be.equal('Warning: hook(): all hooks should be installed before call app.start')
+
+    logStub.restore()
+  })
+
+  it('render', () => {
     const app = createApp()
     app.model({
       namespace: 'counter',
@@ -182,13 +226,15 @@ describe('createApp', () => {
       },
     })
 
-    // const badFn = () => {
-    //   let a = 0
-    //   app.render(React.createElement('div'), '#root', () => {
-    //     a = 1
-    //   })
-    // }
+    const badFn1 = () => {
+      app.render(React.createElement('div'), '#root')
+    }
 
-    // expect(badFn).to.throw(/container with id "#root" not exist/)
+    const badFn2 = () => {
+      app.render(React.createElement('div'), React.createElement('div'))
+    }
+
+    expect(badFn1).to.throw()
+    expect(badFn2).to.throw(/container should be HTMLElement/)
   })
 })
