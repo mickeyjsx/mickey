@@ -70,12 +70,6 @@ import createApp from 'mickey'
 const app = createApp(options);
 ```
 
-#### options.hooks
-- 默认值：`{}`
-
-  配置应用需要使用的插件，详细配置参考 [app.hook(hooks)](#apphookhooks)
-
-
 #### options.historyMode
 
 - 默认值：`undefined` 表示默认不使用路由
@@ -101,11 +95,12 @@ const app = createApp(options);
 
   指定应用的初始 [reducer](http://redux.js.org/docs/basics/Reducers.html) 函数，将与模型中指定的 `reducer` 一起被 [combine](http://redux.js.org/docs/api/combineReducers.html) 成为 [createStore](http://redux.js.org/docs/api/createStore.html) 需要的 `reducer`。`initialReducer` 结构可以像命名空间那样多层嵌套。
 
-### options.hooks
+#### options.hooks
+- 默认值：`{}`
 
-指定应用插件。`hooks` 包含：
+配置应用需要使用的插件，`hooks` 包含：
 
-#### options.hooks.onError
+##### options.hooks.onError
 
 `effect` 执行错误或 `subscription` 通过 `done` 主动抛错时触发，可用于管理全局出错状态。
 
@@ -136,7 +131,7 @@ const app = createApp({
 });
 ```
 
-#### options.hooks.onAction
+##### options.hooks.onAction
 
 在 action 被 dispatch 时触发，用于注册 redux 中间件。支持函数或函数数组格式。
 
@@ -152,11 +147,11 @@ const app = createApp({
 });
 ```
 
-#### options.hooks.onEffect
+##### options.hooks.onEffect
 
 封装 effect 执行。
 
-#### options.hooks.onReducer
+##### options.hooks.onReducer
 
 封装 reducer 执行。比如借助 [redux-undo](https://github.com/omnidan/redux-undo) 实现 redo/undo ：
 
@@ -174,11 +169,11 @@ const app = createApp({
 });
 ```
 
-#### options.hooks.onStateChange
+##### options.hooks.onStateChange
 
 `state` 改变时触发，可用于同步 `state` 到 localStorage，服务器端等。
 
-#### options.hooks.extraReducers
+##### options.hooks.extraReducers
 
 指定额外的 reducer，比如 [redux-form](https://github.com/erikras/redux-form) 需要指定额外的 `form` reducer：
 
@@ -196,7 +191,7 @@ const app = createApp({
 
 与 [options.initialReducer](#optionsinitialreducer) 不一样的是，`extraReducers` 指定的 reducer 不能多层嵌套，必须是简单的 `key/value` 格式。
 
-#### options.hooks.extraEnhancers
+##### options.hooks.extraEnhancers
 
 指定额外的 [StoreEnhancer](https://github.com/reactjs/redux/blob/master/docs/Glossary.md#store-enhancer) ，比如在 [Counter-Persist](https://github.com/mickeyjsx/mickey/blob/master/examples/counter-persist) 示例中结合 [redux-persist](https://github.com/rt2zz/redux-persist) 的使用：
 
