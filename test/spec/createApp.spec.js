@@ -5,10 +5,6 @@ import EventEmitter from 'events'
 import { routerActions } from 'react-router-redux'
 import createApp from '../../src/createApp'
 
-const delay = timeout => new Promise((resolve) => {
-  setTimeout(resolve, timeout)
-})
-
 describe('createApp', () => {
   describe('options.initialState', () => {
     it('shoule deeply equal to the store after app initialized', () => {
@@ -180,8 +176,8 @@ describe('createApp', () => {
         increment: state => ({ ...state, count: state.count + 1 }),
         decrement: state => ({ ...state, count: state.count - 1 }),
         incrementAsync: {
-          * effect(payload, { call }, { succeed }, innerActions) {
-            yield call(delay, 2000)
+          * effect(payload, { delay }, { succeed }, innerActions) {
+            yield delay(2000)
             yield succeed()
             yield innerActions.increment()
           },
@@ -242,8 +238,8 @@ describe('createApp', () => {
         increment: state => ({ ...state, count: state.count + 1 }),
         decrement: state => ({ ...state, count: state.count - 1 }),
         incrementAsync: {
-          * effect(payload, { call }, { succeed }, innerActions) {
-            yield call(delay, 2000)
+          * effect(payload, { delay }, { succeed }, innerActions) {
+            yield delay(200)
             yield succeed()
             yield innerActions.increment()
           },
@@ -313,8 +309,8 @@ describe('createApp', () => {
         increment: state => ({ ...state, count: state.count + 1 }),
         decrement: state => ({ ...state, count: state.count - 1 }),
         incrementAsync: {
-          * effect(payload, { call, innerPut }, { succeed }) {
-            yield call(delay, 2000)
+          * effect(payload, { delay, innerPut }, { succeed }) {
+            yield delay(2000)
             yield succeed()
             yield innerPut({ type: 'increment' })
           },

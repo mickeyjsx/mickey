@@ -86,14 +86,14 @@ function getWatcher({ onError, onEffect, app, model, type, effect }) {
       if (effectType === 'throttle') {
         invariant(
           options.ms,
-          'getSaga: options.ms should be defined if type is throttle',
+          'options.ms should be defined if type is throttle',
         )
         ms = options.ms
       }
     }
     invariant(
       ['watcher', 'takeEvery', 'takeLatest', 'throttle'].includes(effectType),
-      'getSaga: effect type should be takeEvery, takeLatest, throttle or watcher',
+      'effect type should be takeEvery, takeLatest, throttle or watcher',
     )
   }
 
