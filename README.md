@@ -87,9 +87,9 @@ const Comp = (props) => (
 )
 
 // connect state with component and inject `actions`
-const App = injectActions(connect(state => {
-  return {counter: state.counter}
-})(Comp))
+const App = injectActions(
+    connect(state => ({ counter: state.counter })(Comp)
+)
 
 // 3. View
 app.render(<App />, document.getElementById('root'))
