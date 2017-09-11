@@ -1,4 +1,3 @@
-import warning from 'warning'
 import Plugin from './Plugin'
 import getSaga from './getSaga'
 import getReducer from './getReducer'

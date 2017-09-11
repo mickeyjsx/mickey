@@ -5,10 +5,17 @@
 ## Overview
 
 - [createApp(options)](#createappoptions)
-  - [options.hooks](#optionshooks)
   - [options.historyMode](#optionshistorymode)
   - [options.initialState](#optionsinitialstate)
   - [options.initialReducer](#optionsinitialreducer)
+  - [options.hooks](#optionshooks)
+    - [options.hooks.onError](#optionshooksonerror)
+    - [options.hooks.onAction](#optionshooksonaction)
+    - [options.hooks.onEffect](#optionshooksoneffect)
+    - [options.hooks.onReducer](#optionshooksonreducer)
+    - [options.hooks.onStateChange](#optionshooksonstatechange)
+    - [options.hooks.extraReducers](#optionshooksextrareducers)
+    - [options.hooks.extraEnhancers](#optionshooksextraenhancers)
   - [options.extensions](#optionsextensions)
     - [options.extensions.createReducer](#createreducer)
     - [options.extensions.combineReducers](#combinereducers)
@@ -23,14 +30,6 @@
 - [app.has(namespace)](#apphasnamespace)
 - [app.load(pattern)](#apploadpattern)
 - [app.render(component, container, callback)](#apprendercomponent-container-callback)
-- [app.hook(hooks)](#apphookhooks)
-  - [hooks.onError](#hooksonerror)
-  - [hooks.onAction](#hooksonaction)
-  - [hooks.onEffect](#hooksoneffect)
-  - [hooks.onReducer](#hooksonreducer)
-  - [hooks.onStateChange](#hooksonstatechange)
-  - [hooks.extraReducers](#hooksextrareducers)
-  - [hooks.extraEnhancers](#hooksextraenhancers)
 
 ## Module exports
 
