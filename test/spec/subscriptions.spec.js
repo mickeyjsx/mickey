@@ -1,8 +1,9 @@
 import { expect } from 'chai'
-import createApp from '../src/createApp'
+import sinon from 'sinon'
+import createApp from '../../src/createApp'
 
 describe('subscriptions', () => {
-  it('arguments', () => {
+  it('should call handlers with correct arguments', () => {
     const args = []
     const app = createApp()
     app.model({
@@ -41,7 +42,7 @@ describe('subscriptions', () => {
     expect(badFn).to.throw()
   })
 
-  it('dispatch actions', () => {
+  it('should dispatch actions correctly', () => {
     const app = createApp()
     app.model({
       namespace: 'count',
@@ -64,5 +65,67 @@ describe('subscriptions', () => {
 
     expect(app.store.getState().count).to.eql(2)
     expect(app.store.getState().foo.bar).to.eql(0)
+  })
+
+  it('should unlisten corresponding listeners when eject model', () => {
+    const app = createApp()
+    let flag1 = false
+    let flag2 = false
+
+    app.model({
+      namespace: 'count',
+      state: 0,
+      subscriptions: {
+        setup() {
+          return () => { flag1 = true }
+        },
+      },
+    })
+    app.model({
+      namespace: 'foo.bar',
+      state: 0,
+      subscriptions: {
+        setup() {
+          return () => { flag2 = true }
+        },
+      },
+    })
+    app.render()
+
+    const spy = sinon.stub(console, 'error')
+
+    app.eject('count')
+    app.eject('foo.bar')
+    spy.restore()
+
+    expect(flag1).to.be.eql(true)
+    expect(flag2).to.be.eql(true)
+  })
+
+  it('should give a warning message if unlistener is not a function when unlisten', () => {
+    const app = createApp()
+    app.model({
+      namespace: 'count',
+      state: 0,
+      subscriptions: {
+        setup() {
+          return null
+        },
+      },
+    })
+    app.model({
+      namespace: 'foo.bar',
+      state: 0,
+    })
+    app.render()
+
+    const spy = sinon.stub(console, 'error')
+
+    app.eject('count')
+    app.eject('foo.bar')
+
+    expect(spy.secondCall.args[0]).to.match(/subscription should return unlistener function/)
+
+    spy.restore()
   })
 })
