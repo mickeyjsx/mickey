@@ -24,13 +24,12 @@ export default function createRender(app, component, container, callback) {
 
       if (wrap) {
         if (isString(wrap)) {
-          wrap = document.getElementById(wrap)
-          invariant(wrap, `[app.render] container with id "${container}" not exist`)
+          wrap = document.querySelector(wrap)
+          invariant(wrap, `container with selector "${container}" not exist`)
         }
 
-        invariant(isHTMLElement(wrap), '[app.render] container should be HTMLElement')
+        invariant(isHTMLElement(wrap), 'container should be HTMLElement')
       }
-
 
       const canRender = comp && wrap
       if (canRender) {

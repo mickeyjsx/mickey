@@ -5,9 +5,7 @@ const normalize = (err) => {
   return err
 }
 
-const defaultErrorHandler = (err) => {
-  throw new Error(err.stack || err)
-}
+const defaultErrorHandler = (err) => { throw err }
 
 export default function createErrorHandler(app) {
   return (err) => {

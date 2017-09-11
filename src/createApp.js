@@ -50,12 +50,17 @@ export default function createApp(options = {}) {
       return app.models.some(m => m.namespace === namespace)
     },
 
-    // use hooks
-    hook(hook) { plugin.use(hook); return app },
-
     // register model before app is started
     model(raw) {
       regModel(raw)
+      return app
+    },
+
+    eject(namespace) {
+      namespace = fixNamespace(namespace) // eslint-disable-line
+      app.models = app.models.filter(m => m.namespace !== namespace)
+      removeActions(app, namespace)
+
       return app
     },
 
@@ -120,14 +125,6 @@ export default function createApp(options = {}) {
         // should only do pure-render with any other actions
         render,
         onError,
-        hook() {
-          warning(
-            process.env.NODE_ENV === 'production',
-            'hook(): all hooks should be installed before call app.start',
-          )
-
-          return app
-        },
 
         // inject model after app is started
         model(raw) {
@@ -151,7 +148,6 @@ export default function createApp(options = {}) {
           delete store.asyncReducers[namespace]
           delete reducers[namespace]
 
-
           // The pattern we recommend is to keep the old reducers around, so there's a warning
           // ref: https://stackoverflow.com/questions/34095804/replacereducer-causing-unexpected-key-error
           store.replaceReducer(innerCreateReducer(store.asyncReducers))
@@ -159,6 +155,7 @@ export default function createApp(options = {}) {
           store.dispatch({ type: prefixType(namespace, CANCEL_EFFECTS) })
 
           unlistenSubscription(unlisteners, namespace)
+
           app.models = app.models.filter(m => m.namespace !== namespace)
           removeActions(app, namespace)
 

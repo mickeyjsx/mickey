@@ -10,7 +10,7 @@ export default function createHistory(historyMode) {
     if (process.env.NODE_ENV !== 'production') {
       invariant(
         historyModes.includes(historyMode),
-        `createHistory: historyMode "${historyMode}" is invalid, must be one of ${historyModes.join(', ')}!`,
+        `historyMode "${historyMode}" is invalid, must be one of ${historyModes.join(', ')}!`,
       )
     }
 

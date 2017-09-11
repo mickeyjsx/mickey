@@ -32,6 +32,7 @@ class Provider extends React.Component {
   render() {
     const { children, app } = this.props
     const child = React.Children.only(children)
+    this.addRoutingActions()
     return this.renderProvider(
       app.history
         ? createElement(ConnectedRouter, { history: app.history }, child)

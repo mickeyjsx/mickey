@@ -42,7 +42,7 @@ export function unlisten(unlisteners, namespace) {
   const { funcs, nonFuncs } = unlisteners[namespace]
   warning(
     nonFuncs.length === 0,
-    `subscription.unlisten: subscription should return unlistener function, check these subscriptions ${nonFuncs.join(', ')}`,
+    `subscription should return unlistener function, check these subscriptions ${nonFuncs.join(', ')}`,
   )
 
   funcs.forEach(unlistener => unlistener())

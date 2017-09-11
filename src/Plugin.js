@@ -1,31 +1,31 @@
 import invariant from 'invariant'
 import { isPlainObject, getEnhancer } from './utils'
 
-const hooks = [
-  'onError',
-  'onEffect',
-  'onStateChange',
-
-  'onAction',
-  'onReducer',
-  'extraReducers',
-  'extraEnhancers',
-]
-
 
 export default class Plugin {
+  static hooks = [
+    'onError',
+    'onEffect',
+    'onStateChange',
+
+    'onAction',
+    'onReducer',
+    'extraReducers',
+    'extraEnhancers',
+  ]
+
   constructor() {
-    this.hooks = hooks.reduce((memo, key) => {
-      memo[key] = []
+    this.hooks = Plugin.hooks.reduce((memo, name) => {
+      memo[name] = []
       return memo
     }, {})
   }
 
   use(plugins) {
-    invariant(isPlainObject(plugins), 'plugin.use: plugin should be plain object')
+    invariant(isPlainObject(plugins), 'hook should be plain object')
 
     Object.keys(plugins).forEach((key) => {
-      invariant(this.hooks[key], `plugin.use: unknown plugin property: "${key}"`)
+      invariant(this.hooks[key], `unknown hook property: "${key}"`)
       const plugin = plugins[key]
       if (plugin) {
         if (key === 'extraEnhancers') {
@@ -41,11 +41,11 @@ export default class Plugin {
     return this
   }
 
-  apply(hookName, defaultHandler) {
-    const handlers = this.hooks[hookName]
+  apply(name, defaultHandler) {
+    const handlers = this.hooks[name]
     const validHooks = ['onError']
 
-    invariant(validHooks.includes(hookName), `plugin.apply: hook "${hookName}" cannot be applied`)
+    invariant(validHooks.includes(name), `plugin.apply: hook "${name}" cannot be applied`)
 
     return (...args) => {
       if (handlers.length) {
@@ -56,13 +56,13 @@ export default class Plugin {
     }
   }
 
-  get(key) {
-    const handlers = this.hooks[key]
-    invariant(handlers, `plugin.get: hook "${key}" cannot be got`)
+  get(name) {
+    const handlers = this.hooks[name]
+    invariant(handlers, `hook "${name}" cannot be got`)
 
-    if (key === 'extraReducers') {
+    if (name === 'extraReducers') {
       return handlers.reduce((memo, reducer) => ({ ...memo, ...reducer }), {})
-    } else if (key === 'onReducer') {
+    } else if (name === 'onReducer') {
       return getEnhancer(handlers)
     }
 

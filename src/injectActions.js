@@ -3,12 +3,15 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 function getDisplayName(Component) {
-  const name = Component.displayName || Component.name || 'Component'
+  const name = (Component && (Component.displayName || Component.name)) || 'Component'
   return `injectActions(${name})`
 }
 
 export default function injectActions(WrappedComponent, options = {}) {
-  const { propName = 'actions', withRef = false } = options
+  const {
+    propName = 'actions',
+    withRef = false,
+  } = options
 
   class InjectActions extends React.Component {
     constructor(props, context) {
@@ -27,9 +30,7 @@ export default function injectActions(WrappedComponent, options = {}) {
       if (process.env.NODE_ENV !== 'production') {
         invariant(
           withRef,
-          '[React Intl] To access the wrapped instance, ' +
-          'the `{withRef: true}` option must be set when calling: ' +
-          '`injectIntl()`',
+          'To access the wrapped instance, you need to specify { withRef: true } in the options argument of the injectActions() call.',
         )
       }
       return this.wrappedInstance

@@ -58,5 +58,22 @@ export function removeActions(app, namespace) {
     }
   })
 
+  // clean sub tree
+  for (let i = 0; i < lastIndex; i += 1) {
+    temp = actions
+    nss.some((ns) => { // eslint-disable-line
+      if (temp && temp[ns]) {
+        if (Object.keys(temp[ns]).length === 0) {
+          delete temp[ns]
+          return true
+        }
+        temp = temp[ns]
+        return false
+      }
+
+      return true
+    })
+  }
+
   return removed
 }

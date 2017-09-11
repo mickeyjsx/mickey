@@ -1,6 +1,5 @@
 /* eslint-disable no-underscore-dangle */
-
-import warning from 'warning'
+import invariant from 'invariant'
 import {
   ucfirst,
   prefixType,
@@ -12,17 +11,20 @@ import {
 } from './utils'
 
 
+function isEffect(method) {
+  // if a method is generator function then it should be an effect.
+  return isGeneratorFn(method)
+    // [ *effect(){}, type ]
+    || (isArray(method) && isGeneratorFn(method[0]))
+}
+
 function fillGroup(group, type, method, callback) {
   const { actions, effects, reducers, callbacks } = group
-  if (typeof method === 'object') {
+  if (typeof method === 'object' && !isArray(method)) {
     return false
   }
 
-  // If a method is generator function then it should be an effect.
-  if (isGeneratorFn(method)
-    // [ *effect(){}, type ]
-    || (isArray(method) && isGeneratorFn(method[0]))
-  ) {
+  if (isEffect(method)) {
     actions[type] = type
     effects[type] = method
     group.effectCount += 1
@@ -60,7 +62,7 @@ function parseGroups(raw, namespace) {
     }
 
     if (process.env.NODE_ENV !== 'production') {
-      warning(
+      invariant(
         group.effectCount <= 1,
         `Less than one effect function should be specified in model "${namespace}" with action name "${type}".`,
       )
@@ -74,8 +76,8 @@ export default function createModel(m) {
   const {
     namespace,
     state,
-    effects = {},
-    reducers = {},
+    effects,
+    reducers,
     enhancers,
     subscriptions,
     createReducer,
@@ -83,18 +85,31 @@ export default function createModel(m) {
   } = m
 
   const actions = {}
-  const _effects = Object.assign({}, effects)
-  const _reducers = Object.assign({}, reducers)
+  const _effects = {}
+  const _reducers = {}
   const _callbacks = {}
-  const groups = parseGroups(others, namespace)
 
   if (effects) {
-    Object.keys(effects).forEach((type) => { actions[type] = type })
-  }
-  if (reducers) {
-    Object.keys(reducers).forEach((type) => { actions[type] = type })
+    Object.keys(effects).forEach((type) => {
+      const method = effects[type]
+      if (isEffect(method)) {
+        _effects[type] = method
+        actions[type] = type
+      }
+    })
   }
 
+  if (reducers) {
+    Object.keys(reducers).forEach((type) => {
+      const method = reducers[type]
+      if (isFunction(method)) {
+        _reducers[type] = method
+        actions[type] = type
+      }
+    })
+  }
+
+  const groups = parseGroups(others, namespace)
   groups.forEach((group) => {
     Object.assign(actions, group.actions)
     Object.assign(_effects, group.effects)
