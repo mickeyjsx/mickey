@@ -103,6 +103,7 @@ app.render(<App />, document.getElementById('root'))
 - [Counter-Immutable](../../examples/counter-immutable)：搭配 [ImmutableJS](https://github.com/facebook/immutable-js/) 使用
 - [Counter-Persist-Immutable](../../examples/counter-persist-immutable)：搭配 [redux-persist](https://github.com/rt2zz/redux-persist) 和 [ImmutableJS](https://github.com/facebook/immutable-js/) 使用
 - [Counter-Undo](../../examples/counter-undo)：搭配 [redux-undo](https://github.com/omnidan/redux-undo) 使用
+- [Simple-Router](./examples/simple-router)：基于 [react-router@4.x](https://reacttraining.com/react-router/)
 - [mickey-vstar](https://github.com/mickeyjsx/mickey-vstar) ([demo](http://mickeyjsx.github.io/vstar))：查询指定 Github 账号中被加星项目并按加星数排序
 - [HackerNews](https://github.com/mickeyjsx/mickey-hackernews) ([demo](http://mickeyjsx.github.io/hackernews))：基于 mickey 实现的 [HackerNews](https://github.com/vuejs/vue-hackernews-2.0)
 
