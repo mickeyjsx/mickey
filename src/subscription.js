@@ -1,5 +1,5 @@
 import warning from 'warning'
-import { isFunction, getByPath } from './utils'
+import { isFunction, isArray, getByPath } from './utils'
 import { getModelActions } from './actions'
 import prefixDispatch from './prefixDispatch'
 
@@ -15,13 +15,23 @@ export function run(subscriptions, model, app, onError) {
 
   const funcs = []
   const nonFuncs = []
+  const listeners = []
 
-  Object.keys(subscriptions).forEach((key) => {
-    const sub = subscriptions[key]
+  if (isFunction(subscriptions)) {
+    listeners.push(subscriptions)
+  } else if (isArray(subscriptions)) {
+    listeners.push(...subscriptions)
+  } else {
+    Object.keys(subscriptions).forEach((key) => {
+      listeners.push(subscriptions[key])
+    })
+  }
+
+  listeners.forEach((sub, index) => {
     const unlistener = sub({
       history,
       getState: (path, defaultValue) => getState(app, path, defaultValue),
-      // never need to call these method, just export for debug
+      // never need to call the following methods, just export for debug
       dispatch,
       innerDispatch: prefixDispatch(dispatch, model),
     }, innerActions, app.actions, onError)
@@ -29,7 +39,7 @@ export function run(subscriptions, model, app, onError) {
     if (isFunction(unlistener)) {
       funcs.push(unlistener)
     } else {
-      nonFuncs.push(key)
+      nonFuncs.push([model.namespace, index])
     }
   })
 

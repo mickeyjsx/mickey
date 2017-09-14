@@ -1,12 +1,11 @@
+import warning from 'warning'
 import invariant from 'invariant'
-import { isPlainObject, isAllFunction } from './utils'
+import { isPlainObject, isFunction, isAllFunction, isArray } from './utils'
 
 
 export default function checkModel(model, existModels) {
   const {
     namespace,
-    reducers,
-    effects,
     subscriptions,
   } = model
 
@@ -25,30 +24,21 @@ export default function checkModel(model, existModels) {
     'app.model: namespace should be unique',
   )
 
-  if (reducers) {
-    invariant(
-      isPlainObject(reducers),
-      `app.model: reducers should be plain object, but got ${typeof reducers}`,
-    )
-  }
-
-  if (effects) {
-    invariant(
-      isPlainObject(effects),
-      `app.model: effects should be plain object, but got ${typeof effects}`,
-    )
-  }
-
   if (subscriptions) {
-    invariant(
-      isPlainObject(subscriptions),
-      `app.model: subscriptions should be plain object, but got ${typeof subscriptions}`,
-    )
+    const isFn = isFunction(subscriptions)
+    const isArr = isArray(subscriptions)
+    const isObj = isPlainObject(subscriptions)
 
-    invariant(
-      isAllFunction(subscriptions),
-      'app.model: subscription should be function',
-    )
+    if (isObj) {
+      warning(false, '[deprecated] app.model: subscriptions with plain object is deprecated, function or array of functions are recommended.')
+    }
+
+    if (!isObj && !isArr && !isFn) {
+      invariant(false, `app.model: subscriptions should be a function or array of functions, but got ${typeof subscriptions}`,
+      )
+    }
+
+    invariant(isAllFunction(subscriptions), 'app.model: subscription should be function')
   }
 }
 
