@@ -2,41 +2,12 @@
 
 [查看中文](../zh-CN/api.md)
 
-## Overview
-
-- [createApp(options)](#createappoptions)
-  - [options.historyMode](#optionshistorymode)
-  - [options.initialState](#optionsinitialstate)
-  - [options.initialReducer](#optionsinitialreducer)
-  - [options.hooks](#optionshooks)
-    - [options.hooks.onError](#optionshooksonerror)
-    - [options.hooks.onAction](#optionshooksonaction)
-    - [options.hooks.onEffect](#optionshooksoneffect)
-    - [options.hooks.onReducer](#optionshooksonreducer)
-    - [options.hooks.onStateChange](#optionshooksonstatechange)
-    - [options.hooks.extraReducers](#optionshooksextrareducers)
-    - [options.hooks.extraEnhancers](#optionshooksextraenhancers)
-  - [options.extensions](#optionsextensions)
-    - [options.extensions.createReducer](#createreducer)
-    - [options.extensions.combineReducers](#combinereducers)
-- [app.model(model)](#appmodelmodel)
-  - [model.namespace](#modelnamespace)
-  - [model.state](#modelstate)
-  - [model.subscriptions](#modelsubscriptions)
-  - [model.enhancers](#modelenhancers)
-  - [model.createReducer](#modelcreatereducer)
-  - [model[...actionsAndEffects]](#modelactionsandeffects)
-- [app.eject(namespace)](#appejectnamespace)
-- [app.has(namespace)](#apphasnamespace)
-- [app.load(pattern)](#apploadpattern)
-- [app.render(component, container, callback)](#apprendercomponent-container-callback)
-
 ## Module exports
 
 1. Default export a initialize method: `import createApp from 'mickey'` 
 2. Component and method
   - [&lt;ActionsProvider actions&gt;](#actionsprovider-actions)
-  - [injectActions({propName = 'actions', withRef = false})](#injectactionspropname--actions-withref--false)
+  - [injectActions({propName = 'actions', withRef = false})](#injectactionscomponent-propname--actions-withref--false)
 3. Directly export The following components and methods from [dependencies](https://github.com/mickeyjsx/mickey/blob/master/package.json#L31).
 
 - [redux](https://github.com/reactjs/redux)
@@ -60,12 +31,58 @@
 
 ## API
 
+**Initialization**
+
+- [createApp(options)](#createappoptions)
+  - [options.initialState](#optionsinitialstate)
+  - [options.initialReducer](#optionsinitialreducer)
+  - [options.historyMode](#optionshistorymode)
+  - [options.hooks](#optionshooks)
+    - [options.hooks.onError](#optionshooksonerror)
+    - [options.hooks.onAction](#optionshooksonaction)
+    - [options.hooks.onEffect](#optionshooksoneffect)
+    - [options.hooks.onReducer](#optionshooksonreducer)
+    - [options.hooks.onStateChange](#optionshooksonstatechange)
+    - [options.hooks.extraReducers](#optionshooksextrareducers)
+    - [options.hooks.extraEnhancers](#optionshooksextraenhancers)
+  - [options.extensions](#optionsextensions)
+    - [options.extensions.createReducer](#createreducer)
+    - [options.extensions.combineReducers](#combinereducers)
+
+**Methods**
+
+- [app.model(model)](#appmodelmodel)
+  - [model.namespace](#modelnamespace)
+  - [model.state](#modelstate)
+  - [model.subscriptions](#modelsubscriptions)
+  - [model.enhancers](#modelenhancers)
+  - [model.createReducer](#modelcreatereducer)
+  - [model[...actionsAndEffects]](#modelactionsandeffects)
+- [app.eject(namespace)](#appejectnamespace)
+- [app.has(namespace)](#apphasnamespace)
+- [app.load(pattern)](#apploadpattern)
+- [app.render(component, container, callback)](#apprendercomponent-container-callback)
+
+**Properties**
+
+- app.store
+- app.history
+- app.actions
+- app.plugin
+
 ### createApp(options)
+
+Create an instance of Mickey and return it:
+
+```es6
+import createApp from 'mickey';
+const app = createApp(options);
+```
 
 
 ## &lt;ActionsProvider actions&gt;
 
-Makes the `actions` available to the `injectActions()` calls in the component hierarchy below. It was used in the `render` call,  like this:
+Makes the `actions` available to the `injectActions()` calls in the component hierarchy below. We should never use this component, and it was used in the `render` method,  like this:
 
 ```
 <ActionsProvider actions={app.actions}>
@@ -73,7 +90,7 @@ Makes the `actions` available to the `injectActions()` calls in the component hi
 </ActionsProvider>
 ```
 
-## injectActions({propName = 'actions', withRef = false})
+## injectActions(Component, {propName = 'actions', withRef = false})
 
 Inject `actions` to a React component. By default the propName would be `actions`. If `withRef` is true, stores a ref to the wrapped component instance and makes it available via getWrappedInstance() method.
 
