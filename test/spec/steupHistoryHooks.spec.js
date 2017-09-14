@@ -25,7 +25,7 @@ describe('steupHistoryHooks', () => {
     const history = true
     const hooks1 = {}
     const hooks2 = { extraReducers: [1] }
-    const extraReducer = { router: routerReducer }
+    const extraReducer = { routing: routerReducer }
     steupHistoryHooks(history, hooks1)
     steupHistoryHooks(history, hooks2)
 
