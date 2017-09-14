@@ -9,7 +9,7 @@ export default function steupHistoryHooks(history, hooks) {
       hooks.onAction.push(routeMiddleware)
     }
 
-    const extraReducer = { router: routerReducer }
+    const extraReducer = { routing: routerReducer }
     if (!hooks.extraReducers) {
       hooks.extraReducers = [extraReducer]
     } else {
