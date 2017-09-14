@@ -15,10 +15,8 @@ describe('subscriptions', () => {
       namespace: 'foo.bar',
       state: 1,
       sub: (state, payload) => state - payload,
-      subscriptions: {
-        setup(helpers, innerActions, actions, onError) {
-          args.push(helpers, innerActions, actions, onError)
-        },
+      subscriptions(helpers, innerActions, actions, onError) {
+        args.push(helpers, innerActions, actions, onError)
       },
     })
     app.render()
@@ -53,11 +51,9 @@ describe('subscriptions', () => {
       namespace: 'foo.bar',
       state: 1,
       sub: (state, payload) => state - payload,
-      subscriptions: {
-        setup(helpers, innerActions, actions) {
-          actions.count.add(2)
-          innerActions.sub(1)
-        },
+      subscriptions(helpers, innerActions, actions) {
+        actions.count.add(2)
+        innerActions.sub(1)
       },
     })
 
@@ -75,19 +71,15 @@ describe('subscriptions', () => {
     app.model({
       namespace: 'count',
       state: 0,
-      subscriptions: {
-        setup() {
-          return () => { flag1 = true }
-        },
+      subscriptions() {
+        return () => { flag1 = true }
       },
     })
     app.model({
       namespace: 'foo.bar',
       state: 0,
-      subscriptions: {
-        setup() {
-          return () => { flag2 = true }
-        },
+      subscriptions() {
+        return () => { flag2 = true }
       },
     })
     app.render()
@@ -107,11 +99,7 @@ describe('subscriptions', () => {
     app.model({
       namespace: 'count',
       state: 0,
-      subscriptions: {
-        setup() {
-          return null
-        },
-      },
+      subscriptions: [() => null],
     })
     app.model({
       namespace: 'foo.bar',

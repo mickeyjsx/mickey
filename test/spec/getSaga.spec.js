@@ -63,13 +63,11 @@ describe('getSata', () => {
         prepare: state => ({ ...state, loading: true }),
         succeed: state => ({ ...state, loading: false }),
       },
-      subscriptions: {
-        setup(helpers, innerActions, actions) {
-          helpers.dispatch({ type: 'foo/add' })
-          helpers.innerDispatch({ type: 'increment' })
-          innerActions.incrementAsync()
-          actions.foo.add()
-        },
+      subscriptions(helpers, innerActions, actions) {
+        helpers.dispatch({ type: 'foo/add' })
+        helpers.innerDispatch({ type: 'increment' })
+        innerActions.incrementAsync()
+        actions.foo.add()
       },
     })
     app.render()

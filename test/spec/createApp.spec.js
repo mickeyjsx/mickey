@@ -275,10 +275,8 @@ describe('createApp', () => {
         namespace: 'tasks',
         state: [],
         add: (state, payload) => [...state, payload],
-        subscriptions: {
-          setup() {
-            count += 1
-          },
+        subscriptions() {
+          count += 1
         },
       })
       app.model({
@@ -317,11 +315,9 @@ describe('createApp', () => {
           prepare: state => ({ ...state, loading: true }),
           succeed: state => ({ ...state, loading: false }),
         },
-        subscriptions: {
-          setup({ innerDispatch }) {
-            innerDispatch({ type: 'increment' })
-            innerDispatch({ type: 'incrementAsync' })
-          },
+        subscriptions({ innerDispatch }) {
+          innerDispatch({ type: 'increment' })
+          innerDispatch({ type: 'incrementAsync' })
         },
       })
       app.render()
@@ -362,10 +358,8 @@ describe('createApp', () => {
       app.model({
         namespace: 'b.c',
         state: 0,
-        subscriptions: {
-          setup() {
-            called = true
-          },
+        subscriptions() {
+          called = true
         },
       })
 
@@ -391,13 +385,11 @@ describe('createApp', () => {
         namespace: 'a.b.d.e.f',
         state: 0,
         add: state => state + 1,
-        subscriptions: {
-          setup() {
-            emitter.on('event', () => { emitterCount += 1 })
-            return () => {
-              emitter.removeAllListeners()
-            }
-          },
+        subscriptions() {
+          emitter.on('event', () => { emitterCount += 1 })
+          return () => {
+            emitter.removeAllListeners()
+          }
         },
       })
       app.model({
@@ -439,14 +431,12 @@ describe('createApp', () => {
       app.model({
         namespace: 'b.c',
         state: 0,
-        subscriptions: {
-          setup() {
-            emitter.on('event', () => { })
-            return () => {
-              unlistenerCalled = true
-              emitter.removeAllListeners()
-            }
-          },
+        subscriptions() {
+          emitter.on('event', () => { })
+          return () => {
+            unlistenerCalled = true
+            emitter.removeAllListeners()
+          }
         },
       })
       app.render()
