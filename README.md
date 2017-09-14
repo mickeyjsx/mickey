@@ -76,7 +76,7 @@ app.model({
   },
 })
 
-// Component
+// 3. Component
 const Comp = (props) => (
   <div>
     <h1>{props.counter.count}</h1>
@@ -86,12 +86,12 @@ const Comp = (props) => (
   </div>
 )
 
-// connect state with component and inject `actions`
+// 4. Connect state with component and inject `actions`
 const App = injectActions(
     connect(state => ({ counter: state.counter })(Comp)
 )
 
-// 3. View
+// 5. View
 app.render(<App />, document.getElementById('root'))
 ```
 
@@ -115,7 +115,7 @@ app.render(<App />, document.getElementById('root'))
 
 ## Related
 
-- [babel-plugin-mickey-model-loader](https://github.com/mickeyjsx/babel-plugin-mickey-model-loader) Inject a model loader function into mickey with hmr support
+- [babel-plugin-mickey-model-loader](https://github.com/mickeyjsx/babel-plugin-mickey-model-loader) Inject a model loader function to mickey instance with hmr support
 - [babel-plugin-mickey-model-validator](https://github.com/mickeyjsx/babel-plugin-mickey-model-validator) Validate models shipped by mickey to avoid certain syntax pitfalls
 
 

@@ -22,7 +22,7 @@
 
 ## 特性
 
-- **最小化API**：只有 6 个新方法，易学易用
+- **轻量的API**：只有 6 个新方法，易学易用
 - **使用 Elm 概念**：通过 `reducers`，`effects` 和 `subscriptions` 组织模型
 - **不再需要使用 [`diapatch`](https://github.com/reactjs/react-redux/blob/master/docs/api.md#inject-just-dispatch-and-dont-listen-to-store) 和 [`put`](https://redux-saga.js.org/docs/api/#putaction)** 方法，也不需要维护 [action](http://redux.js.org/docs/basics/Actions.html) 字符串
 - **支持动态加载**：结合 [code-splitting](https://webpack.js.org/guides/code-splitting/) 可以实现路由和模型动态加载
@@ -77,7 +77,7 @@ app.model({
   },
 })
 
-// Component
+// 3. Component
 const Comp = (props) => (
   <div>
     <h1>{props.counter.count}</h1>
@@ -87,12 +87,12 @@ const Comp = (props) => (
   </div>
 )
 
-// connect state with component and inject `actions`
+// 4. Connect state with component and inject `actions`
 const App = injectActions(
     connect(state => ({ counter: state.counter })(Comp)
 )
 
-// 3. View
+// 5. View
 app.render(<App />, document.getElementById('root'))
 ```
 
@@ -115,6 +115,6 @@ app.render(<App />, document.getElementById('root'))
 
 ## 贡献代码
 
-非常欢迎给我们提 MR，如果你喜欢我们的代码请在右上角加星。
+非常欢迎给我们提 MR，如果喜欢我们的代码请在右上角加星。
 
 发现任何 BUG 和使用问题请给我们[提 ISSUE](https://github.com/mickey/mickey/issues/new)。
