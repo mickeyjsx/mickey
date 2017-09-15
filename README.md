@@ -115,6 +115,7 @@ app.render(<App />, document.getElementById('root'))
 
 ## Related
 
+- [mickey-model-extend](https://github.com/mickeyjsx/mickey-model-extend) Utility method to extend mickey model
 - [babel-plugin-mickey-model-loader](https://github.com/mickeyjsx/babel-plugin-mickey-model-loader) Inject a model loader function to mickey instance with hmr support
 - [babel-plugin-mickey-model-validator](https://github.com/mickeyjsx/babel-plugin-mickey-model-validator) Validate models shipped by mickey to avoid certain syntax pitfalls
 

@@ -113,6 +113,12 @@ app.render(<App />, document.getElementById('root'))
 - [API 文档](./api.md)
 - [mickey.svg](../../mickey.svg) 下载自 [Free Vectors](http://all-free-download.com/free-vector/download/disney-disney-vector_288586.html)
 
+## 相关项目
+
+- [mickey-model-extend](https://github.com/mickeyjsx/mickey-model-extend) 扩展 mickey model 的工具函数
+- [babel-plugin-mickey-model-loader](https://github.com/mickeyjsx/babel-plugin-mickey-model-loader) 向 mickey 实例中注入 `load` 方法并提供 HMR 支持
+- [babel-plugin-mickey-model-validator](https://github.com/mickeyjsx/babel-plugin-mickey-model-validator) 验证 mickey 模型中潜在的语法错误，如在异步 action 处理方法中调用 `call` 时忘记使用 `yield` 关键字 
+
 ## 贡献代码
 
 非常欢迎给我们提 MR，如果喜欢我们的代码请在右上角加星。
