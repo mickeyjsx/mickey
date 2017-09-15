@@ -94,6 +94,20 @@ describe('subscriptions', () => {
     expect(flag2).to.be.eql(true)
   })
 
+  it('should give a warning message if subscriptions is an object', () => {
+    const app = createApp()
+    const spy = sinon.stub(console, 'error')
+    app.model({
+      namespace: 'count',
+      state: 0,
+      subscriptions: { setup: () => { } },
+    })
+    app.render()
+    expect(spy.callCount).to.be.eql(1)
+    expect(spy.firstCall.args[0]).to.match(/plain object is deprecated/)
+    spy.restore()
+  })
+
   it('should give a warning message if unlistener is not a function when unlisten', () => {
     const app = createApp()
     app.model({

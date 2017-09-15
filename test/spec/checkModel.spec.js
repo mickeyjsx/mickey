@@ -26,7 +26,7 @@ describe('checkModel', () => {
     }).to.throw(/namespace should be unique/)
   })
 
-  it('should give a warning message when `subscriptions` is a plain object', () => {
+  it('should give a warning message when `subscriptions` is an object', () => {
     const spy = sinon.stub(console, 'error')
     checkModel({
       namespace: '-',

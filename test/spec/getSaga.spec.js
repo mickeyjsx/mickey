@@ -1,4 +1,5 @@
 import { expect } from 'chai'
+import sinon from 'sinon'
 import createApp from '../../src/createApp'
 
 describe('getSata', () => {
@@ -78,7 +79,7 @@ describe('getSata', () => {
     expect(state.counter.loading).to.be.equal(false)
   })
 
-  xit('should throw an error if effect type is `throttle` but no throttle duration specified', () => {
+  it('should throw an error if effect type is `throttle` but no throttle duration specified', () => {
     const app = createApp()
     app.model({
       namespace: 'foo',
@@ -93,16 +94,11 @@ describe('getSata', () => {
       },
     })
 
-
-    const badFn = () => {
-      try {
-        app.render()
-      } catch (err) {
-        throw err
-      }
-    }
-
-    expect(badFn).to.throw()
+    const logStub = sinon.stub(console, 'error')
+    app.render()
+    expect(logStub.callCount).to.be.eql(1)
+    expect(logStub.firstCall.args[1]).to.be.match(/options\.ms should be defined if type is throttle/)
+    logStub.restore()
   })
 
   it('should inject `innerTake` to async reducers', () => {
