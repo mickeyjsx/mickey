@@ -9,13 +9,13 @@
 > (Inspired by [dva](https://github.com/dvajs/dva))
 
 
-[![MIT License](https://img.shields.io/badge/license-MIT_License-green.svg?style=flat-square)](https://github.com/mickey/mickey/blob/master/LICENSE)
+[![MIT License](https://img.shields.io/badge/license-MIT_License-green.svg?style=flat-square)](https://github.com/mickeyjsx/mickey/blob/master/LICENSE)
 
 [![NPM Version](https://img.shields.io/npm/v/mickey.svg?style=flat-square)](https://www.npmjs.com/package/mickey)
 [![Build Status](https://img.shields.io/travis/mickeyjsx/mickey.svg?style=flat)](https://travis-ci.org/mickeyjsx/mickey)
 [![Coverage Status](https://img.shields.io/coveralls/mickeyjsx/mickey.svg?style=flat)](https://coveralls.io/r/mickeyjsx/mickey)
 [![NPM downloads](http://img.shields.io/npm/dm/mickey.svg?style=flat)](https://npmjs.org/package/mickey)
-[![Dependencies](https://david-dm.org/mickey/mickey/status.svg)](https://david-dm.org/mickey/mickey)
+[![Dependencies](https://david-dm.org/mickeyjsx/mickey/status.svg)](https://david-dm.org/mickeyjsx/mickey)
 [![Package Quality](http://npm.packagequality.com/shield/mickey.svg)](http://packagequality.com/#?package=mickey)
 
 [View README in English](../../README.md#features)
@@ -117,4 +117,4 @@ app.render(<App />, document.getElementById('root'))
 
 非常欢迎给我们提 MR，如果喜欢我们的代码请在右上角加星。
 
-发现任何 BUG 和使用问题请给我们[提 ISSUE](https://github.com/mickey/mickey/issues/new)。
+发现任何 BUG 和使用问题请给我们[提 ISSUE](https://github.com/mickeyjsx/mickey/issues/new)。
