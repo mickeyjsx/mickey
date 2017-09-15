@@ -43,9 +43,14 @@ export const prefixAndValidate = (type, model) => {
 }
 
 export const getEnhancer = (enhancers) => {
-  if (enhancers && enhancers.length) {
-    return reducer => enhancers.reduce((memo, reducerEnhancer) => reducerEnhancer(memo), reducer)
+  if (enhancers) {
+    if (isArray(enhancers)) {
+      return reducer => enhancers.reduce((memo, reducerEnhancer) => reducerEnhancer(memo), reducer)
+    } else if (isFunction(enhancers)) {
+      return reducer => enhancers(reducer)
+    }
   }
+
   return f => f
 }
 
