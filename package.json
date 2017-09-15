@@ -63,7 +63,6 @@
     "chai": "^4.1.2",
     "coveralls": "^2.13.1",
     "cross-env": "^5.0.5",
-    "enzyme": "^2.9.1",
     "eslint": "^4.5.0",
     "eslint-config-airbnb": "^15.1.0",
     "eslint-plugin-import": "^2.7.0",
@@ -99,7 +98,7 @@
     "instrument": false
   },
   "scripts": {
-    "test": "npm run lint && cross-env NODE_ENV=test nyc mocha ./test/index.js",
+    "test": "cross-env NODE_ENV=test nyc mocha ./test/index.js",
     "coveralls": "nyc report --reporter=text-lcov | coveralls",
     "lint": "eslint --ext .js,.jsx src",
     "build": "rimraf lib && babel src --out-dir lib",
