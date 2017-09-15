@@ -544,6 +544,7 @@ app.store.getState();
 
 #### model.subscriptions
 
+
 以 `key/value` 格式定义，用于订阅一个数据源，然后根据需要触发相应的 action。在 `app.render()` 后被执行，数据源可以是当前的时间、服务器的 websocket 连接、keyboard 输入、geolocation 变化、history 路由变化等等。
 
 格式 `({ history, getState }, innerActions, actions, onError) => unlistenFunction`：
