@@ -22,7 +22,6 @@
 ## Features
 
 - **Minimal API** (Only 6 newly introduced). Easy to learn, easy to start
-- **Elm concepts** (Organize models with `reducers`, `effects` and `subscriptions`)
 - **No [`diapatch`](https://github.com/reactjs/react-redux/blob/master/docs/api.md#inject-just-dispatch-and-dont-listen-to-store), no [`put`](https://redux-saga.js.org/docs/api/#putaction)**, just forget about [action types](http://redux.js.org/docs/basics/Actions.html)
 - **Support loading models dynamically** with [code-splitting](https://webpack.js.org/guides/code-splitting/) to improve performance
 - **Support HMR** for components and models with [babel-plugin-mickey-model-loader](https://github.com/mickeyjsx/babel-plugin-mickey-model-loader)

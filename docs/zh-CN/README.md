@@ -23,7 +23,6 @@
 ## 特性
 
 - **轻量的API**：只有 6 个新方法，易学易用
-- **使用 Elm 概念**：通过 `reducers`，`effects` 和 `subscriptions` 组织模型
 - **不再需要使用 [`diapatch`](https://github.com/reactjs/react-redux/blob/master/docs/api.md#inject-just-dispatch-and-dont-listen-to-store) 和 [`put`](https://redux-saga.js.org/docs/api/#putaction)** 方法，也不需要维护 [action](http://redux.js.org/docs/basics/Actions.html) 字符串
 - **支持动态加载**：结合 [code-splitting](https://webpack.js.org/guides/code-splitting/) 可以实现路由和模型动态加载
 - **支持 HMR**：结合 [babel-plugin-mickey-model-loader](https://github.com/mickeyjsx/babel-plugin-mickey-model-loader) 实现组件和模型热替换
