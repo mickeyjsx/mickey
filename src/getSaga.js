@@ -136,9 +136,9 @@ function getWatcher({ onError, onEffect, app, model, type, effect }) {
   }
 }
 
-function startTask(model, type, watcher) {
+function getTask(model, type, watcher) {
   const { namespace } = model
-  return function* start() {
+  return function* run() {
     const task = yield sagaEffects.fork(watcher)
     yield sagaEffects.fork(function* () {
       const { cancel } = yield sagaEffects.race({
@@ -149,7 +149,7 @@ function startTask(model, type, watcher) {
       yield sagaEffects.cancel(task)
 
       if (cancel) {
-        yield sagaEffects.fork(start)
+        yield sagaEffects.fork(run)
       }
     })
   }
@@ -162,8 +162,8 @@ export default function getSaga(onError, onEffect, app, model) {
     for (let i = 0, l = keys.length; i < l; i += 1) {
       const type = keys[i]
       const watcher = getWatcher({ onError, onEffect, app, model, type, effect: effects[type] })
-      const transaction = startTask(model, type, watcher)
-      yield sagaEffects.fork(transaction)
+      const task = getTask(model, type, watcher)
+      yield sagaEffects.fork(task)
     }
   }
 }
