@@ -136,21 +136,34 @@ function getWatcher({ onError, onEffect, app, model, type, effect }) {
   }
 }
 
+function startTask(model, type, watcher) {
+  const { namespace } = model
+  return function* start() {
+    const task = yield sagaEffects.fork(watcher)
+    yield sagaEffects.fork(function* () {
+      const { cancel } = yield sagaEffects.race({
+        cancel: sagaEffects.take(prefixType(type, CANCEL_EFFECTS)),
+        eject: sagaEffects.take(prefixType(namespace, CANCEL_EFFECTS)),
+      })
+
+      yield sagaEffects.cancel(task)
+
+      if (cancel) {
+        yield sagaEffects.fork(start)
+      }
+    })
+  }
+}
+
 export default function getSaga(onError, onEffect, app, model) {
   return function* () {
-    const { effects, namespace } = model
+    const { effects } = model
     const keys = Object.keys(effects)
     for (let i = 0, l = keys.length; i < l; i += 1) {
       const type = keys[i]
       const watcher = getWatcher({ onError, onEffect, app, model, type, effect: effects[type] })
-      const task = yield sagaEffects.fork(watcher)
-      yield sagaEffects.fork(function* () {
-        yield sagaEffects.race({
-          cancel: sagaEffects.take(prefixType(type, CANCEL_EFFECTS)),
-          eject: sagaEffects.take(prefixType(namespace, CANCEL_EFFECTS)),
-        })
-        yield sagaEffects.cancel(task)
-      })
+      const transaction = startTask(model, type, watcher)
+      yield sagaEffects.fork(transaction)
     }
   }
 }
