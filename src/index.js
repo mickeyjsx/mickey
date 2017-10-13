@@ -9,4 +9,3 @@ export * as utils from './utils'
 export injectActions from './injectActions'
 export ActionsProvider from './ActionsProvider'
 export default from './createApp'
-

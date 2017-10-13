@@ -145,7 +145,7 @@ export default function getSaga(onError, onEffect, app, model) {
       const watcher = getWatcher({ onError, onEffect, app, model, type, effect: effects[type] })
       const task = yield sagaEffects.fork(watcher)
       yield sagaEffects.fork(function* () {
-        yield sagaEffects.take(prefixType(namespace, CANCEL_EFFECTS))
+        yield sagaEffects.take(prefixType(prefixType(namespace, type), CANCEL_EFFECTS))
         yield sagaEffects.cancel(task)
       })
     }
