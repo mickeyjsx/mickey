@@ -4,7 +4,16 @@ import { Provider as StoreProvider } from 'react-redux'
 import { ConnectedRouter, routerActions } from 'react-router-redux'
 import ActionsProvider from './ActionsProvider'
 
-class Provider extends React.Component {
+export default class Provider extends React.Component {
+  static propTypes = {
+    children: PropTypes.element.isRequired,
+    app: PropTypes.shape({
+      store: PropTypes.object.isRequired,
+      actions: PropTypes.object.isRequired,
+      history: PropTypes.object,
+    }).isRequired,
+  }
+
   addRoutingActions() {
     const { app } = this.props
     if (app.history) {
@@ -40,15 +49,3 @@ class Provider extends React.Component {
     )
   }
 }
-
-
-Provider.propTypes = {
-  children: PropTypes.element.isRequired,
-  app: PropTypes.shape({
-    store: PropTypes.object.isRequired,
-    actions: PropTypes.object.isRequired,
-    history: PropTypes.object,
-  }).isRequired,
-}
-
-export default Provider
