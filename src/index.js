@@ -1,8 +1,18 @@
 // native exports
-export { MemoryRouter, StaticRouter, Prompt, Redirect, Route, Switch, withRouter } from 'react-router'
-export { Link, NavLink, BrowserRouter, HashRouter } from 'react-router-dom'
-export { applyMiddleware, compose } from 'redux'
 export { connect } from 'react-redux'
+export { applyMiddleware, compose } from 'redux'
+export {
+  Route,
+  Router,
+  MemoryRouter,
+  StaticRouter,
+  Switch,
+  Prompt,
+  Redirect,
+  matchPath,
+  withRouter,
+} from 'react-router'
+export { Link, NavLink, BrowserRouter, HashRouter } from 'react-router-dom'
 
 // mickey exports
 export * as utils from './utils'
