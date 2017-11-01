@@ -87,7 +87,7 @@ const Comp = (props) => (
 
 // 4. Connect state with component and inject `actions`
 const App = injectActions(
-    connect(state => ({ counter: state.counter })(Comp)
+    connect(state => ({ counter: state.counter })(Comp))
 )
 
 // 5. View
