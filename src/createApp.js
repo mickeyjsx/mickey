@@ -13,7 +13,7 @@ import { CANCEL_EFFECTS } from './constants'
 import { prefixType, fixNamespace } from './utils'
 import steupHistoryHooks from './steupHistoryHooks'
 import createErrorHandler from './createErrorHandler'
-
+import createPromiseMiddleware from './createPromiseMiddleware'
 import { run as runSubscription, unlisten as unlistenSubscription } from './subscription'
 
 
@@ -98,6 +98,7 @@ export default function createApp(options = {}) {
         initialState,
         reducers: innerCreateReducer(),
         plugin,
+        promiseMiddleware: createPromiseMiddleware(app),
         extraMiddlewares: plugin.get('onAction'),
         onStateChange: plugin.get('onStateChange'),
         extraEnhancers: plugin.get('extraEnhancers'),

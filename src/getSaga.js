@@ -103,11 +103,21 @@ function getWatcher({ onError, onEffect, app, model, type, effect }) {
   const innerActions = getModelActions(model, sagaEffects.put)
 
   function* sagaWithCatch(...args) {
-    const { payload } = args[0]
+    const { payload, resolver: { resolve, reject } } = args[0]
     try {
-      yield effectFn(payload, effects, callbacks, innerActions, actions)
+      const ret = yield effectFn(
+        payload,
+        { ...effects, resolve, reject }, // 支持在业务逻辑中调用 resolve 和 reject
+        callbacks,
+        innerActions,
+        actions,
+      )
+      // 默认调用 resolve，ret 是在 effect 函数的返回值(return ret)
+      // 如果在业务逻辑中已经触发 resolve，那么此处的 resolve 将不会生效
+      resolve(ret)
     } catch (err) {
       onError(err)
+      reject(err)
     }
   }
 
