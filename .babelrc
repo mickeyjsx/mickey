@@ -4,6 +4,7 @@
       "env",
       {
         "modules": false,
+        "loose": true,
         "useBuiltIns": true
       }
     ],
@@ -11,7 +12,6 @@
     "stage-0"
   ],
   "plugins": [
-    "add-module-exports",
     "transform-runtime"
   ],
   "env": {
