@@ -1,6 +1,12 @@
 {
   "presets": [
-    "es2015",
+    [
+      "env",
+      {
+        "modules": false,
+        "useBuiltIns": true
+      }
+    ],
     "react",
     "stage-0"
   ],
@@ -10,6 +16,13 @@
   ],
   "env": {
     "test": {
+      "presets": [
+        [
+          "env"
+        ],
+        "react",
+        "stage-0"
+      ],
       "plugins": [
         "istanbul",
         "transform-decorators-legacy"
