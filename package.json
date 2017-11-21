@@ -1,6 +1,6 @@
 {
   "name": "mickey",
-  "version": "0.3.6",
+  "version": "0.3.7",
   "description": "Lightweight front-end framework for creating React and Redux based app painlessly.",
   "main": "./lib/index.js",
   "keywords": [
@@ -29,7 +29,6 @@
     "react": "^15.6.0"
   },
   "dependencies": {
-    "babel-runtime": "^6.26.0",
     "global": "^4.3.2",
     "history": "^4.7.2",
     "invariant": "^2.2.2",
