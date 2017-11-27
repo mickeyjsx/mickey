@@ -54,7 +54,7 @@
 - [app.model(model)](#appmodelmodel)
   - [model.namespace](#modelnamespace)
   - [model.state](#modelstate)
-  - [model.subscriptions](#modelsubscriptions)
+  - [model.watcher](#modelwatcher)
   - [model.enhancers](#modelenhancers)
   - [model.createReducer](#modelcreatereducer)
   - [model[...actionsAndEffects]](#modelactionsandeffects)
@@ -167,7 +167,7 @@ actions
 
 ```es6
 app.model({
-  subscriptions: {
+  watcher: {
     setup({ history }, innerAction, actions, done) {
       done(e);
     },
@@ -356,7 +356,7 @@ export default {
       loading: false,
     }),
   },
-  subscriptions: {
+  watcher: {
     setup({ history }, innerActions) {
       // 监听 history 变化，当进入 `/` 时触发 `load`
       return history.listen(({ pathname }) => {
@@ -542,7 +542,7 @@ app.store.getState();
   - `actions` 应用所有 action 的集合，通过模型命名空间访问，用于跨模型触发其他模型中的 action。
 
 
-#### model.subscriptions
+#### model.watcher
 
 
 函数或函数数组，用于订阅一个数据源，然后根据需要触发相应的 action。在 `app.render()` 后被执行，数据源可以是当前的时间、服务器的 websocket 连接、keyboard 输入、geolocation 变化、history 路由变化等等。
@@ -640,7 +640,7 @@ export default {
 
 ### app.eject(namespace)
 
-卸载指定 `namespace` 模型，同时清理 Store 中对应的数据，取消 `subscriptions` 中相关的事件订阅。
+卸载指定 `namespace` 模型，同时清理 Store 中对应的数据，取消 `watcher` 中相关的事件订阅。
 
 ### app.has(namespace)
 
@@ -652,7 +652,7 @@ export default {
 
 ### app.render(component, container, callback)
 
-渲染组件到指定的容器中（HTML元素或 selector），并提供回调或 [AOP](https://zh.wikipedia.org/zh-hans/%E9%9D%A2%E5%90%91%E4%BE%A7%E9%9D%A2%E7%9A%84%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1) 支持；当 `callback` 是函数(`(app) => {}`)时将在渲染完成之后 `subscriptions` 之前执行；如果 `callback` 是形如下面对象：
+渲染组件到指定的容器中（HTML元素或 selector），并提供回调或 [AOP](https://zh.wikipedia.org/zh-hans/%E9%9D%A2%E5%90%91%E4%BE%A7%E9%9D%A2%E7%9A%84%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1) 支持；当 `callback` 是函数(`(app) => {}`)时将在渲染完成之后 `watcher` 之前执行；如果 `callback` 是形如下面对象：
 
 ```es6
 {
