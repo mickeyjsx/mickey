@@ -72,6 +72,24 @@ function parseGroups(raw, namespace) {
   })
 }
 
+function parseWatcher(watcher) {
+  if (watcher) {
+    const watchers = isArray(watcher) // eslint-disable-line
+      ? [...watcher] : isFunction(watcher)
+        ? [watcher]
+        : Object.keys(watcher).map(key => watcher[key])
+
+    return watchers.filter(fn => isFunction(fn))
+  }
+
+  return null
+}
+
+function getWatchers(m) {
+  const { watcher, subscriptions } = m
+  return parseWatcher(watcher) || parseWatcher(subscriptions) || []
+}
+
 export default function createModel(m) {
   const {
     namespace,
@@ -79,7 +97,6 @@ export default function createModel(m) {
     effects,
     reducers,
     enhancers,
-    subscriptions,
     createReducer,
     ...others
   } = m
@@ -124,11 +141,11 @@ export default function createModel(m) {
     namespace: ns,
     state,
     enhancers,
-    subscriptions,
     createReducer,
     actions,
     effects: prefixObject(ns, _effects),
     reducers: prefixObject(ns, _reducers),
     callbacks: prefixObject(ns, _callbacks),
+    watchers: getWatchers(m),
   }
 }

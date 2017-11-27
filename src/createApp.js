@@ -14,7 +14,7 @@ import { prefixType, fixNamespace } from './utils'
 import steupHistoryHooks from './steupHistoryHooks'
 import createErrorHandler from './createErrorHandler'
 import createPromiseMiddleware from './createPromiseMiddleware'
-import { run as runSubscription, unlisten as unlistenSubscription } from './subscription'
+import { startWatchers, stopWatchers } from './watcher'
 
 
 export default function createApp(options = {}) {
@@ -111,12 +111,10 @@ export default function createApp(options = {}) {
       const render = createRender(app, component, container, callback)
       render(component, container, callback)
 
-      // run subscriptions after render
+      // run watcher after render
       const unlisteners = {}
       app.models.forEach((model) => {
-        if (model.subscriptions) {
-          unlisteners[model.namespace] = runSubscription(model.subscriptions, model, app, onError)
-        }
+        unlisteners[model.namespace] = startWatchers(model, app, onError)
       })
 
       // replace and inject some methods after the app started
@@ -128,16 +126,14 @@ export default function createApp(options = {}) {
 
         // inject model after app is started
         model(raw) {
-          const { namespace, subscriptions } = raw
+          const { namespace } = raw
           const model = regModel(raw)
 
           store.asyncReducers[namespace] = innerGetReducer(model)
           store.replaceReducer(innerCreateReducer(store.asyncReducers))
           store.runSaga(innerGetSaga(model))
 
-          if (model.subscriptions) {
-            unlisteners[namespace] = runSubscription(subscriptions, model, app, onError)
-          }
+          unlisteners[namespace] = startWatchers(model, app, onError)
 
           return app
         },
@@ -154,7 +150,7 @@ export default function createApp(options = {}) {
           store.dispatch({ type: '@@MICKEY/UPDATE' })
           store.dispatch({ type: prefixType(namespace, CANCEL_EFFECTS) })
 
-          unlistenSubscription(unlisteners, namespace)
+          stopWatchers(unlisteners, namespace)
 
           app.models = app.models.filter(m => m.namespace !== namespace)
           removeActions(app, namespace)
