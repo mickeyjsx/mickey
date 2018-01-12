@@ -4,7 +4,7 @@
   "dependencies": {
     "@actra-development-oss/redux-persist-transform-filter-immutable": "^0.1.7",
     "immutable": "^3.8.1",
-    "mickey": "^1.0.0",
+    "mickey": "^1.1.0",
     "react": "^16.2.0",
     "redux-action-buffer": "^1.1.0",
     "redux-immutablejs": "^0.0.8",
