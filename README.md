@@ -101,7 +101,7 @@ app.render(<App />, document.getElementById('root'))
 - [Counter-Persist(v5)](./examples/counter-persist(v5)): Work with [redux-persist v5](https://github.com/rt2zz/redux-persist)
 - [Counter-Immutable](./examples/counter-immutable): Work with [ImmutableJS](https://github.com/facebook/immutable-js/)
 - [Counter-Persist-Immutable](./examples/counter-persist-immutable): Work with [redux-persist](https://github.com/rt2zz/redux-persist) and [ImmutableJS](https://github.com/facebook/immutable-js/)
-- [Counter-Persist-Immutable(v5)](./examples/counter-persist-immutable(v5)): Work with [redux-persist v5](https://github.com/rt2zz/redux-persist) and [ImmutableJS](https://github.com/facebook/immutable-js/)
+- [Counter-Persist(v5)-Immutable](./examples/counter-persist(v5)-immutable: Work with [redux-persist v5](https://github.com/rt2zz/redux-persist) and [ImmutableJS](https://github.com/facebook/immutable-js/)
 - [Counter-Undo](./examples/counter-undo): Work with [redux-undo](https://github.com/omnidan/redux-undo)
 - [Simple-Router](./examples/simple-router): Base on [react-router@4.x](https://reacttraining.com/react-router/)
 - [mickey-todo](https://github.com/mickeyjsx/mickey-todo) ([demo](https://mickeyjsx.github.io/todo)): Simple Todo application build with mickey
