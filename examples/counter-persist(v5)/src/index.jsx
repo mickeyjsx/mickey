@@ -5,7 +5,7 @@ import { PersistGate } from 'redux-persist/lib/integration/react'
 import createActionBuffer from 'redux-action-buffer'
 import App from './App'
 import storage from 'redux-persist/lib/storage'
-import createFilter from 'redux-persist-transform-filter-immutable';
+import createFilter from 'redux-persist-transform-filter';
 
 //specific key to persist
 const saveSubsetFilter = createFilter(
