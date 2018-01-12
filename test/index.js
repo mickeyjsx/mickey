@@ -1,5 +1,5 @@
 import './spec/utils.spec'
-import './spec/subscriptions.spec'
+import './spec/watcher.spec'
 import './spec/createHistory.spec'
 import './spec/steupHistoryHooks.spec'
 import './spec/Plugin.spec'

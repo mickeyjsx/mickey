@@ -54,7 +54,7 @@
 - [app.model(model)](#appmodelmodel)
   - [model.namespace](#modelnamespace)
   - [model.state](#modelstate)
-  - [model.subscriptions](#modelsubscriptions)
+  - [model.watcher](#modelwatcher)
   - [model.enhancers](#modelenhancers)
   - [model.createReducer](#modelcreatereducer)
   - [model[...actionsAndEffects]](#modelactionsandeffects)

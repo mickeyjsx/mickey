@@ -262,7 +262,7 @@ describe('createApp', () => {
       }, 2500)
     })
 
-    it('should update state and call subscriptions if inject a model after render', () => {
+    it('should update state and call watcher if inject a model after render', () => {
       let count = 0
       const app = createApp()
       app.model({
@@ -275,7 +275,7 @@ describe('createApp', () => {
         namespace: 'tasks',
         state: [],
         add: (state, payload) => [...state, payload],
-        subscriptions() {
+        watcher() {
           count += 1
         },
       })
@@ -284,7 +284,7 @@ describe('createApp', () => {
         state: 0,
       })
 
-      // subscriptions
+      // watcher
       expect(count).to.equal(1)
 
       // actions
@@ -315,7 +315,7 @@ describe('createApp', () => {
           prepare: state => ({ ...state, loading: true }),
           succeed: state => ({ ...state, loading: false }),
         },
-        subscriptions({ innerDispatch }) {
+        watcher({ innerDispatch }) {
           innerDispatch({ type: 'increment' })
           innerDispatch({ type: 'incrementAsync' })
         },
@@ -348,7 +348,7 @@ describe('createApp', () => {
   })
 
   describe('app.eject(namespace)', () => {
-    it('shoule not call subscriptions if called before render', () => {
+    it('shoule not call watcher if called before render', () => {
       let called = false
       const app = createApp()
       app.model({
@@ -358,7 +358,7 @@ describe('createApp', () => {
       app.model({
         namespace: 'b.c',
         state: 0,
-        subscriptions() {
+        watcher() {
           called = true
         },
       })
@@ -385,7 +385,7 @@ describe('createApp', () => {
         namespace: 'a.b.d.e.f',
         state: 0,
         add: state => state + 1,
-        subscriptions() {
+        watcher() {
           emitter.on('event', () => { emitterCount += 1 })
           return () => {
             emitter.removeAllListeners()
@@ -431,12 +431,14 @@ describe('createApp', () => {
       app.model({
         namespace: 'b.c',
         state: 0,
-        subscriptions() {
-          emitter.on('event', () => { })
-          return () => {
-            unlistenerCalled = true
-            emitter.removeAllListeners()
-          }
+        watcher: {
+          steup() {
+            emitter.on('event', () => { })
+            return () => {
+              unlistenerCalled = true
+              emitter.removeAllListeners()
+            }
+          },
         },
       })
       app.render()

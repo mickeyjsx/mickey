@@ -6,19 +6,17 @@ describe('createModel', () => {
     expect(createModel({ namespace: 'a/b.c' }).namespace).to.be.equal('a_b/c')
   })
 
-  it('should return the same `state`, `enhancers`, `subscriptions` and `createReducer`', () => {
+  it('should return the same `state`, `enhancers` and `createReducer`', () => {
     const model = {
       namespace: 'foo.bar',
       state: 1,
       enhancers: [2],
-      subscriptions: { setup() { } },
       createReducer: f => f,
     }
     const ret = createModel(model)
 
     expect(ret.state).to.be.eql(model.state)
     expect(ret.enhancers).to.be.eql(model.enhancers)
-    expect(ret.subscriptions).to.be.eql(model.subscriptions)
     expect(ret.createReducer).to.be.eql(model.createReducer)
   })
 

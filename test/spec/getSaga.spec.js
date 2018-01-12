@@ -39,7 +39,7 @@ describe('getSata', () => {
     expect(state.counter.loading).to.be.equal(false)
   })
 
-  it('should inject actions to subscriptions', () => {
+  it('should inject actions to watcher', () => {
     const app = createApp()
     app.model({
       namespace: 'foo',
@@ -64,7 +64,7 @@ describe('getSata', () => {
         prepare: state => ({ ...state, loading: true }),
         succeed: state => ({ ...state, loading: false }),
       },
-      subscriptions(helpers, innerActions, actions) {
+      watcher(helpers, innerActions, actions) {
         helpers.dispatch({ type: 'foo/add' })
         helpers.innerDispatch({ type: 'increment' })
         innerActions.incrementAsync()

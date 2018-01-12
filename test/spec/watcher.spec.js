@@ -2,7 +2,7 @@ import { expect } from 'chai'
 import sinon from 'sinon'
 import createApp from '../../src/createApp'
 
-describe('subscriptions', () => {
+describe('watcher', () => {
   it('should call handlers with correct arguments', () => {
     const args = []
     const app = createApp()
@@ -15,7 +15,7 @@ describe('subscriptions', () => {
       namespace: 'foo.bar',
       state: 1,
       sub: (state, payload) => state - payload,
-      subscriptions(helpers, innerActions, actions, onError) {
+      watcher(helpers, innerActions, actions, onError) {
         args.push(helpers, innerActions, actions, onError)
       },
     })
@@ -51,7 +51,7 @@ describe('subscriptions', () => {
       namespace: 'foo.bar',
       state: 1,
       sub: (state, payload) => state - payload,
-      subscriptions(helpers, innerActions, actions) {
+      watcher(helpers, innerActions, actions) {
         actions.count.add(2)
         innerActions.sub(1)
       },
@@ -71,14 +71,14 @@ describe('subscriptions', () => {
     app.model({
       namespace: 'count',
       state: 0,
-      subscriptions() {
+      watcher() {
         return () => { flag1 = true }
       },
     })
     app.model({
       namespace: 'foo.bar',
       state: 0,
-      subscriptions() {
+      watcher() {
         return () => { flag2 = true }
       },
     })
@@ -94,26 +94,12 @@ describe('subscriptions', () => {
     expect(flag2).to.be.eql(true)
   })
 
-  it('should give a warning message if subscriptions is an object', () => {
-    const app = createApp()
-    const spy = sinon.stub(console, 'error')
-    app.model({
-      namespace: 'count',
-      state: 0,
-      subscriptions: { setup: () => { } },
-    })
-    app.render()
-    expect(spy.callCount).to.be.eql(1)
-    expect(spy.firstCall.args[0]).to.match(/plain object is deprecated/)
-    spy.restore()
-  })
-
   it('should give a warning message if unlistener is not a function when unlisten', () => {
     const app = createApp()
     app.model({
       namespace: 'count',
       state: 0,
-      subscriptions: [() => null],
+      watcher: [() => null],
     })
     app.model({
       namespace: 'foo.bar',
@@ -126,7 +112,7 @@ describe('subscriptions', () => {
     app.eject('count')
     app.eject('foo.bar')
 
-    expect(spy.secondCall.args[0]).to.match(/subscription should return unlistener function/)
+    expect(spy.secondCall.args[0]).to.match(/watcher should return unlistener function/)
 
     spy.restore()
   })
