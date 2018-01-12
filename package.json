@@ -1,6 +1,6 @@
 {
   "name": "mickey",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Lightweight front-end framework for creating React and Redux based app painlessly.",
   "main": "./lib/index.js",
   "keywords": [
