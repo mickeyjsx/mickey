@@ -1,6 +1,6 @@
 // native exports
 export { connect } from 'react-redux'
-export { applyMiddleware, compose } from 'redux'
+export { applyMiddleware, compose, combineReducers } from 'redux'
 export {
   Route,
   Router,
