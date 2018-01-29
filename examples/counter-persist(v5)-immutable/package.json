@@ -11,7 +11,8 @@
     "redux-persist": "^5.4.0",
     "redux-persist-immutable": "^4.3.1",
     "redux-persist-transform-filter-immutable": "^0.3.0",
-    "redux-persist-transform-immutable": "^4.3.0"
+    "redux-persist-transform-immutable": "^4.3.0",
+    "mickey-persist": "^1.0.1"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",

@@ -6,8 +6,10 @@ import { persistStore, persistCombineReducers } from 'redux-persist'
 import immutableTransform from 'redux-persist-transform-immutable'
 import { PersistGate } from 'redux-persist/lib/integration/react'
 import createFilter from 'redux-persist-transform-filter-immutable';
+import MickeyPersist from 'mickey-persist'
 import App from './App'
 import { autoMergeImmutable } from './autoMergeImmutable'
+import { combineReducers } from 'redux-immutablejs';
 
 //specific key to persist
 const saveSubsetFilter = createFilter(
@@ -27,7 +29,7 @@ const persistConfig = {
 const app = createApp({
   initialState: {}, //must be a no-immutable object
   extensions: {
-    combineReducers: persistCombineReducers.bind(this, persistConfig),
+    combineReducers: MickeyPersist(persistCombineReducers.bind(this, persistConfig), combineReducers),
   },
 })
 
