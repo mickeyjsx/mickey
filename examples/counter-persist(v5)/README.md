@@ -16,3 +16,4 @@ $ npm start
 ## Resources
 
 - [Redux Action Buffer](https://github.com/rt2zz/redux-action-buffer#redux-persist-example)
+- [Mickey Persist](https://github.com/mickeyjsx/mickey-persist)

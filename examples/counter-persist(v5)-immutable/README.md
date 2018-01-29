@@ -13,3 +13,7 @@
 $ npm install
 $ npm start
 ```
+
+## Resources
+
+- [Mickey Persist](https://github.com/mickeyjsx/mickey-persist)
