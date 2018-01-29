@@ -32,7 +32,7 @@ export default function createReducer({
     ...memo,
     [key]: isFunction(section[key])
       ? section[key]
-      : combineReducers(combine(section[key])),
+      : combineMethod(combine(section[key])),
   }), {})
 
   if (process.env.NODE_ENV !== 'production') {
