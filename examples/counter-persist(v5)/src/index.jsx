@@ -6,6 +6,7 @@ import createActionBuffer from 'redux-action-buffer'
 import App from './App'
 import storage from 'redux-persist/lib/storage'
 import createFilter from 'redux-persist-transform-filter';
+import MickeyPersist from 'mickey-persist';
 
 //specific key to persist
 const saveSubsetFilter = createFilter(
@@ -23,7 +24,7 @@ const persistConfig = {
 // 1. Initialize
 const app = createApp({
   extensions: {
-    combineReducers: persistCombineReducers.bind(this, persistConfig),
+    combineReducers: MickeyPersist( persistCombineReducers.bind(this, persistConfig) ),
   }
 })
 
