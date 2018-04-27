@@ -30,7 +30,7 @@ export default function createApp(options = {}) {
   const { createReducer: reducerCreator, combineReducers } = extensions
 
   // history and hooks
-  const history = createHistory(historyMode)
+  const history = options.history || createHistory(historyMode)
   steupHistoryHooks(history, hooks)
 
   const app = {}
