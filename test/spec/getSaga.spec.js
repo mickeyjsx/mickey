@@ -130,4 +130,21 @@ describe('getSata', () => {
     expect(state.counter.count).to.be.equal(2)
     expect(state.counter.loading).to.be.equal(false)
   })
+
+  it('should extend model with base `mutate` reducer', () => {
+    const app = createApp()
+    app.model({
+      namespace: 'foo',
+      state: { count: 0 },
+      * add(payload, { mutate }) {
+        yield mutate({ count: 1 });
+      },
+    })
+
+    app.render()
+
+    app.actions.foo.add()
+    const state = app.store.getState()
+    expect(state.foo).to.be.eql({ count: 1 })
+  })
 })

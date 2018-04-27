@@ -1,5 +1,6 @@
 import { expect } from 'chai'
 import createModel from '../../src/createModel'
+import baseModel from '../../src/baseModel'
 
 describe('createModel', () => {
   it('should fix namespace', () => {
@@ -33,13 +34,13 @@ describe('createModel', () => {
     }
     const ret = createModel(model)
 
-    expect(ret.actions).to.be.eql({
+    expect(ret.actions).to.own.include({
       query: 'query',
       querySucceed: 'query/succeed',
       queryFailed: 'query/failed',
     })
 
-    expect(ret.reducers).to.be.eql({
+    expect(ret.reducers).to.own.include({
       'foo/bar/query': model.query.prepare,
       'foo/bar/query/succeed': model.query.succeed,
       'foo/bar/query/failed': model.query.failed,
@@ -75,7 +76,7 @@ describe('createModel', () => {
     }
     const ret = createModel(model)
 
-    expect(ret.actions).to.be.eql({
+    expect(ret.actions).to.own.include({
       baz1: 'baz1',
       baz2: 'baz2',
       query: 'query',
@@ -86,7 +87,7 @@ describe('createModel', () => {
       delFailed: 'del/failed',
     })
 
-    expect(ret.reducers).to.be.eql({
+    expect(ret.reducers).to.own.include({
       'foo/bar/baz1': model.reducers.baz1,
       'foo/bar/query': model.query.prepare,
       'foo/bar/query/succeed': model.query.succeed,
@@ -120,13 +121,13 @@ describe('createModel', () => {
       },
     }
     const ret = createModel(model)
-    expect(ret.actions).to.be.eql({
+    expect(ret.actions).to.own.include({
       query: 'query',
       querySucceed: 'query/succeed',
       queryFailed: 'query/failed',
     })
 
-    expect(ret.reducers).to.be.eql({
+    expect(ret.reducers).to.own.include({
       'foo/bar/query': model.query.prepare,
       'foo/bar/query/succeed': model.query.succeed,
       'foo/bar/query/failed': model.query.failed,
@@ -153,13 +154,13 @@ describe('createModel', () => {
     }
     const ret = createModel(model)
 
-    expect(ret.actions).to.be.eql({
+    expect(ret.actions).to.own.include({
       reducer1: 'reducer1',
       effect1: 'effect1',
       effect2: 'effect2',
     })
 
-    expect(ret.reducers).to.be.eql({
+    expect(ret.reducers).to.own.include({
       'foo/bar/reducer1': model.reducer1,
     })
 
@@ -193,7 +194,7 @@ describe('createModel', () => {
     }
     const ret = createModel(model)
 
-    expect(ret.actions).to.be.eql({
+    expect(ret.actions).to.own.include({
       reducer1: 'reducer1',
       effect1: 'effect1',
       effect2: 'effect2',
@@ -201,7 +202,7 @@ describe('createModel', () => {
       querySucceed: 'query/succeed',
     })
 
-    expect(ret.reducers).to.be.eql({
+    expect(ret.reducers).to.own.include({
       'foo/bar/reducer1': model.reducers.reducer1,
       'foo/bar/query': model.query.prepare,
       'foo/bar/query/succeed': model.query.succeed,
@@ -234,6 +235,42 @@ describe('createModel', () => {
     }
 
     expect(badFn).to.throw(/Less than one effect function should be specified in model/)
+
+    const env = process.env.NODE_ENV
+    process.env.NODE_ENV = 'production'
+    expect(badFn).to.not.throw()
+    process.env.NODE_ENV = env
+  })
+
+  it('should extend model with base `mutate` reducer', () => {
+    const model = {
+      namespace: 'foo.bar',
+      state: {},
+    }
+    const ret = createModel(model)
+    expect(ret.actions).to.be.eql({
+      mutate: 'mutate',
+    })
+
+    expect(ret.reducers).to.be.eql({
+      'foo/bar/mutate': baseModel.mutate,
+    })
+
+    expect(ret.effects).to.be.eql({})
+
+    expect(ret.callbacks).to.be.eql({})
+  })
+
+  it('should throw an error if use the revesed action name `mutate`', () => {
+    const badFn = () => {
+      createModel({
+        namespace: 'foo.bar',
+        state: 1,
+        mutate: state => state,
+      })
+    }
+
+    expect(badFn).to.throw(/The `mutate` is a reserved action for mutate the state. You should change `mutate` to other action names/)
 
     const env = process.env.NODE_ENV
     process.env.NODE_ENV = 'production'
