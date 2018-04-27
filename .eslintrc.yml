@@ -17,6 +17,14 @@ rules:
   no-param-reassign:
     - error
     - props: false
+  import/no-unresolved:
+    - error
+    - ignore:
+      - ^react$
+      - ^react\-dom$
+  import/extensions:
+    - error
+    - ignorePackages: true
 
 parserOptions:
   ecmaFeatures:
