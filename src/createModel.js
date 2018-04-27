@@ -1,5 +1,7 @@
 /* eslint-disable no-underscore-dangle */
 import invariant from 'invariant'
+import baseModel from './baseModel'
+import { MUTATE } from './constants'
 import {
   ucfirst,
   prefixType,
@@ -16,6 +18,17 @@ function isEffect(method) {
   return isGeneratorFn(method)
     // [ *effect(){}, type ]
     || (isArray(method) && isGeneratorFn(method[0]))
+}
+
+function createEmptyGroup(type) {
+  return {
+    type,
+    actions: {},
+    effects: {},
+    reducers: {},
+    callbacks: [],
+    effectCount: 0,
+  }
 }
 
 function fillGroup(group, type, method, callback) {
@@ -46,16 +59,10 @@ function fillGroup(group, type, method, callback) {
 }
 
 function parseGroups(raw, namespace) {
-  return Object.keys(raw).map((type) => {
+  const keys = Object.keys(raw)
+  const groups = keys.map((type) => {
     const section = raw[type]
-    const group = {
-      type,
-      actions: {},
-      effects: {},
-      reducers: {},
-      callbacks: [],
-      effectCount: 0,
-    }
+    const group = createEmptyGroup(type)
 
     if (!fillGroup(group, type, section)) {
       Object.keys(section).forEach(name => fillGroup(group, type, section[name], name))
@@ -70,6 +77,26 @@ function parseGroups(raw, namespace) {
 
     return group
   })
+
+  if (process.env.NODE_ENV !== 'production') {
+    const exist = keys.some(key => (key === MUTATE))
+    invariant(
+      !exist,
+      `The \`mutate\` is a reserved action for mutate the state. You should change \`mutate\` to other action names in model "${namespace}".`,
+    )
+  }
+
+  // extend model with `mutate` reducer
+  groups.push({
+    type: MUTATE,
+    actions: { [MUTATE]: MUTATE },
+    effects: {},
+    reducers: { [MUTATE]: baseModel[MUTATE] },
+    callbacks: [],
+    effectCount: 0,
+  })
+
+  return groups
 }
 
 function parseWatcher(watcher) {

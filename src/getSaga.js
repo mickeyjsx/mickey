@@ -8,7 +8,7 @@ import {
 } from 'redux-saga/lib/internal/sagaHelpers'
 import { delay, CANCEL as CANCEL_DELAY } from 'redux-saga'
 import * as sagaEffects from 'redux-saga/effects'
-import { CANCEL_EFFECTS } from './constants'
+import { CANCEL_EFFECTS, MUTATE } from './constants'
 import { prefixType, unfixType, prefixAndValidate } from './utils'
 import { getModelActions } from './actions'
 
@@ -46,12 +46,20 @@ function getEffects(model) {
     return take(type)
   }
 
+  function mutate(payload) {
+    return put({
+      payload,
+      type: prefixType(namespace, model.actions[MUTATE]),
+    })
+  }
+
   return {
     ...sagaEffects,
     delay,
     CANCEL_DELAY,
     innerPut,
     innerTake,
+    [MUTATE]: mutate,
   }
 }
 
