@@ -46,11 +46,17 @@ function getEffects(model) {
     return take(type)
   }
 
-  function mutate(payload) {
-    return put({
+  function mutate(payload, debug) {
+    const action = {
       payload,
       type: prefixType(namespace, model.actions[MUTATE]),
-    })
+    }
+
+    if (process.env.NODE_ENV !== 'production' && debug) {
+      action.debug = debug
+    }
+
+    return put(action)
   }
 
   return {
