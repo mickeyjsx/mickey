@@ -1,6 +1,6 @@
 {
   "name": "mickey",
-  "version": "1.2.4",
+  "version": "1.2.5",
   "description": "Lightweight front-end framework for creating React and Redux based app painlessly.",
   "main": "./lib/index.js",
   "keywords": [
@@ -72,6 +72,8 @@
     "jsdom": "^11.2.0",
     "mocha": "^3.5.0",
     "nyc": "^11.1.0",
+    "react": "^16.3.2",
+    "react-dom": "^16.3.2",
     "rimraf": "^2.6.1",
     "sinon": "^4.1.2"
   },
