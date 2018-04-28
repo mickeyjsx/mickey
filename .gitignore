@@ -7,4 +7,3 @@ node_modules
 dist
 /lib
 /test/coverage
-mickey.code-works*
