@@ -6,6 +6,7 @@
 .npmignore
 .gitignore
 .editorconfig
+.nyc_output
 npm-debug.log
 node_modules
-/src
+/test/coverage
