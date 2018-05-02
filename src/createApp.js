@@ -9,12 +9,12 @@ import internalModel from './internalModel'
 import createReducer from './createReducer'
 import createHistory from './createHistory'
 import { removeActions } from './actions'
-import { CANCEL_EFFECTS } from './constants'
 import { prefixType, fixNamespace } from './utils'
 import steupHistoryHooks from './steupHistoryHooks'
 import createErrorHandler from './createErrorHandler'
 import createPromiseMiddleware from './createPromiseMiddleware'
 import { startWatchers, stopWatchers } from './watcher'
+import { CANCEL_EFFECTS, MICKEY_UPDATE } from './constants'
 
 
 export default function createApp(options = {}) {
@@ -126,7 +126,17 @@ export default function createApp(options = {}) {
 
         // inject model after app is started
         model(raw) {
-          const { namespace } = raw
+          const namespace = fixNamespace(raw.namespace)
+
+          // clean the old one when exists
+          if (app.has(namespace)) {
+            stopWatchers(unlisteners, namespace)
+            removeActions(app, namespace)
+            app.models = app.models.filter(m => m.namespace !== namespace)
+            store.dispatch({ type: prefixType(namespace, CANCEL_EFFECTS) })
+            store.dispatch({ type: MICKEY_UPDATE })
+          }
+
           const model = regModel(raw)
 
           store.asyncReducers[namespace] = innerGetReducer(model)
@@ -147,7 +157,7 @@ export default function createApp(options = {}) {
           // The pattern we recommend is to keep the old reducers around, so there's a warning
           // ref: https://stackoverflow.com/questions/34095804/replacereducer-causing-unexpected-key-error
           store.replaceReducer(innerCreateReducer(store.asyncReducers))
-          store.dispatch({ type: '@@MICKEY/UPDATE' })
+          store.dispatch({ type: MICKEY_UPDATE })
           store.dispatch({ type: prefixType(namespace, CANCEL_EFFECTS) })
 
           stopWatchers(unlisteners, namespace)
