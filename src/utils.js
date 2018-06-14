@@ -19,7 +19,7 @@ export const isGeneratorFn = fn => (
 export const isArray = Array.isArray.bind(Array)
 export const isString = str => typeof str === 'string'
 export const ucfirst = s => s.charAt(0).toUpperCase() + s.substr(1)
-export const filename = file => file.match(/([^/]+)\.js$/)[1]
+export const filename = file => file.match(/([^/]+)\.(js|ts)$/)[1]
 export const isHTMLElement = node => !!(node && typeof node === 'object' && node.nodeType && node.nodeName)
 
 export const unfixType = (namespace, type) => (type.replace(`${namespace}${NAMESPACE_SEP}`, ''))
