@@ -11,9 +11,9 @@ export default {
   increment: state => ({ ...state, count: state.count + 1 }),
   decrement: state => ({ ...state, count: state.count - 1 }),
   incrementAsync: {
-    * effect(payload, { call }, { succeed }) {
-      yield call(delay, 2000)
-      yield succeed()
+    async effect(payload, { call }, { succeed }) {
+      await call(delay, 2000)
+      await succeed()
     },
     prepare: state => ({ ...state, loading: true }),
     succeed: state => ({ ...state, count: state.count + 1, loading: false }),

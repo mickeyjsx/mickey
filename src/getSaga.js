@@ -20,6 +20,17 @@ function applyOnEffect(handlers, effect, actionType, metadata) {
   )
 }
 
+function* callGenerator(fn, ...args) {
+  const ret = yield fn(...args)
+  if (ret.then) {
+    return yield new Promise((resolve) => {
+      ret.then(data => resolve(data))
+    })
+  }
+
+  return ret
+}
+
 function getEffects(model) {
   const { put, take } = sagaEffects
   const { namespace } = model
@@ -66,6 +77,7 @@ function getEffects(model) {
     innerPut,
     innerTake,
     [MUTATE]: mutate,
+    digest: callGenerator,
   }
 }
 

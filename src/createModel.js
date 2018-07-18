@@ -16,8 +16,7 @@ import {
 function isEffect(method) {
   // if a method is generator function then it should be an effect.
   return isGeneratorFn(method)
-    // [ *effect(){}, type ]
-    || (isArray(method) && isGeneratorFn(method[0]))
+    || (isArray(method) && isGeneratorFn(method[0])) // [ *effect(){}, type ]
 }
 
 function createEmptyGroup(type) {

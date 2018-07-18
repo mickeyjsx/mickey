@@ -7,6 +7,7 @@ export flatten from 'lodash.flatten'
 export minimatch from 'minimatch'
 export isPlainObject from 'is-plain-object'
 export isFunction from 'lodash.isfunction'
+
 // Test generator function that compilied with babel(babel-profill)
 export const isGeneratorFn = fn => (
   typeof fn === 'function' &&
@@ -16,6 +17,7 @@ export const isGeneratorFn = fn => (
     fn.constructor.displayName === 'GeneratorFunction'
   )
 )
+
 export const isArray = Array.isArray.bind(Array)
 export const isString = str => typeof str === 'string'
 export const ucfirst = s => s.charAt(0).toUpperCase() + s.substr(1)
