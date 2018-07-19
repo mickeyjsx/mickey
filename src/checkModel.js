@@ -1,6 +1,6 @@
 import invariant from 'invariant'
 
-export default function checkModel(model, existModels) {
+export default function checkModel(model, models) {
   const { namespace } = model
 
   invariant(
@@ -14,7 +14,7 @@ export default function checkModel(model, existModels) {
   )
 
   invariant(
-    !existModels.some(m => m.namespace === namespace),
+    !models.some(m => m.namespace === namespace),
     'app.model: namespace should be unique',
   )
 }

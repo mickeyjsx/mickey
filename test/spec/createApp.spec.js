@@ -333,17 +333,16 @@ describe('createApp', () => {
 
     it('should throw an error if namespace exists', () => {
       const app = createApp()
-      const model = {
-        namespace: 'count',
-        state: 0,
-      }
 
-      app.model(model)
-      app.render()
+      app.model({
+        namespace: 'a',
+        state: 0,
+      })
 
       expect(() => {
-        app.model(model)
-      }).to.throw(/namespace should be unique/)
+        app.model({ namespace: 'a', state: 1 })
+      })
+        .to.throw(/namespace should be unique/)
     })
   })
 
