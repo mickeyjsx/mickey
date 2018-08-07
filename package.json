@@ -103,7 +103,7 @@
     "lint": "eslint --ext .js,.jsx src",
     "build": "rimraf lib && babel src --out-dir lib",
     "prebuild": "npm run lint",
-    "prepublish": "npm run build",
+    "prepublish": "npm run lint && npm run build && npm run test",
     "precommit": "npm run lint"
   }
 }
