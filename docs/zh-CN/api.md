@@ -37,6 +37,7 @@
   - [options.initialState](#optionsinitialstate)
   - [options.initialReducer](#optionsinitialreducer)
   - [options.historyMode](#optionshistorymode)
+  - [options.history](#optionshistory)
   - [options.hooks](#optionshooks)
     - [options.hooks.onError](#optionshooksonerror)
     - [options.hooks.onAction](#optionshooksonaction)
@@ -141,21 +142,42 @@ const actions = app.actions; // 一般通过 injectActions 方法将 actions 方
 /*
 
 state
-  └── router
-        └── location
-              ├── pathname
-              ├── search
-              └── hash
+└─ router
+   └─ location
+      ├─ pathname
+      ├─ search
+      └─ hash
   
 actions
-  └── router
-        ├── go
-        ├── goBack
-        ├── goForward
-        ├── push
-        └── replace
+└─ router
+   ├─ go
+   ├─ goBack
+   ├─ goForward
+   ├─ push
+   └─ replace
 */ 
 ```
+
+#### options.history
+
+默认值：`undefined`，指定 Router 组件所需的 [history](https://github.com/ReactTraining/history#usage) 对象。可以创建自定义的 `history` 对象来取代由 `historyMode` 指定的路由类型。
+
+```es6
+import createApp from 'mickey'
+import createBrowserHistory from 'history/createBrowserHistory'
+
+// 创建自定义的 history 对象
+const history = createBrowserHistory({
+  basename: "", // The base URL of the app (see below)
+  forceRefresh: false, // Set true to force full page refreshes
+  keyLength: 6, // The length of location.key
+  // A function to use to confirm navigation with the user (see below)
+  getUserConfirmation: (message, callback) => callback(window.confirm(message))
+})
+
+const app = createApp({history});
+```
+
 
 #### options.hooks
 
@@ -163,13 +185,13 @@ actions
 
 ##### options.hooks.onError
 
-用于处理全局错误状态，`effect` 执行错误或 `subscription` 通过 `done` 主动抛错时触发。如果在 `subscription` 中没有使用 `try...catch`，错误信息可以通过参数 `done` 主动抛错。例如：
+用于处理全局错误状态，`effect` 执行错误或 `watcher` 通过 `onError` 主动抛错时触发。如果在 `watcher` 中没有使用 `try...catch`，错误信息可以通过参数 `onError` 主动抛错。例如：
 
 ```es6
 app.model({
   watcher: {
-    setup({ history }, innerAction, actions, done) {
-      done(e);
+    setup({ history }, innerAction, actions, onError) {
+      onError(e);
     },
   },
 });
@@ -554,7 +576,7 @@ app.store.getState();
 - `innerActions` 本模型所有 action 集合，用于触发该模型内部的 action
 - `actions` 应用所有 action 的集合，通过模型命名空间访问，用于跨模型触发其他模型中的 action
 
-注意：如果要使用 `app.eject()`，subscription 必须返回 unlisten 方法，用于取消数据订阅。
+注意：如果要使用 `app.eject()` watcher 必须返回 unlisten 方法，用于取消数据订阅。
 
 
 #### model.enhancers
