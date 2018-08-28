@@ -1,6 +1,6 @@
 {
   "name": "mickey",
-  "version": "1.5.0",
+  "version": "2.0.0-alpha.1",
   "description": "Lightweight front-end framework for creating React and Redux based app painlessly.",
   "main": "./lib/index.js",
   "keywords": [
@@ -31,6 +31,7 @@
     "react-dom": "*"
   },
   "dependencies": {
+    "connected-react-router": "^4.4.1",
     "global": "^4.3.2",
     "history": "^4.7.2",
     "invariant": "^2.2.4",

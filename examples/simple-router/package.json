@@ -2,7 +2,6 @@
   "name": "counter",
   "description": "Counter example for mickey",
   "dependencies": {
-    "mickey": "^0.2.4",
     "react": "^15.6.1"
   },
   "devDependencies": {

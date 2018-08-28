@@ -1,7 +1,7 @@
 import './spec/utils.spec'
 import './spec/watcher.spec'
 import './spec/createHistory.spec'
-import './spec/steupHistoryHooks.spec'
+// import './spec/steupHistoryHooks.spec'
 import './spec/Plugin.spec'
 import './spec/ActionsProvider.spec'
 import './spec/createModel.spec'

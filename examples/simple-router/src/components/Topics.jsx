@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 
 import React from 'react'
-import { Route, Link, connect } from 'mickey'
+import { Route, Link, connect } from '../../../../lib'
 import Topic from './Topic'
 import AddTopic from './AddTopic'
 

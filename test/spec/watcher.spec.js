@@ -112,7 +112,7 @@ describe('watcher', () => {
     app.eject('count')
     app.eject('foo.bar')
 
-    expect(spy.secondCall.args[0]).to.match(/watcher should return unlistener function/)
+    expect(spy.firstCall.args[0]).to.match(/watcher should return unlistener function/)
 
     spy.restore()
   })

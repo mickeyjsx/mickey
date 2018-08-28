@@ -1,6 +1,8 @@
 import { expect } from 'chai'
-import { routerActions } from 'react-router-redux'
 import createHistory from '../../src/createHistory'
+
+const routerActions = ['push', 'replace', 'go', 'goBack', 'goForward']
+
 
 describe('createHistory', () => {
   it('should throw an error when specified an unknown `historyMode`', () => {
@@ -20,21 +22,21 @@ describe('createHistory', () => {
 
   it('should creat a hashHistory when call with \'hash\'', () => {
     const history = createHistory('hash')
-    Object.keys(routerActions).forEach((key) => {
+    routerActions.forEach((key) => {
       expect(history).to.have.property(key)
     })
   })
 
   it('should creat a browserHistory when call with \'browser\'', () => {
     const history = createHistory('browser')
-    Object.keys(routerActions).forEach((key) => {
+    routerActions.forEach((key) => {
       expect(history).to.have.property(key)
     })
   })
 
   it('should creat a memoryHistory when call with \'memory\'', () => {
     const history = createHistory('memory')
-    Object.keys(routerActions).forEach((key) => {
+    routerActions.forEach((key) => {
       expect(history).to.have.property(key)
     })
   })

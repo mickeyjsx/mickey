@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'mickey'
+import { Link } from '../../../../lib'
 
 const Header = () => (
   <header>

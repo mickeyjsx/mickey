@@ -19,21 +19,24 @@ export default function createRender(app, component, container, callback) {
     const { beforeRender, afterRender } = getCallbacks(_callback || callback)
     // real render function
     const innerRender = (componentFromPromise, containerFromPromise) => {
-      const comp = componentFromPromise || component
-      let wrap = containerFromPromise || container
+      const innerComponent = componentFromPromise || component
+      let innerContainer = containerFromPromise || container
 
-      if (wrap) {
-        if (isString(wrap)) {
-          wrap = document.querySelector(wrap)
-          invariant(wrap, `container with selector "${container}" not exist`)
+      if (innerContainer) {
+        if (isString(innerContainer)) {
+          innerContainer = document.querySelector(innerContainer)
+          invariant(innerContainer, `container with selector "${container}" not exist`)
         }
 
-        invariant(isHTMLElement(wrap), 'container should be HTMLElement')
+        invariant(isHTMLElement(innerContainer), 'container should be HTMLElement')
       }
 
-      const canRender = comp && wrap
+      const canRender = innerComponent && innerContainer
       if (canRender) {
-        ReactDOM.render(<Provider app={app}>{comp}</Provider>, wrap); // eslint-disable-line
+        ReactDOM.render(
+          React.createElement(Provider, { app }, innerComponent),
+          innerContainer,
+        )
 
         if (afterRender) {
           afterRender(app)
@@ -41,13 +44,13 @@ export default function createRender(app, component, container, callback) {
       }
     }
 
-    let ret = true
+    let result = true
     if (beforeRender) {
-      ret = beforeRender(app)
+      result = beforeRender(app)
     }
 
-    if (ret && ret.then) {
-      ret.then((val) => {
+    if (result && result.then) {
+      result.then((val) => {
         if (val) {
           if (Array.isArray(val)) {
             innerRender(...val)
@@ -58,7 +61,7 @@ export default function createRender(app, component, container, callback) {
           innerRender(_component, _container)
         }
       }, () => { })
-    } else if (ret !== false) {
+    } else if (result !== false) {
       innerRender(_component, _container)
     }
   }

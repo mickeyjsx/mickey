@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 
 import React from 'react'
-import { injectActions } from 'mickey'
+import { injectActions } from '../../../../lib'
 
 const AddTopic = ({ actions }) => {
   let input

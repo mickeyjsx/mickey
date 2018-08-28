@@ -1,5 +1,6 @@
 import invariant from 'invariant'
 import { combineReducers } from 'redux'
+import { connectRouter } from 'connected-react-router'
 import { NAMESPACE_SEP } from './constants'
 import { isFunction } from './utils'
 
@@ -20,6 +21,7 @@ function parseNamespace(reducers) {
 }
 
 export default function createReducer({
+  history,
   reducers,
   asyncReducers = {},
   extraReducers,
@@ -44,9 +46,14 @@ export default function createReducer({
 
   const parsed = parseNamespace(merged)
   const combined = combine(parsed)
-
-  return reducerEnhancer(combineMethod({
+  const rootReducer = combineMethod({
     ...combined,
     ...extraReducers,
-  }))
+  })
+
+  return reducerEnhancer(
+    history
+      ? connectRouter(history)(rootReducer)
+      : rootReducer,
+  )
 }

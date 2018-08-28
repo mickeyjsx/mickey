@@ -141,14 +141,14 @@ const actions = app.actions; // 一般通过 injectActions 方法将 actions 方
 /*
 
 state
-  └── routing
+  └── router
         └── location
               ├── pathname
               ├── search
               └── hash
   
 actions
-  └── routing
+  └── router
         ├── go
         ├── goBack
         ├── goForward

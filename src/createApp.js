@@ -9,12 +9,11 @@ import internalModel from './internalModel'
 import createReducer from './createReducer'
 import createHistory from './createHistory'
 import { removeActions } from './actions'
-import { prefixType, fixNamespace } from './utils'
-import steupHistoryHooks from './steupHistoryHooks'
 import createErrorHandler from './createErrorHandler'
 import createPromiseMiddleware from './createPromiseMiddleware'
 import { startWatchers, stopWatchers } from './watcher'
 import { CANCEL_EFFECTS, MICKEY_UPDATE } from './constants'
+import { prefixType, fixNamespace } from './utils'
 
 
 export default function createApp(options = {}) {
@@ -28,10 +27,8 @@ export default function createApp(options = {}) {
 
   // supportted extensions
   const { createReducer: reducerCreator, combineReducers } = extensions
-
-  // history and hooks
+  // use `options.history` or create one with `historyMode`
   const history = options.history || createHistory(historyMode)
-  steupHistoryHooks(history, hooks)
 
   const app = {}
   const plugin = (new Plugin()).use(hooks)
@@ -85,6 +82,7 @@ export default function createApp(options = {}) {
         extraReducers,
         reducerEnhancer,
         combineReducers,
+        history: app.history,
       })
 
       // handle reducers and sagas in model
@@ -95,14 +93,15 @@ export default function createApp(options = {}) {
 
       // create store
       const store = app.store = createStore({ // eslint-disable-line
-        initialState,
-        reducers: innerCreateReducer(),
         plugin,
+        options,
+        initialState,
+        history: app.history,
+        reducers: innerCreateReducer(),
         promiseMiddleware: createPromiseMiddleware(app),
         extraMiddlewares: plugin.get('onAction'),
         onStateChange: plugin.get('onStateChange'),
         extraEnhancers: plugin.get('extraEnhancers'),
-        options,
       })
 
       // run sagas

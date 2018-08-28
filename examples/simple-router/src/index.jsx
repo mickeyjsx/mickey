@@ -1,5 +1,5 @@
 import React from 'react'
-import createApp from 'mickey'
+import createApp from '../../../lib'
 import Router from './Router'
 
 // 1. Initialize
@@ -16,3 +16,5 @@ app.model({
 
 // 3. View
 app.render(<Router />, document.getElementById('root'))
+
+console.log(app) // eslint-disable-line

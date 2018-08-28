@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 
 import React from 'react'
-import { HashRouter as Router, Route, Switch } from 'mickey'
+import { HashRouter as Router, Route, Switch } from '../../../lib'
 import Header from './components/Header'
 import Home from './components/Home'
 import About from './components/About'

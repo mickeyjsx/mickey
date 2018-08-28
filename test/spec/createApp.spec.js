@@ -2,8 +2,9 @@ import { expect } from 'chai'
 import sinon from 'sinon'
 import React from 'react'
 import EventEmitter from 'events'
-import { routerActions } from 'react-router-redux'
 import createApp from '../../src/createApp'
+
+const routerActions = ['push', 'replace', 'go', 'goBack', 'goForward']
 
 describe('createApp', () => {
   describe('options.initialState', () => {
@@ -51,7 +52,7 @@ describe('createApp', () => {
       })
       app.render()
 
-      Object.keys(routerActions).forEach((key) => {
+      routerActions.forEach((key) => {
         expect(app.history).to.have.property(key)
       })
     })
@@ -511,12 +512,12 @@ describe('createApp', () => {
       })
 
       expect(called).to.equal(true)
-      Object.keys(routerActions).forEach((key) => {
+      routerActions.forEach((key) => {
         expect(history).to.have.property(key)
-        expect(app.actions.routing).to.have.property(key)
+        expect(app.actions.router).to.have.property(key)
       })
 
-      expect(app.actions.routing.goBack).to.not.throw()
+      expect(app.actions.router.goBack).to.not.throw()
     })
 
     it('should work with aop-like callback', () => {
