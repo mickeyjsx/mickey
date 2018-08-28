@@ -1,7 +1,9 @@
 import invariant from 'invariant'
-import createHashHistory from 'history/createHashHistory'
-import createMemoryHistory from 'history/createMemoryHistory'
-import createBrowserHistory from 'history/createBrowserHistory'
+import {
+  createHashHistory,
+  createMemoryHistory,
+  createBrowserHistory,
+} from 'history'
 
 const historyModes = ['browser', 'hash', 'memory']
 
