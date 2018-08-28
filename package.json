@@ -79,7 +79,8 @@
   },
   "files": [
     "lib",
-    "src"
+    "src",
+    "*.d.ts"
   ],
   "nyc": {
     "include": [
