@@ -20,6 +20,8 @@ function applyOnEffect(handlers, effect, actionType, metadata) {
   )
 }
 
+// signature: *effect(payload, {call, digest}, callbacks, innerActions, actions) { }
+// usage: const result = yield digest(generator, arg1, arg2, ...)
 function* callGenerator(fn, ...args) {
   const ret = yield fn(...args)
   if (ret.then) {
