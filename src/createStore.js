@@ -1,10 +1,9 @@
-import window from 'global/window'
 import invariant from 'invariant'
 import { createStore, applyMiddleware, compose } from 'redux'
-import createSagaMiddleware from 'redux-saga/lib/internal/middleware'
 import { routerMiddleware } from 'connected-react-router'
+import { composeWithDevTools } from 'redux-devtools-extension'
+import createSagaMiddleware from 'redux-saga/lib/internal/middleware'
 import { flatten } from './utils'
-
 
 export default function ({
   history,
@@ -34,17 +33,16 @@ export default function ({
     middlewares.push(routerMiddleware(history))
   }
 
-  const devtools = process.env.NODE_ENV !== 'production' && window.devToolsExtension
-    ? window.devToolsExtension()
-    : f => f
+  const composeEnhancers = process.env.NODE_ENV !== 'production'
+    ? composeWithDevTools()
+    : compose
 
   const enhancers = [
     applyMiddleware(...middlewares),
     ...extraEnhancers,
-    devtools,
   ]
 
-  const store = createStore(reducers, initialState, compose(...enhancers))
+  const store = createStore(reducers, initialState, composeEnhancers(...enhancers))
 
   // extend store
   store.runSaga = sagaMiddleware.run
