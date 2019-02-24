@@ -2,7 +2,8 @@
   "name": "mickey",
   "version": "2.0.0-alpha.1",
   "description": "Lightweight front-end framework for creating React and Redux based app painlessly.",
-  "main": "./lib/index.js",
+  "main": "./lib/index.umd.js",
+  "module": "./lib/index.es.js",
   "keywords": [
     "mickey",
     "react",
@@ -25,87 +26,75 @@
     "url": "https://github.com/bubkoo/mickey/issues"
   },
   "homepage": "https://github.com/bubkoo/mickey#readme",
+  "scripts": {
+    "test": "cross-env NODE_ENV=test jest --coverage --config='jest.config.js'",
+    "coveralls": "nyc report --reporter=text-lcov | coveralls",
+    "lint": "tslint -c 'tslint.json' -p 'tsconfig.json' --fix",
+    "build": "rimraf lib && tsc",
+    "prebuild": "npm run lint",
+    "prepare1": "npm run lint && npm run build && npm run test",
+    "precommit1": "npm run lint"
+  },
   "peerDependencies": {
     "react": "*",
-    "prop-types": "*",
     "react-dom": "*"
   },
   "dependencies": {
-    "connected-react-router": "^4.4.1",
+    "@types/history": "^4.7.2",
+    "@types/invariant": "^2.2.29",
+    "@types/lodash.flatten": "^4.4.5",
+    "@types/lodash.flattendeep": "^4.4.5",
+    "@types/lodash.get": "^4.4.5",
+    "@types/lodash.isfunction": "^3.0.5",
+    "@types/minimatch": "^3.0.3",
+    "@types/object-assign": "^4.0.30",
+    "@types/react": "^16.8.4",
+    "@types/react-dom": "^16.8.2",
+    "@types/react-redux": "^7.0.1",
+    "@types/react-router": "^4.4.4",
+    "@types/react-router-dom": "^4.3.1",
+    "@types/redux-actions": "^2.3.2",
+    "@types/warning": "^3.0.0",
+    "connected-react-router": "^6.3.1",
     "global": "^4.3.2",
     "history": "^4.7.2",
     "invariant": "^2.2.4",
     "is-plain-object": "^2.0.4",
     "lodash.flatten": "^4.4.0",
+    "lodash.flattendeep": "^4.4.0",
     "lodash.get": "^4.4.2",
     "lodash.isfunction": "^3.0.9",
     "minimatch": "^3.0.4",
     "object-assign": "^4.1.1",
-    "react-redux": "^5.0.7",
+    "react": "^16.8.3",
+    "react-dom": "^16.8.3",
+    "react-redux": "^6.0.0",
     "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1",
     "redux": "^4.0.0",
     "redux-actions": "^2.6.1",
     "redux-devtools-extension": "^2.13.7",
-    "redux-saga": "^0.16.0",
+    "redux-saga": "^1.0.1",
     "warning": "^4.0.2"
   },
   "devDependencies": {
-    "babel-cli": "^6.26.0",
-    "babel-eslint": "^7.2.3",
-    "babel-plugin-add-module-exports": "^0.2.1",
-    "babel-plugin-istanbul": "^4.1.4",
-    "babel-plugin-transform-decorators-legacy": "^1.3.4",
-    "babel-plugin-transform-runtime": "^6.23.0",
-    "babel-preset-env": "^1.6.1",
-    "babel-preset-react": "^6.24.1",
-    "babel-preset-stage-0": "^6.24.1",
-    "babel-register": "^6.26.0",
-    "chai": "^4.1.2",
-    "coveralls": "^2.13.1",
+    "@types/jest": "^24.0.6",
+    "coveralls": "^3.0.2",
     "cross-env": "^5.0.5",
-    "eslint": "^4.11.0",
-    "eslint-config-airbnb": "^15.1.0",
-    "eslint-plugin-import": "^2.7.0",
-    "eslint-plugin-jsx-a11y": "^5.1.1",
-    "eslint-plugin-react": "^7.3.0",
-    "husky": "^0.14.3",
-    "jsdom": "^11.2.0",
-    "mocha": "^3.5.0",
-    "nyc": "^11.1.0",
-    "react": "^16.3.2",
-    "react-dom": "^16.3.2",
+    "husky": "^1.3.1",
+    "jest": "^24.1.0",
     "rimraf": "^2.6.1",
-    "sinon": "^4.1.2"
+    "rollup": "^1.2.2",
+    "sinon": "^7.2.4",
+    "ts-jest": "^24.0.0",
+    "tslint": "^5.12.1",
+    "tslint-config-prettier": "^1.18.0",
+    "tslint-config-standard": "^8.0.1",
+    "typescript": "^3.3.3"
   },
   "files": [
     "lib",
     "src",
     "*.d.ts"
-  ],
-  "nyc": {
-    "include": [
-      "src/**/*.js"
-    ],
-    "reporter": [
-      "html",
-      "text"
-    ],
-    "require": [
-      "babel-register",
-      "./test/setup.js"
-    ],
-    "report-dir": "./test/coverage",
-    "sourceMap": false,
-    "instrument": false
-  },
-  "scripts": {
-    "test": "cross-env NODE_ENV=test nyc mocha ./test/index.js",
-    "coveralls": "nyc report --reporter=text-lcov | coveralls",
-    "lint": "eslint --ext .js,.jsx src",
-    "build": "rimraf lib && babel src --out-dir lib",
-    "prebuild": "npm run lint",
-    "prepare": "npm run lint && npm run build && npm run test",
-    "precommit": "npm run lint"
-  }
+  ]
 }
