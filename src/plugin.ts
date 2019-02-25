@@ -36,7 +36,7 @@ interface InnerHooksStore {
   onReducer: ReducerEnhancer[]; // reducer 的 enhancer，接收根 reducer，返回新的根 reducer
   extraReducers: ReducersMapObject[]; // 额外的根 reducers，扩展开后可以直接被 combineReducers 使用
   extraEnhancers: StoreEnhancer[]; // Redux 的 storeEnhancer https://redux.js.org/glossary#store-enhancer
-};
+}
 
 
 // 即可以把配置配置成数组，又可以只传递单值，因为写入的时候都会被合并进内部的数组里

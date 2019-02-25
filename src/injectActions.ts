@@ -1,6 +1,7 @@
 import invariant from 'invariant'
 import React from 'react'
 import PropTypes from 'prop-types';
+import { App } from './createApp';
 
 function getDisplayName(Component: React.ComponentType<any>) {
   const name = (Component && (Component.displayName || Component.name)) || 'Component';
@@ -55,9 +56,8 @@ type InjectOptions = {
 };
 
 type TInjectedProps<TC> = {
-  actions: any; // TODO: any
-  ref?: React.RefObject<React.ReactElement<GetProps<TC>>>; // It won't appear in Component this.props
-  // [key: string]: any; // TODO: any
+  actions: App['actions'];
+  ref?: React.RefObject<React.ReactElement<GetProps<TC>>>;
 };
 
 type PassProps<TC> = Omit<GetProps<TC>, keyof Shared<TInjectedProps<TC>, GetProps<TC>>>;
