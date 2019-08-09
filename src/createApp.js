@@ -94,16 +94,25 @@ export default function createApp(options = {}) {
       })
 
       // create store
-      const store = app.store = createStore({ // eslint-disable-line
-        initialState,
-        reducers: innerCreateReducer(),
-        plugin,
-        promiseMiddleware: createPromiseMiddleware(app),
-        extraMiddlewares: plugin.get('onAction'),
-        onStateChange: plugin.get('onStateChange'),
-        extraEnhancers: plugin.get('extraEnhancers'),
-        options,
-      })
+      const store = app.store = (() => { // eslint-disable-line
+        if ((process.env.NODE_ENV === 'development)' && window.g_mickey_store)) {
+          return window.g_mickey_store
+        }
+        const innerStore = createStore({
+          initialState,
+          reducers: innerCreateReducer(),
+          plugin,
+          promiseMiddleware: createPromiseMiddleware(app),
+          extraMiddlewares: plugin.get('onAction'),
+          onStateChange: plugin.get('onStateChange'),
+          extraEnhancers: plugin.get('extraEnhancers'),
+          options,
+        })
+        if (process.env.NODE_ENV === 'development') {
+          window.g_mickey_store = innerStore
+        }
+        return innerStore
+      })()
 
       // run sagas
       sagas.forEach(store.runSaga)
